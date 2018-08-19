@@ -1,10 +1,12 @@
 ---
-description: 最近重新刷了Leetcode，想把自己的题解写下来，顺便理清自己的思路。这样可以有利于自己的tech interview。
+description: 最近重新刷了Leetcode的database部分，把题解记录下来以便于以后的分析和复习。
 ---
 
 # Leetcode Database Solutions
 
 ## 导言
+
+主要数据库版本：MySQL - \(类似postgre\)
 
 我主要自己使用的是MySQL数据库，因为这个用的比较多。从MySQL 8.0之后，CET以及Window Function都可以使用了，但是在Leetcode的系统中应该还是旧版本的MySQL 5.X系列。
 
