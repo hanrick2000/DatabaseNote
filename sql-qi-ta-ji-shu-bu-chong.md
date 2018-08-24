@@ -1,16 +1,12 @@
 ---
-description: 主要是针对一些最新的技术进行补充，基于Udacity - SQL for Data Analysis
+description: 这里主要是补充一下common table expression的用法，基于Udacity - SQL for Data Analysis和其他的一些资源。
 ---
 
-# SQL其他技术补充
+# MySQL - CTE
 
-## 导言
-
-虽然SQL以及学了很多遍了，但是感觉学的都是非常经典也就是古老的SQL知识，现在的SQL以及有了非常长足的发展。在刷了一遍Leetcode的SQL之后，明显感觉到很多查询都太繁琐而冗长。这里主要将几种主要的技术作为补充。
+虽然SQL以及学了很多遍了，但是感觉学的都是非常经典也就是古老的SQL知识，现在的SQL以及有了非常长足的发展。在刷了一遍Leetcode的SQL之后，明显感觉到很多查询都太繁琐而冗长。在MySQL 8.x之后，同T-SQl以及其他语言保持一致，所以很多技术都慢慢出现了。
 
 ## With -  Common Table Expression
-
-在MySQL 8.x之后，同T-SQl以及其他语言保持一致，所以很多技术都慢慢出现了。
 
 这里主要以films这个表作为例子，进行演示，存储这个table的schema是test
 
@@ -84,62 +80,37 @@ and t1.category_id = t2.category_id and t1.release_year = t2.release_year -1
 
 这里我调用了temp2两次，也就是刚才写的query，而temp2调用了temp一次，如果这样直接用subquery写，就会非常非常占用空间，而且思路不清晰。有兴趣的话，可以自己试一试。
 
-## Window Function
+## Recursive CTE
 
-开窗函数是我觉得非常非常好用的一个函数，它的好处基本和CTE一样，它直接优化了原有所有的算法和query，使得原有query的逻辑变得非常清晰。这个函数非常值得掌握。
-
-仍然以刚才的表为例，先计算Running Total。
-
-如果要计算每一年的平均评分，在依次加入新的category之后，平均评分如何进行变化，也就是产生下表的结果。
-
-![](.gitbook/assets/screen-shot-2018-08-08-at-8.14.13-pm.png)
-
-传统做法就是subquery子查询控制法，用id来控制依次取平均就可以
+基本语法
 
 ```sql
-select f.id,f.release_year,f.category_id,f.rating,
-		(select avg(f1.rating)
-        from films as f1
-        where f1.release_year = f.release_year and f.category_id >= f1.category_id)
-from films as f
-
+WITH RECURSIVE cte_name AS (
+    initial_query  -- anchor member
+    UNION ALL
+    recursive_query -- recursive member that references to the CTE name
+)
+SELECT * FROM cte_name;
 ```
 
-有了窗口函数就简单很多很多了。
+举个例子
 
 ```sql
-select f.id,f.release_year,f.category_id,f.rating,
-avg(f.rating) over(partition by release_year order by category_id) as running_total
-from films as f
+WITH RECURSIVE cte_count (n) 
+AS (
+      SELECT 1
+      UNION ALL
+      SELECT n + 1 
+      FROM cte_count 
+      WHERE n < 10
+    )
+SELECT n 
+FROM cte_count;
 ```
 
-这里可以follow up一下，如果我们要累计的平均，累计的计数，理解的rank，怎么算。
+这里就会返回1-10这几个数字。
 
-如果使用传统的方法，就是写很多很多子查询，如果两个使用的条件一样还好，可以用一个query写完，可是如果不一样就要写很多，而用开窗函数就会简单非常多。
+感觉这个不太可能会考到，就先总结到这里
 
-* 窗口函数可以想象成一个小窗一点一点进行移动扫描，然后将每个窗口的结果返还再做一个Join
-
-MySQL定义的窗口函数如下:
-
-![](.gitbook/assets/screen-shot-2018-08-08-at-8.20.59-pm.png)
-
-{% hint style="info" %}
-具体参见MySQL官方文档:
-
-[https://dev.mysql.com/doc/refman/8.0/en/window-function-descriptions.html](https://dev.mysql.com/doc/refman/8.0/en/window-function-descriptions.html)
-{% endhint %}
-
-{% hint style="info" %}
-这里等我慢慢一个一个写。
-{% endhint %}
-
-## Data Cleaning
-
-除了这些技巧之外，还有一些常见的函数，比较有用，天色已晚，我明天整理一下。
-
-* left & right
-* position , strpos, lower, upper
-* concat
-* cast
-* coalease
+{% embed data="{\"url\":\"http://www.mysqltutorial.org/mysql-recursive-cte/\",\"type\":\"link\",\"title\":\"A Definitive Guide To MySQL Recursive CTE\",\"description\":\"In this tutorial, you will learn about MySQL recursive CTE and how to use it to traverse hierarchical data in the MySQL database.\",\"icon\":{\"type\":\"icon\",\"url\":\"http://www.mysqltutorial.org/wp-content/uploads/2018/03/cropped-favicon-1-192x192.png\",\"width\":192,\"height\":192,\"aspectRatio\":1},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"http://www.mysqltutorial.org/wp-content/uploads/2017/07/MySQL-Recursive-CTE.png\",\"width\":702,\"height\":315,\"aspectRatio\":0.44871794871794873}}" %}
 
