@@ -365,94 +365,121 @@ class Solution:
             return result
 ```
 
-#### 159. Find Minimum in Rotated Sorted Array
+## Binary Search 第三重境界
+
+* Half-half 判断一半不符合就扔掉
+
+#### 75. Find Peak Element
 
 计算复杂度O\(logn\)
 
-这个题主要是中间切一刀之后，应该如何判断的问题，这里主要是和end比较。
+主要是可以判断出上升序列，就是。
 
 ```python
 class Solution:
     """
-    @param nums: a rotated sorted array
-    @return: the minimum number in the array
+    @param A: An integers array.
+    @return: return any of peek positions.
     """
-    def findMin(self, nums):
+    def findPeak(self, A):
         # write your code here
-        if len(nums) == 0 :
-            return 0
-            
-        start, end = 0, len(nums) - 1
+        start, end = 0, len(A) - 1
         
-        while start + 1 < end :
+        while start + 1 < end:
             mid = (start + end) // 2
             
-            if nums[mid] > nums[end]:
+            if A[mid] < A[mid+1] :
                 start = mid
             else :
-                end = mid 
-        
-        return min(nums[start],nums[end])
+                end = mid
+                
+        if A[start] < A[end]:
+            return end
+        else :
+            return start
 ```
 
-#### 159. Find Minimum in Rotated Sorted Array
+#### 62. Search in Rotated Sorted Array
 
 计算复杂度O\(logn\)
 
-这个题主要是中间切一刀之后，应该如何判断的问题，这里主要是和end比较。
+先找到最大值，然后判断一下，再二分查找，二分查找了两次，logn + log\(n/2\)还是logn。
 
 ```python
 class Solution:
     """
-    @param nums: a rotated sorted array
-    @return: the minimum number in the array
+    @param A: an integer rotated sorted array
+    @param target: an integer to be searched
+    @return: an integer
     """
-    def findMin(self, nums):
+    def search(self, A, target):
         # write your code here
-        if len(nums) == 0 :
-            return 0
+        if len(A) == 0:
+            return -1 
             
-        start, end = 0, len(nums) - 1
+        start, end = 0, len(A) - 1
         
         while start + 1 < end :
             mid = (start + end) // 2
-            
-            if nums[mid] > nums[end]:
+            if A[mid] < A[mid+1] and A[start] < A[mid]:
                 start = mid
             else :
-                end = mid 
+                end = mid
         
-        return min(nums[start],nums[end])
+        if target <= A[end] or target >= A[end+1] :
+            
+            if A[0] > target :
+                start, end = end, len(A) -1
+            else :
+                start = 0
+                
+            while start + 1 < end :
+                mid = (start + end) // 2
+                if A[mid] < target:
+                    start = mid
+                else :
+                    end = mid
+
+            if A[end] == target :
+                return end
+            if A[start] == target :
+                return start
+                
+            
+        return -1        
 ```
 
-#### 159. Find Minimum in Rotated Sorted Array
+## 其他Logn的算法
+
+#### 140. Fast Power
 
 计算复杂度O\(logn\)
 
-这个题主要是中间切一刀之后，应该如何判断的问题，这里主要是和end比较。
+使用的divide & conquer，先数学降低维度，基本上每一次只去一半取模，然后逐次相乘取模，这里一开始如果是30 -&gt; 15 -&gt; 7 -&gt; 3 -&gt; 1
 
 ```python
 class Solution:
     """
-    @param nums: a rotated sorted array
-    @return: the minimum number in the array
+    @param a: A 32bit integer
+    @param b: A 32bit integer
+    @param n: A 32bit integer
+    @return: An integer
     """
-    def findMin(self, nums):
+    def fastPower(self, a, b, n):
         # write your code here
-        if len(nums) == 0 :
-            return 0
-            
-        start, end = 0, len(nums) - 1
+        ans = 1
         
-        while start + 1 < end :
-            mid = (start + end) // 2
+        while n > 0 :
+            if n % 2 == 1:
+                ans = ans * a % b
+                
+            a = a * a % b
+            n = n //2
             
-            if nums[mid] > nums[end]:
-                start = mid
-            else :
-                end = mid 
-        
-        return min(nums[start],nums[end])
+            if ans == 0 or a == 0 :
+                return 0
+                
+        return ans % b
 ```
 
 #### 159. Find Minimum in Rotated Sorted Array
