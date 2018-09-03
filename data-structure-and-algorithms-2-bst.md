@@ -482,129 +482,44 @@ class Solution:
         return ans % b
 ```
 
-#### 159. Find Minimum in Rotated Sorted Array
+#### 428. Pow\(x, n\)
 
 计算复杂度O\(logn\)
 
-这个题主要是中间切一刀之后，应该如何判断的问题，这里主要是和end比较。
+需要注意的是这个题的corner case很多，需要把问题想清楚。
 
 ```python
 class Solution:
     """
-    @param nums: a rotated sorted array
-    @return: the minimum number in the array
+    @param x: the base number
+    @param n: the power number
+    @return: the result
     """
-    def findMin(self, nums):
+    def myPow(self, x, n):
         # write your code here
-        if len(nums) == 0 :
+        ans, multiple, m = 1, x, abs(n)
+        
+        # corner case
+        if x == 0 :
             return 0
-            
-        start, end = 0, len(nums) - 1
+        # fast mode    
+        if n == 0 :
+            return 1
+        if n == 1 :
+            return x
         
-        while start + 1 < end :
-            mid = (start + end) // 2
+        while m > 0 :
             
-            if nums[mid] > nums[end]:
-                start = mid
-            else :
-                end = mid 
-        
-        return min(nums[start],nums[end])
+            if m % 2 == 1:
+                ans *= multiple 
+            
+            multiple = multiple * multiple
+            m = m // 2
+            
+        # check negative value
+        if n > 0 :
+            return ans 
+        else :
+            return 1 / ans 
 ```
-
-#### 159. Find Minimum in Rotated Sorted Array
-
-计算复杂度O\(logn\)
-
-这个题主要是中间切一刀之后，应该如何判断的问题，这里主要是和end比较。
-
-```python
-class Solution:
-    """
-    @param nums: a rotated sorted array
-    @return: the minimum number in the array
-    """
-    def findMin(self, nums):
-        # write your code here
-        if len(nums) == 0 :
-            return 0
-            
-        start, end = 0, len(nums) - 1
-        
-        while start + 1 < end :
-            mid = (start + end) // 2
-            
-            if nums[mid] > nums[end]:
-                start = mid
-            else :
-                end = mid 
-        
-        return min(nums[start],nums[end])
-```
-
-#### 159. Find Minimum in Rotated Sorted Array
-
-计算复杂度O\(logn\)
-
-这个题主要是中间切一刀之后，应该如何判断的问题，这里主要是和end比较。
-
-```python
-class Solution:
-    """
-    @param nums: a rotated sorted array
-    @return: the minimum number in the array
-    """
-    def findMin(self, nums):
-        # write your code here
-        if len(nums) == 0 :
-            return 0
-            
-        start, end = 0, len(nums) - 1
-        
-        while start + 1 < end :
-            mid = (start + end) // 2
-            
-            if nums[mid] > nums[end]:
-                start = mid
-            else :
-                end = mid 
-        
-        return min(nums[start],nums[end])
-```
-
-#### 159. Find Minimum in Rotated Sorted Array
-
-计算复杂度O\(logn\)
-
-这个题主要是中间切一刀之后，应该如何判断的问题，这里主要是和end比较。
-
-```python
-class Solution:
-    """
-    @param nums: a rotated sorted array
-    @return: the minimum number in the array
-    """
-    def findMin(self, nums):
-        # write your code here
-        if len(nums) == 0 :
-            return 0
-            
-        start, end = 0, len(nums) - 1
-        
-        while start + 1 < end :
-            mid = (start + end) // 2
-            
-            if nums[mid] > nums[end]:
-                start = mid
-            else :
-                end = mid 
-        
-        return min(nums[start],nums[end])
-```
-
-
-
-
-
-585. Maximum Number in Mountain Sequence
 
