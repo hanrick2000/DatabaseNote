@@ -12,4 +12,11 @@
   * [Data Structure & Algorithms \(1\) - String](data-structure-and-algorithms/data-structure-and-algorithms-1-string.md)
   * [Data Structure & Algorithms \(2\) - BST](data-structure-and-algorithms/data-structure-and-algorithms-2-bst.md)
   * [Data Structure & Algorithms \(3\) - Two Pointers](data-structure-and-algorithms/data-structure-and-algorithms-3-two-pointers.md)
+* [Data Warehousing for Business Intelligence](data-warehousing-for-business-intelligence/README.md)
+  * [1.Database Management Essentials](data-warehousing-for-business-intelligence/1.database-management-essentials/README.md)
+    * [Untitled](data-warehousing-for-business-intelligence/1.database-management-essentials/untitled-1.md)
+  * [2.Data Warehouse Concepts, Design, and Data Integration](data-warehousing-for-business-intelligence/2.data-warehouse-concepts-design-and-data-integration.md)
+  * [3.Relational Database Support for Data Warehouses](data-warehousing-for-business-intelligence/3.relational-database-support-for-data-warehouses.md)
+  * [4.Business Intelligence Concepts, Tools, and Applications](data-warehousing-for-business-intelligence/4.business-intelligence-concepts-tools-and-applications.md)
+* [5.Design and Build a Data Warehouse for Business Intelligence Implementation](5.design-and-build-a-data-warehouse-for-business-intelligence-implementation.md)
 
