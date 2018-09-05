@@ -2,6 +2,55 @@
 
 双指针算法主要是在数组一端存在两个指针，同时向一边移动，用这样的方式来解决例如Two Sum的问题。
 
+## 相向双指针
+
+相向双指针，指的是在算法的一开始，两根指针分别位于数组/字符串的两端，并相向行走，当它们相遇的时候就自动结束。
+
+#### 39. Recover Rotated Sorted Array
+
+三步翻转法，主要是两个指针相向而行，交换数组。
+
+```python
+class Solution:
+    """
+    @param nums: An integer array
+    @return: nothing
+    """
+    def recoverRotatedSortedArray(self, nums):
+        # write your code here
+        n = len(nums)
+        if n == 0 :
+            return []
+            
+        def reverse_array(List) :
+
+            start, end = 0, len(List) - 1
+            n = len(List) // 2
+            
+            while n > 0 :
+                temp = List[end]
+                List[end] = List[start]
+                List[start] = temp
+                start += 1
+                end -= 1
+                n -= 1
+                
+            return List
+
+        for i in range(n) :
+            if nums[i] < nums[i - 1] :
+                break
+
+        if i == n - 1:
+            pass
+        else :
+            nums[:i] = reverse_array(nums[: i])
+            nums[i:] = reverse_array(nums[i:])
+            nums = reverse_array(nums)
+            
+        return nums
+```
+
 ## 同向双指针
 
 #### 521. 数组去重问题 Remove duplicates in an array
