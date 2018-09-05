@@ -10,11 +10,11 @@ description: 这里主要是补充一下common table expression的用法，基�
 
 这里主要以films这个表作为例子，进行演示，存储这个table的schema是test
 
-![](.gitbook/assets/screen-shot-2018-08-08-at-7.33.11-pm.png)
+![](../.gitbook/assets/screen-shot-2018-08-08-at-7.33.11-pm.png)
 
 借用Leetcode中的一道题的思路，如果这里要求计算，是否某一年的category的rating和总的三年间这个平均值的比较，也就是返回下表。
 
-![](.gitbook/assets/screen-shot-2018-08-08-at-7.45.47-pm.png)
+![](../.gitbook/assets/screen-shot-2018-08-08-at-7.45.47-pm.png)
 
 思路：如果用传统的subquery，要先算出每个category 的rating，然后再将表join起来，用case when来比较得出最后的结果。
 

@@ -8,7 +8,7 @@
 
 如果要计算每一年的平均评分，在依次加入新的category之后，平均评分如何进行变化，也就是产生下表的结果。
 
-![](.gitbook/assets/screen-shot-2018-08-08-at-8.14.13-pm.png)
+![](../.gitbook/assets/screen-shot-2018-08-08-at-8.14.13-pm.png)
 
 传统做法就是subquery子查询控制法，用id来控制依次取平均就可以
 
@@ -37,7 +37,7 @@ from films as f
 
 MySQL定义的窗口函数如下:
 
-![](.gitbook/assets/screen-shot-2018-08-08-at-8.20.59-pm.png)
+![](../.gitbook/assets/screen-shot-2018-08-08-at-8.20.59-pm.png)
 
 {% hint style="info" %}
 具体参见MySQL官方文档:
@@ -117,7 +117,7 @@ WHERE start_time < '2012-01-08'
     * 无gap ：Dense\_Rank 
   * 无并列 :  Row\_number 
 
-![https://blog.csdn.net/Wikey\_Zhang/article/details/72765464](.gitbook/assets/screen-shot-2018-08-23-at-7.30.12-pm.png)
+![https://blog.csdn.net/Wikey\_Zhang/article/details/72765464](../.gitbook/assets/screen-shot-2018-08-23-at-7.30.12-pm.png)
 
 **Practice 1:**
 
