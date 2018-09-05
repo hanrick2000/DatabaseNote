@@ -8,4 +8,5 @@
 * [Hackrank SQL database \(2\)](hackrank-sql-database-2.md)
 * [Data Structure & Algorithms \(1\) - String](data-structure-and-algorithms-1-string.md)
 * [Data Structure & Algorithms \(2\) - BST](data-structure-and-algorithms-2-bst.md)
+* [Data Structure & Algorithms \(3\) - Two Pointers](data-structure-and-algorithms-3-two-pointers.md)
 
