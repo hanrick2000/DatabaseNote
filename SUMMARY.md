@@ -18,5 +18,5 @@
   * [2.Data Warehouse Concepts, Design, and Data Integration](data-warehousing-for-business-intelligence/2.data-warehouse-concepts-design-and-data-integration.md)
   * [3.Relational Database Support for Data Warehouses](data-warehousing-for-business-intelligence/3.relational-database-support-for-data-warehouses.md)
   * [4.Business Intelligence Concepts, Tools, and Applications](data-warehousing-for-business-intelligence/4.business-intelligence-concepts-tools-and-applications.md)
-* [5.Design and Build a Data Warehouse for Business Intelligence Implementation](5.design-and-build-a-data-warehouse-for-business-intelligence-implementation.md)
+  * [5.Design and Build a Data Warehouse for Business Intelligence Implementation](data-warehousing-for-business-intelligence/5.design-and-build-a-data-warehouse-for-business-intelligence-implementation.md)
 
