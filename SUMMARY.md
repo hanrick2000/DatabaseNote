@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Leetcode Database Solutions](README.md)
+* [Notes](README.md)
 * [MySQL - Leetcode Solutions](untitled/README.md)
   * [MySQL - Window Function](untitled/mysql-window-function.md)
   * [MySQL - CTE](untitled/sql-qi-ta-ji-shu-bu-chong.md)
