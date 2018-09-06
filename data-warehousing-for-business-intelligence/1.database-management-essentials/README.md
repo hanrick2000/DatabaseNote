@@ -1,6 +1,6 @@
 # 1.Database Management Essentials
 
-## Overview
+## Module 1
 
 从商业决策的角度讲，要先区分data和information，因为最终的目的是为了管理决策而服务，所以数据清洗的目的在于商业附加值。就data和information而言，只有能够为决策提供信息的才是information。
 
@@ -108,4 +108,170 @@
 * 第二代：真正实现了entity types 和 relationships，但依赖程序员写程序来指引文件存储的相关位置，所以也就是natigational级别的。
 * 第三代：relational DBMSs 主要是从数学上设计和实现了全面功能，并且支持使用non-procedural languages，从而使得效率有了明显提高。
 * 第四代：主要向分布式存储、新型格式（XML）等新型领域进行了发展。
+
+## Module 2
+
+**常用的术语**
+
+![](../../.gitbook/assets/screen-shot-2018-09-06-at-10.47.21-am.png)
+
+**完整性要求：**
+
+* 主体完整性（Entity integrity）: primary keys
+  * 表中总有一列的值是唯一的
+  * 主码没有缺失值
+  * 主体可追溯
+* 参考完整性（Referential integrity）: foreign keys
+  * 一表中的值必须要同另一个表匹配
+  * 保证表间有效匹配
+
+**创建Table:**
+
+基本语法 ：
+
+```text
+CREATE TABLE <table-name> ( <column-list> [<constraint-list>] )
+```
+
+```sql
+CREATE TABLE Student (
+    StdNo CHAR(11),
+    StdFirstName VARCHAR(50),
+    StdLastName VARCHAR(50),
+    StdCity VARCHAR(50),
+    StdState CHAR(2),
+    StdZip CHAR(10),
+    StdMajor CHAR(6),
+    StdClass CHAR(6),
+    StdGPA DECIMAL(3 , 2 )
+);
+```
+
+**基本的数据种类:**
+
+* CHAR\(L\) : 固定长度
+* VARCHAR\(L\) ： 长度可以变化
+* INTEGER
+* FLOAT\(P\) 
+* DECIMAL\(W, R\) ：固定精度
+* Date/Time: DATE, TIME, TIMESTAMP
+* BOOLEAN
+
+**完整性约束的基本种类：**
+
+* Primary key : 设置主码
+* Foreign key : 设置外码
+* Unique：保证唯一性 
+* Required \(NOT NULL\) ： 不得为空
+* Check ：检查数值范围之类的
+
+在写完整性约束的时候有两种写法：
+
+基本语法 ：
+
+```sql
+CONSTRAINT [ ConstraintName ] <Constraint-Spec>
+```
+
+* Inline : 就是在列定义的同一行
+* External ： 在列定义之后
+
+```sql
+CREATE TABLE Offering (
+    OfferNo INTEGER,
+    CourseNo CHAR(6) NOT NULL, // inline
+    OffLocation VARCHAR(50),
+    OffDays CHAR(6),
+    OffTerm CHAR(6) NOT NULL,
+    OffYear INTEGER NOT NULL,
+    FacNo CHAR(11),
+    OffTime DATE,
+    CONSTRAINT PKOffering PRIMARY KEY (OfferNo), // External
+    CONSTRAINT FKCourseNo FOREIGN KEY (CourseNo)
+        REFERENCES Course,
+    CONSTRAINT FKFacNo FOREIGN KEY (FacNo)
+        REFERENCES Faculty
+    CONSTRAINT ValidYear CHECK ( OffYear BETWEEN 2000 AND 2018 )
+);
+
+```
+
+MySQL建表操作比较复杂，具体见下面的地址，在完整性约束这里，如果是inline，MySQL简化了constraint内容，直接省略。
+
+{% embed data="{\"url\":\"https://dev.mysql.com/doc/refman/8.0/en/create-table.html\",\"type\":\"link\",\"title\":\"MySQL :: MySQL 8.0 Reference Manual :: 13.1.18 CREATE TABLE Syntax\",\"icon\":{\"type\":\"icon\",\"url\":\"https://labs.mysql.com/common/themes/sakila/favicon.ico\",\"aspectRatio\":0}}" %}
+
+#### SQL主要分类
+
+SQL按照功能大概分成以下三类：
+
+* 数据库定义: 主要是建表
+* 数据库操作: select, update, insert, delete
+* 数据库控制: 主要是完整性和安全性约束
+
+| Statement | Statement Type |
+| :--- | :--- |
+| CREATE TABLE | Definitional, Control |
+| CREATE VIEW | Definitional |
+| CREATE TYPE | Definitional |
+| SELECT | Manipulation |
+| INSERT, UPDATE, DELETE | Manipulation |
+| COMMIT, ROLLBACK | Manipulation |
+| CREATE TRIGGER | Control, Manipulation |
+| GRANT, REVOKE | Control |
+
+接下来主要是回顾了一下基本的SQL语法，因为这个我比较熟悉，就简单过一下
+
+#### SELECT语法
+
+```sql
+ SELECT <list of column expressions>
+ FROM <list of tables and join operations>
+ WHERE <list of logical expressions for rows>
+ ORDER BY <list of sorting specifications>
+```
+
+* 列表达式: 主要是一些约束、算术运算等操作
+  * FacSalary \* 1.1
+* 逻辑表达式: 主要涉及OR、AND和NOT
+  * OffTerm = 'FALL' AND OffYear = 2016
+
+其他的一些小的知识点补充:
+
+* 文本匹配: 主要使用like，MySQL应该使用rlike
+  * 任意字符 .
+  * 范围 \[\]
+  * 开头和结尾 ^ $
+
+{% embed data="{\"url\":\"http://www.runoob.com/mysql/mysql-regexp.html\",\"type\":\"link\",\"title\":\"MySQL 正则表达式 \| 菜鸟教程\",\"description\":\"MySQL 正则表达式  在前面的章节我们已经了解到MySQL可以通过 LIKE ...% 来进行模糊匹配。   MySQL 同样也支持其他正则表达式的匹配， MySQL中使用 REGEXP 操作符来进行正则表达式匹配。  如果您了解PHP或Perl，那么操作起来就非常简单，因为MySQL的正则表达式匹配与这些脚本的类似。 下表中的正则模式可应用于 REGEXP 操作符中。  \\t   模式描述   ^匹配输入字符串的开始位置。如果设置了..\",\"icon\":{\"type\":\"icon\",\"url\":\"http://static.runoob.com/images/icon/mobile-icon.png\",\"aspectRatio\":0}}" %}
+
+#### Join基本解释
+
+* Left Join : The LEFT JOIN keyword returns all records from the left table , and the matched records from the right table 
+* Inner Join : The INNER JOIN keyword selects records that have matching values in both tables.
+
+后面主要是讲了一些多表间查询的技巧，因为比较基础，就略过了。
+
+#### Insert基本语法
+
+```sql
+INSERT INTO table_name (column1, column2, column3, ...)
+VALUES (value1, value2, value3, ...);
+```
+
+#### Update基本语法
+
+```sql
+UPDATE table_name
+SET column1 = value1, column2 = value2, ...
+WHERE condition;
+```
+
+#### Delete基本语法
+
+```sql
+DELETE FROM table_name
+WHERE condition;
+```
+
+
 
