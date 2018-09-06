@@ -53,6 +53,8 @@ class Solution:
 
 ## 同向双指针
 
+计算复杂度 O\(n\)
+
 #### 521. 数组去重问题 Remove duplicates in an array
 
 第一种做法使用hash表进行记录，就是遍历一次如果不在hash table就扔掉
@@ -227,4 +229,114 @@ class Solution:
     
         return False
 ```
+
+## 经典排序算法
+
+**Quick Sort**
+
+主要思想：现在数组中随便找到一个数字，然后用头尾两个指针依次便利，如果相遇就退出，使得左边的数永远小于右边，如果在左右都找到了符合要求的数字，就进行互换。
+
+* 注意需要left &lt;= right 防止死循环
+* 因为在循环中left和right指针变化了，所以需要再次判断
+* 因为left和right最后交错了，所以递归的时候注意起点和中点
+
+```python
+class Solution:
+    # @param {int[]} A an integer array
+    # @return nothing
+    def sortIntegers2(self, A):
+        # Write your code here
+        self.quickSort(A, 0, len(A) - 1)
+    
+    def quickSort(self, A, start, end):
+        if start >= end:
+            return
+        
+        left, right = start, end
+        # key point 1: pivot is the value, not the index
+        pivot = A[(start + end) // 2]
+
+        # key point 2: every time you compare left & right, it should be 
+        # left <= right not left < right
+        while left <= right:
+            while left <= right and A[left] < pivot:
+                left += 1
+            
+            while left <= right and A[right] > pivot:
+                right -= 1
+            
+            if left <= right:
+                A[left], A[right] = A[right], A[left]
+                
+                left += 1
+                right -= 1
+        
+        self.quickSort(A, start, right)
+        self.quickSort(A, left, end)
+```
+
+**Merge Sort**
+
+主要思路：先将数组分成两个部分，依次比较数组左右的大小，并形成新的序列。
+
+* 去右边边界的时候需要非常小心，要想一下是开区间还是闭区间
+* 比较之后可能会有单个指针走的快的情况，因而要将慢一点的指针走完
+
+```python
+class Solution:
+    # @param {int[]} A an integer array
+    # @return nothing
+    def sortIntegers2(self, A):
+        # Write your code here
+        temp = [0 for _ in range(len(A))]
+        self.merge_sort(0, len(A) - 1, A, temp)
+        
+    def merge_sort(self, start, end, A, temp):
+        if start >= end:
+            return
+        
+        mid = (start + end) // 2
+        self.merge_sort(start, mid , A, temp)
+        self.merge_sort(mid + 1, end, A, temp)
+        self.merge(start, mid, end, A, temp)
+        
+    def merge(self, start, mid, end, A, temp):
+        left, right = start, mid + 1
+        index = start
+        while left <= mid and right <= end:
+            if A[left] < A[right]:
+                temp[index] = A[left]
+                left += 1
+            else:
+                temp[index] = A[right];
+                right += 1
+                
+            index += 1
+            
+        while left <= mid:
+            temp[index] = A[left]
+            left += 1
+            index += 1
+            
+        while right <= end:
+            temp[index] = A[right]
+            right += 1
+            index += 1
+            
+        for index in range(start, end + 1):
+            A[index] = temp[index]
+```
+
+#### Quick Sort & Merge Sort 比较
+
+一般来讲，如果不对空间进行要求，应该直接使用merge sort，因为merge sort至是损失了空间。
+
+* 这两个算法非常重要也非常经典，需要**理解并背诵**
+
+| 算法 | 时间复杂度 | 空间复杂度 | 稳定性 |
+| :--- | :--- | :--- | :--- |
+| Quick | nlogn | 1 | 不好，平均时间 |
+| Merge | nlogn | n | 好，稳定 |
+
+
 
