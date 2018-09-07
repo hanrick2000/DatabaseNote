@@ -1,6 +1,6 @@
 # 1.Database Management Essentials
 
-## Module 1
+## 1. Overview
 
 从商业决策的角度讲，要先区分data和information，因为最终的目的是为了管理决策而服务，所以数据清洗的目的在于商业附加值。就data和information而言，只有能够为决策提供信息的才是information。
 
@@ -22,13 +22,13 @@
 
 ![Entities and Relationship](../../.gitbook/assets/image.png)
 
-![Entities Relationship Diagram](../../.gitbook/assets/image%20%281%29.png)
+![Entities Relationship Diagram](../../.gitbook/assets/image%20%282%29.png)
 
 **DBMS的具体职位和职能分工:**
 
 这里主要将同DBMS相关的分成了两个部分，一个是功能部门，主要是借助数据发挥作用，比如分析师。另一个就是IT部门，主要是管理和支持。具体的划分其实相对比较模糊
 
-![Organization Roles](../../.gitbook/assets/image%20%282%29.png)
+![Organization Roles](../../.gitbook/assets/image%20%284%29.png)
 
 * Indirect user : 从数据库中直接fetch数据和报告
 * Parametric user : 通过改变数据库中的参数，来改变已有的报告
@@ -72,7 +72,7 @@
 
 交易过程主要是在每天的基本操作中，虽然很平凡但是很重要，尤其是当互联网增长快速的时候，举一个ATM的例子，先从数据库中fetch数据，然后进行逐步交易。
 
-![](../../.gitbook/assets/image%20%284%29.png)
+![](../../.gitbook/assets/image%20%289%29.png)
 
 这种operational transaction，比较重要的是两个以下特征：
 
@@ -109,7 +109,7 @@
 * 第三代：relational DBMSs 主要是从数学上设计和实现了全面功能，并且支持使用non-procedural languages，从而使得效率有了明显提高。
 * 第四代：主要向分布式存储、新型格式（XML）等新型领域进行了发展。
 
-## Module 2
+## 2. SQL
 
 **常用的术语**
 
@@ -273,5 +273,89 @@ DELETE FROM table_name
 WHERE condition;
 ```
 
+## 3. Database Development
 
+数据库基本的发展阶段
+
+![](../../.gitbook/assets/screen-shot-2018-09-07-at-10.28.43-am.png)
+
+#### Entity-Relationship 深入
+
+![](../../.gitbook/assets/image%20%281%29.png)
+
+* Entity type
+  * 主要是一系列类别的合集 persons, places, things, events
+  * 含有属性，比如CourseNo
+  * Primary key
+  * Entity: Entity Type的实例化
+* Relationship
+  * 实体间已命名的关系: 命名很重要
+  *  Bidirectional 
+* Attribute
+  * entity types或relationships的属性
+  * 数据类型以及许可的操作
+  * 展示内部的特性
+
+ Cardinalities ：限制Relationship的参与数量
+
+#### ERD的基本表示以及定义
+
+![](../../.gitbook/assets/image%20%2810%29.png)
+
+| Classification | Cardinality Restrictions |
+| :---: | :---: |
+| Mandatory | Minimum cardinality ≥ 1 |
+| Optional | Minimum cardinality = 0 |
+| Functional or single-valued | Minimum cardinality = 1 |
+| 1-M | Maximum cardinality = 1 in one direction; maximum cardinality &gt; 1 in the other direction |
+| M-N | Maximum cardinality &gt; 1 in both directions |
+| 1-1 | Maximum cardinality = 1 in both directions |
+
+#### M-N关系的构建
+
+* 两个1-M的合并
+
+![](../../.gitbook/assets/screen-shot-2018-09-07-at-10.46.48-am.png)
+
+#### 自引用
+
+* 对于自连接很重要
+
+![](../../.gitbook/assets/image%20%283%29.png)
+
+#### M-Way 型关系
+
+* 一个表同多个表连接
+
+![](../../.gitbook/assets/image%20%286%29.png)
+
+#### ERD涉及的基本Rules ：
+
+#### Completeness rules: 不能有缺失值
+
+* Primary Key Rule: 必须有PK
+* Naming Rule: 必须有名字
+* Cardinality Rule: 关系的方向必须确定
+* Entity Participation Rule: 至少一个关系
+
+![](../../.gitbook/assets/image%20%288%29.png)
+
+#### Consistency rules: 不能有冲突
+
+* Entity Name Rule: 命名要具有唯一性
+* Attribute Name Rule: 属性命名必须要有唯一性
+
+#### 额外的数据库规则
+
+####  Connection Consistency Rules ：
+
+* Relationship/Entity Connection Rule: 必须连接的是实体 \(not necessarily distinct\)
+* Relationship/Relationship Connection Rule: 关系不同其他相连
+* Redundant Foreign Key Rule: 多余外键不必要
+
+#### Dependency Rules :
+
+* Weak entity type rule: 至少一个关系
+* Identifying relationship rule: 至少一个主题
+* Identification dependency cardinality rule: 最大最小都必须是1 （一一映射）
 
