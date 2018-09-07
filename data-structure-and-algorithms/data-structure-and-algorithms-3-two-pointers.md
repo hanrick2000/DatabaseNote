@@ -155,7 +155,7 @@ class Solution:
 
 #### 57. 3sum
 
-这个题比较麻烦，先方答案
+看成是2sum，只需要固定一个值，取-target，然后双指针如two sum遍历一遍数组就可以了，不是很难。
 
 ```python
 class Solution:
@@ -187,6 +187,108 @@ class Solution:
                 else:
                     end -= 1
         return ans
+```
+
+#### 382. Triangle Sum
+
+排序后，先找到最大边，然后从0, i - 1找起， 如果左边满足，自然中间的都满足，依次节约时间进行快速运算即可。
+
+```python
+class Solution:
+    """
+    @param S: A list of integers
+    @return: An integer
+    """
+    def triangleCount(self, S):
+        S.sort()
+        
+        ans = 0
+        for i in range(len(S)):
+            left, right = 0, i - 1
+            while left < right:
+                if S[left] + S[right] > S[i]:
+                    ans += right - left
+                    right -= 1
+                else:
+                    left += 1
+        return ans
+```
+
+#### Two Sum计数问题
+
+#### 609. Two Sum - Less than or equal to target 
+
+```python
+class Solution:
+    # @param nums {int[]} an array of integer
+    # @param target {int} an integer
+    # @return {int} an integer
+    def twoSum5(self, nums, target):
+        # Write your code here
+        l, r = 0, len(nums)-1
+        cnt = 0
+        nums.sort()
+        while l < r:
+            value = nums[l] + nums[r]
+            if value > target:
+                r -= 1
+            else:
+                cnt += r - l
+                l += 1
+        return cnt
+```
+
+#### 443. Two Sum - Greater than target
+
+```python
+class Solution:
+    """
+    @param nums: an array of integer
+    @param target: An integer
+    @return: an integer
+    """
+    def twoSum2(self, nums, target):
+        # write your code here
+        left, right = 0, len(nums) - 1
+        cnt = 0
+        nums.sort()
+        
+        while left < right :
+            
+            twoSum = nums[left] + nums[right]
+            
+            if twoSum <= target :
+                left += 1
+            else :
+                cnt += right - left
+                right -= 1
+        
+        return cnt
+```
+
+#### 533. Two Sum - Closest to target
+
+```python
+class Solution:
+    """
+    @param nums: an integer array
+    @param target: An integer
+    @return: the difference between the sum and the target
+    """
+    def twoSumClosest(self, nums, target):
+        nums.sort()
+        i, j = 0, len(nums)  - 1
+
+        diff = sys.maxsize
+        while i < j:
+            if nums[i] + nums[j] < target:
+                diff = min(diff, target - nums[i] - nums[j])
+                i += 1
+            else:
+                diff = min(diff, nums[i] + nums[j] - target)
+                j -= 1
+
+        return diff
 ```
 
 ## 同向双指针
