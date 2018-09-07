@@ -4,6 +4,10 @@
 
 ## 相向双指针
 
+* Reverse
+* Two Sum
+* Partition
+
 相向双指针，指的是在算法的一开始，两根指针分别位于数组/字符串的两端，并相向行走，当它们相遇的时候就自动结束。
 
 #### 39. Recover Rotated Sorted Array
@@ -49,6 +53,140 @@ class Solution:
             nums = reverse_array(nums)
             
         return nums
+```
+
+### 练习
+
+#### 891. Valid Palindrome II
+
+双指针相向，如果遇到不一样，右指针移动一格，仅能移动一次。
+
+```python
+class Solution:
+    """
+    @param s: a string
+    @return: nothing
+    """
+    def validPalindrome(self, s):
+        # Write your code here
+        n = len(s)
+        
+        if n == 0 :
+            return True
+            
+        start, end = 0, n - 1
+        
+        count = 0
+        
+        while start < end :
+            
+            if s[start] == s[end] :
+                start += 1
+                end -=1
+            else :
+                end -= 1
+                count += 1
+                
+            if count > 1 :
+                break
+        
+        if s[start] == s[end] :
+            return True
+        else :
+            return False
+```
+
+#### 607. Two Sum III - Data structure design
+
+Two Sum类，只能使用hash表来做的
+
+```python
+class TwoSum:
+    A={}
+    def add(self, number):
+        if number in self.A:
+            self.A[number] += 1
+        else:
+            self.A[number] = 1
+        return 
+    
+    def find(self, value):
+        for i in self.A:
+            if value == 2*i:
+                if self.A[i] > 1:
+                    return True
+            elif value - i in self.A:
+                return True
+        return False
+```
+
+#### 608. Two Sum II - Input array is sorted
+
+双指针可以进行加速的，因为已经排序完成，如果值过大，移动右指针，过小的话，移动左指针。
+
+```python
+class Solution:
+    """
+    @param nums: an array of Integer
+    @param target: target = nums[index1] + nums[index2]
+    @return: [index1 + 1, index2 + 1] (index1 < index2)
+    """
+    def twoSum(self, nums, target):
+        # write your code here
+        n = len(nums) 
+        
+        if n == 0 :
+            return []
+            
+        start,  end = 0, n - 1
+        
+        while start < end :
+            
+            if nums[start] + nums[end] == target :
+                return [start + 1, end + 1]
+                
+            if nums[start] + nums[end] < target :
+                start += 1
+            if nums[start] + nums[end] > target :
+                end -= 1
+
+        return []
+```
+
+#### 57. 3sum
+
+这个题比较麻烦，先方答案
+
+```python
+class Solution:
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        nums.sort()
+        ans = []
+        for i in range(len(nums)):
+            if i > 0 and nums[i] == nums[i-1]:
+                continue
+            if nums[i] > 0:
+                break
+            
+            target = 0 - nums[i]
+            start, end = i+1, len(nums)-1
+            while start < end:
+                if start > i+1 and nums[start] == nums[start-1]:
+                    start += 1 
+                    continue
+                cur_sum = nums[start] + nums[end]
+                if cur_sum == target:
+                    ans.append([nums[i], nums[start], nums[end]])
+                    start += 1
+                elif cur_sum < target:
+                    start += 1
+                else:
+                    end -= 1
+        return ans
 ```
 
 ## 同向双指针
@@ -229,6 +367,56 @@ class Solution:
     
         return False
 ```
+
+### 练习
+
+#### 539. Move Zeros
+
+思路：两个指针指向同一个点，如果后一个是0，就使得左指针多走一格，这样交换它们的位置，这样用n次扫描之后，就可以两两互换。
+
+* 如果不要求改变顺序，可以使用quick sort进行快速排序
+
+```python
+class Solution:
+    """
+    @param nums: an integer array
+    @return: nothing
+    """
+    def moveZeroes(self, nums):
+        left, right = 0, 0
+        while right < len(nums):
+            if nums[right] != 0:
+                nums[left], nums[right] = nums[right], nums[left]
+                left += 1
+            right += 1
+```
+
+Follow up : 如何使用最小的写入次数
+
+就是不用继续交换了，每次都将左边的值赋给右边就可以，然后判断左指针位置，剩下的都给0就可以了。
+
+```python
+class Solution:
+    """
+    @param nums: an integer array
+    @return: nothing
+    """
+    def moveZeroes(self, nums):
+        left, right = 0, 0
+        while right < len(nums):
+            if nums[right] != 0:
+                nums[left] = nums[right]
+                left += 1
+            right += 1
+            
+        while left < len(nums):
+            nums[left] = 0
+            left += 1
+```
+
+
+
+
 
 ## 经典排序算法
 
