@@ -197,6 +197,15 @@ Data Cube主要是特定话的小型Data Warehouse，主要服务的对象是特
   * Fact tables中更多的细节
   * 主要受到维度的控制
 
+#### Fact Table的种类 ：
+
+* Transaction
+  * 更加普遍，主要是可以相加
+* Snapshot
+  * 周期性更新，半可加
+* Factless
+  * 主要是事物型
+
 #### 数据库大小限制 ：
 
 * 数据库维度受限因素 ：dimension, cardinalities, times, sparsity
@@ -231,6 +240,29 @@ Snowflake : 在Star Schema的基础上，再连接一些其他的表
   * 通过层级消除 M-N relationship关系
   * 使用主要上级
   * 使用上级的group
+
+技术一点地说 ：
+
+* Drill down incomplete:
+  * Min cardinality = 0 for parent \(coarse\) entity type
+  * Some parent \(fine\) entities may not have a child entity
+* Rollup incomplete:
+  * Min cardinality = 0 for child \(fine\) entity type
+  * Some child \(fine\) entities may not have a parent entity
+* Non strict:
+  * Child \(fine\) entity may have multiple parents
+  * Parent entity expected to have multiple children
+
+#### 解决方法：
+
+* Resolving Incomplete Dimension-Fact Relationships
+  * Conceptually simple
+  * Data integration process changes
+  * Use default dimension entities
+*  Resolving Non Strict Dimension-Fact Relationships
+  * Source data may have M-N relationships, not 1-M relationships
+  * Adjust fact or dimension tables for a fixed number of exceptions
+  * More complex solutions to support M-N relationships with a variable number of connections
 
 #### 主要的设计理念：
 
