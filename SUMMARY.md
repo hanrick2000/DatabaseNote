@@ -12,6 +12,7 @@
   * [Data Structure & Algorithms \(1\) - String](data-structure-and-algorithms/data-structure-and-algorithms-1-string.md)
   * [Data Structure & Algorithms \(2\) - BST](data-structure-and-algorithms/data-structure-and-algorithms-2-bst.md)
   * [Data Structure & Algorithms \(3\) - Two Pointers](data-structure-and-algorithms/data-structure-and-algorithms-3-two-pointers.md)
+  * [Data Structure & Algorithms \(4\) - BFS & Topological Sorting](data-structure-and-algorithms/data-structure-and-algorithms-4-bfs-and-topological-sorting.md)
 * [Data Warehousing for Business Intelligence](data-warehousing-for-business-intelligence/README.md)
   * [1.Database Management Essentials](data-warehousing-for-business-intelligence/1.database-management-essentials/README.md)
     * [Database Management Essentials （1）](data-warehousing-for-business-intelligence/1.database-management-essentials/1.database-management-essentials.md)
