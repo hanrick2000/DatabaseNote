@@ -55,11 +55,46 @@ class Solution:
         return nums
 ```
 
-### 练习
+### Exercise
 
 #### 891. Valid Palindrome II
 
-双指针相向，如果遇到不一样，右指针移动一格，仅能移动一次。
+这里借鉴了quick sort的思路，找到左边的数字字母，然后找到右边的数字字母类，然后不等的话就不是，如果是的话左右指针相向就行。
+
+```python
+class Solution:
+    """
+    @param s: A string
+    @return: Whether the string is a valid palindrome
+    """
+    def isPalindrome(self, s):
+        
+        s = s.lower()
+        start, end = 0, len(s) - 1
+        
+        if len(s) < 2 :
+            return True
+        
+        while start <= end :
+            
+            while not s[start].isalnum() and start < end:
+                start +=1
+                
+            while not s[end].isalnum() and start < end:
+                end -=1
+            
+            if s[start] != s[end] :
+                return False
+            
+            start += 1
+            end -= 1
+            
+        return True
+```
+
+#### 891. Valid Palindrome II
+
+主要是前一个题的延续，这里有个特殊条件是给的string没有奇怪的符号，延续上一题的思路，遇到了不同的右指针移动一位即可。
 
 ```python
 class Solution:
@@ -69,28 +104,25 @@ class Solution:
     """
     def validPalindrome(self, s):
         # Write your code here
-        n = len(s)
-        
-        if n == 0 :
+        if len(s) < 3 :
             return True
             
-        start, end = 0, n - 1
-        
+        start, end = 0, len(s) - 1
         count = 0
         
         while start < end :
             
             if s[start] == s[end] :
                 start += 1
-                end -=1
-            else :
                 end -= 1
-                count += 1
+            else :
+                if count < 1:
+                    end -= 1
+                    count += 1
+                else :
+                    return False
                 
-            if count > 1 :
-                break
-        
-        if s[start] == s[end] :
+        if  s[start] == s[end] :
             return True
         else :
             return False
@@ -118,6 +150,47 @@ class TwoSum:
             elif value - i in self.A:
                 return True
         return False
+```
+
+#### 587. Two Sum - Unique Pairs
+
+Two Sum中比较典型的问题，主要是记录一下是否有重复的。
+
+```python
+class Solution:
+    """
+    @param nums: an array of integer
+    @param target: An integer
+    @return: An integer
+    """
+    def twoSum6(self, nums, target):
+        # paras
+        count = 0
+        result = []
+        
+        # check
+        if len(nums) < 2 or target is None :
+            return count
+            
+        nums.sort()
+        
+        left, right = 0, len(nums) - 1
+        
+        while left < right :
+            
+            if nums[left] + nums[right] < target :
+                left += 1
+            elif nums[left] + nums[right] > target :
+                right -= 1
+            else :
+                conbination = [nums[left], nums[right]]
+                if  conbination not in result :
+                    count += 1
+                    result.append(conbination)
+                left += 1
+                right -= 1   
+                
+        return count
 ```
 
 #### 608. Two Sum II - Input array is sorted
@@ -159,34 +232,46 @@ class Solution:
 
 ```python
 class Solution:
+    """
+    @param numbers: Give an array numbers of n integer
+    @return: Find all unique triplets in the array which gives the sum of zero.
+    """
     def threeSum(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[List[int]]
-        """
-        nums.sort()
-        ans = []
-        for i in range(len(nums)):
-            if i > 0 and nums[i] == nums[i-1]:
-                continue
-            if nums[i] > 0:
-                break
+        
+        if len(nums) < 3 :
+            return []
             
-            target = 0 - nums[i]
-            start, end = i+1, len(nums)-1
-            while start < end:
-                if start > i+1 and nums[start] == nums[start-1]:
-                    start += 1 
-                    continue
-                cur_sum = nums[start] + nums[end]
-                if cur_sum == target:
-                    ans.append([nums[i], nums[start], nums[end]])
-                    start += 1
-                elif cur_sum < target:
-                    start += 1
-                else:
-                    end -= 1
-        return ans
+        index = 0
+        visited = []
+        nums.sort()
+        
+        while index < len(nums) :
+            
+            target = - nums[index]
+            self.twoSum(0, index - 1, target, nums, visited)
+            self.twoSum(index + 1, len(nums) - 1, target, nums, visited)
+            index += 1
+        
+        return visited
+            
+    def twoSum(self, start, end, target, nums, visited) :
+        
+        left, right = start, end
+        
+        while left < right  :
+
+            if nums[left] + nums[right] < target :
+                left += 1
+            elif nums[left] + nums[right] > target  :
+                right -= 1
+            else :
+                combination = [-target, nums[left], nums[right]]
+                combination.sort()
+                if combination not in visited :
+                    visited.append(combination)
+                left += 1
+                right -= 1
+                
 ```
 
 #### 382. Triangle Sum
@@ -216,7 +301,10 @@ class Solution:
 
 #### Two Sum计数问题
 
-#### 609. Two Sum - Less than or equal to target 
+#### 609. Two Sum - Less than or equal to target
+
+简化的地方在于Two Sum右边最大，如果相加都小，那么中间所有的都小，移动左指针即可。  
+
 
 ```python
 class Solution:
@@ -239,6 +327,8 @@ class Solution:
 ```
 
 #### 443. Two Sum - Greater than target
+
+和上面一样，移动右指针就行。
 
 ```python
 class Solution:
@@ -268,6 +358,8 @@ class Solution:
 
 #### 533. Two Sum - Closest to target
 
+主要是不断更新，如果找到最小就返回。
+
 ```python
 class Solution:
     """
@@ -289,6 +381,34 @@ class Solution:
                 j -= 1
 
         return diff
+```
+
+#### 59. 3Sum Closest
+
+在前一个题的基础上不断找最大和最小，不断更新。
+
+```python
+class Solution:
+    """
+    @param numbers: Give an array numbers of n integer
+    @param target: An integer
+    @return: return the sum of the three integers, the sum closest target.
+    """
+    def threeSumClosest(self, numbers, target):
+        numbers.sort()
+        ans = None
+        for i in range(len(numbers)):
+            left, right = i + 1, len(numbers) - 1
+            while left < right:
+                sum = numbers[left] + numbers[right] + numbers[i]
+                if ans is None or abs(sum - target) < abs(ans - target):
+                    ans = sum
+                    
+                if sum <= target:
+                    left += 1
+                else:
+                    right -= 1
+        return ans
 ```
 
 ## 同向双指针
