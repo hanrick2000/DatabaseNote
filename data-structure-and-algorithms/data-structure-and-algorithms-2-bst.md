@@ -523,3 +523,29 @@ class Solution:
             return 1 / ans 
 ```
 
+#### 分解质因数
+
+Log\(sqrt\(n\)\)
+
+```python
+class Solution:
+    """
+    @param num: An integer
+    @return: an integer array
+    """
+    def primeFactorization(self, num):
+        # write your code here
+        limit = int(math.sqrt(num)) + 1
+        prime_list = []
+        
+        for prime in range(2,limit):
+            while num % prime == 0 :
+                prime_list.append(prime)
+                num = num // 2
+        if num > 1 :
+            prime_list.append(num)
+            
+        return prime_list
+        
+```
+
