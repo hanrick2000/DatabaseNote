@@ -148,3 +148,26 @@ CREATE VIEW Connex20142016SumSales_View AS
 
 ![](../../.gitbook/assets/screen-shot-2018-09-12-at-11.39.06-am.png)
 
+## 4. Storage  Architectures
+
+![](../../.gitbook/assets/screen-shot-2018-09-13-at-10.56.46-am.png)
+
+* OLAP：所有的多表都这么叫，online analytics processing
+* ROLAP：关系型OLAP，DBMS vendors
+  * 支持物化视图 
+  * 支持大量cubes
+* MOLAP：多维OLAP
+  * 强调Cube的物理存储
+  * 对稀疏数据进行压缩
+  * 受到物理Cube现在
+  * 比ROLAP快
+* HOLAP：混合OLAP
+
+ 
+
+Bitmap Index
+
+![](../../.gitbook/assets/screen-shot-2018-09-13-at-11.02.45-am.png)
+
+
+
