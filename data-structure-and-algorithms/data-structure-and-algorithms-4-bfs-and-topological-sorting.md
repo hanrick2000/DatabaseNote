@@ -164,3 +164,50 @@ class Solution:
 
 ## 3. BFS在矩阵中的应用
 
+#### 433. Number of Islands 
+
+这个题还是有一点难度的，主要思路是检测一个点的上下左右在不在grid里面，如果在的话看它是不是1，如果是的话就把它变成0，再去看这个点的上下左右，这样的一个基本过程。
+
+```python
+class Solution:
+    """
+    @param grid: a boolean 2D matrix
+    @return: an integer
+    """
+    def numIslands(self, grid):
+        # 1. corner case
+        if not grid and not grid[0] :
+            return 0 
+        islands = 0
+        # 2. traverse
+        for i in range(len(grid)) :
+            for j in range(len(grid[0])) :
+                if grid[i][j] :
+                    self.bfs(grid, i, j)
+                    islands += 1
+        
+        return islands
+    
+    
+    def bfs(self, grid, x, y) :
+        
+        queue = collections.deque([(x, y)])
+        # 3. check up, down, left, right 
+        while queue :
+            
+            x, y = queue.popleft()
+            
+            for delta_x, delta_y in [(1, 0), (-1, 0), (0, 1), (0, -1)] :
+                next_x = x + delta_x
+                next_y = y + delta_y
+                # 4. check if in the grid
+                if not self.is_valid(grid, next_x, next_y) :
+                    continue
+                queue.append((next_x, next_y))
+                grid[next_x][next_y] = False
+                
+    def is_valid(self, grid, x, y) :
+        m, n = len(grid), len(grid[0])
+        return 0 <= x < m and 0 <= y < n and grid[x][y]
+```
+
