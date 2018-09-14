@@ -53,6 +53,12 @@ class Solution:
 
 * 是可以的，其实就是去掉level那里的一个循环，直接将值写入result
 
+#### 常犯的错误
+
+* 在写if的时候如果写在了for的外面，就会少掉一层，特别需要注意
+
+#### 重要应用-序列化
+
 ## 2. BFS在图上的应用
 
 使用宽度优先搜索 BFS 的版本。
@@ -62,40 +68,99 @@ class Solution:
 第三步：找到所有的边，复制每一条边
 
 ```python
+"""
+Definition for a undirected graph node
+class UndirectedGraphNode:
+    def __init__(self, x):
+        self.label = x
+        self.neighbors = []
+"""
 class Solution:
+    """
+    @param: node: A undirected graph node
+    @return: A undirected graph node
+    """
     def cloneGraph(self, node):
-        root = node
-        if node is None:
+        # 1. check corner case
+        if node is None :
             return node
-            
-        # use bfs algorithm to traverse the graph and get all nodes.
+        root = node
+        # 2. get nodes    
         nodes = self.getNodes(node)
         
-        # copy nodes, store the old->new mapping information in a hash map
+        # 3. change node to graph type
         mapping = {}
         for node in nodes:
-            mapping[node] = UndirectedGraphNode(node.label) 
+            mapping[node] = UndirectedGraphNode(node.label)
         
-        # copy neighbors(edges)
+        # 4. build relationship
         for node in nodes:
-            new_node = mapping[node]
-            for neighbor in node.neighbors:
-                new_neighbor = mapping[neighbor]
-                new_node.neighbors.append(new_neighbor)
-        
+            newNode = mapping[node]
+            for neighbor in node.neighbors :
+                newNeighbor = mapping[neighbor]
+                newNode.neighbors.append(newNeighbor)
+
         return mapping[root]
-        
+    
     def getNodes(self, node):
-        q = collections.deque([node])            # 建立deque  
-        result = set([node])                     # 保证唯一性
-        while q:
-            head = q.popleft()
-            for neighbor in head.neighbors:      # 复制邻居
-                if neighbor not in result:
-                    result.add(neighbor)
-                    q.append(neighbor)
-        return result
+        queue = collections.deque([node])
+        nodes = set([node])
+        # traverse without levels
+        while queue :
+            headNode = queue.popleft()
+            for neighbor in headNode.neighbors :
+                if neighbor not in nodes :
+                    nodes.add(neighbor)
+                    queue.append(neighbor)
+        
+        return nodes
 ```
 
+#### 隐式图 \(Implicit Graph\) 最短路径 - Word Ladder
 
+分层遍历记录路径长度，每次遍历之后查看替换之后的下一个元素是不是在dict里面，不是就再换一次。
+
+```python
+class Solution:
+    """
+    @param: start: a string
+    @param: end: a string
+    @param: dict: a set of string
+    @return: An integer
+    """
+    def ladderLength(self, start, end, dict):
+        # 1. prepare
+        dict.add(end)
+        visited = set([start])
+        queue = collections.deque([start])
+        distance = 0 
+        
+        while queue :
+            distance += 1
+            for _ in range(len(queue)) :
+                word = queue.popleft()
+                if word == end :
+                    return distance
+                for next_word in self.get_next_word(word) :
+                    if next_word not in dict or next_word in visited :
+                        continue
+                    queue.append(next_word)
+                    visited.add(next_word)
+                    
+        return 0
+                    
+    def get_next_word(self, word) :
+        words = []
+        
+        for i in range(len(word)) :
+            left, right = word[:i], word[i + 1:]
+            for char in 'abcdefghijklmnopqrstuvwxyz' :
+                if char == word[i] :
+                    continue
+                words.append(left + char + right)
+        
+        return words
+```
+
+## 3. BFS在矩阵中的应用
 
