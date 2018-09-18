@@ -33,7 +33,7 @@
 
 #### DW的特征 
 
-理解并背诵
+![](../../.gitbook/assets/screen-shot-2018-09-17-at-8.58.57-pm.png)
 
 * Subject-oriented: Organized around business entities \(e.g., customers, products, and employees\) rather than business processes
 * Integrated: many transformations to unify source data from independent data sources \(units of measure, data formats, naming conventions\)
@@ -52,7 +52,7 @@
 * 数据源的数据质量有差异，很难估计时间完成时间
 * 无法度量实际DW的规模，通常都比预计的大很多
 
-**数据库的好处：**
+**数据库的无形好处：**
 
 * 对组织成功非常重要
 * 提高了数据质量
@@ -75,7 +75,7 @@
 
 ![](../../.gitbook/assets/image%20%2822%29.png)
 
-####  Bottom-up Architecture 的具体实现
+#### Bottom-up Architecture 的具体实现
 
 Data marts: 小型数据仓库，主要为个体或部门服务
 

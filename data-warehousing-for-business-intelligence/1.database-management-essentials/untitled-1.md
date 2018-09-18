@@ -1,6 +1,6 @@
 # Database Management Essentials （2）
 
-## 1.数据库基本概念设计
+## 1. 数据库基本概念设计
 
 数据库设计的基本四个步骤 :
 
