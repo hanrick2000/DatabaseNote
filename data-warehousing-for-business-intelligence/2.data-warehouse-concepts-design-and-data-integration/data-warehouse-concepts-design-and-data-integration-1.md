@@ -73,7 +73,7 @@
 
 先将数据存入Staging DB，然后进行整合和ETL进入DW，从而进行整个企业级层面的分析。
 
-![](../../.gitbook/assets/image%20%2822%29.png)
+![](../../.gitbook/assets/image%20%2823%29.png)
 
 #### Bottom-up Architecture 的具体实现
 
@@ -88,7 +88,7 @@ Data marts: 小型数据仓库，主要为个体或部门服务
 
 ####  Federated Architecture 
 
-![](../../.gitbook/assets/image%20%2816%29.png)
+![](../../.gitbook/assets/image%20%2817%29.png)
 
 #### 基本系统框架的发展
 
@@ -155,9 +155,9 @@ Data Cube主要是特定话的小型Data Warehouse，主要服务的对象是特
 
 ![](../../.gitbook/assets/screen-shot-2018-09-08-at-6.01.57-pm.png)
 
-![](../../.gitbook/assets/image%20%2817%29.png)
+![](../../.gitbook/assets/image%20%2818%29.png)
 
-![](../../.gitbook/assets/image%20%2819%29.png)
+![](../../.gitbook/assets/image%20%2820%29.png)
 
 {% embed data="{\"url\":\"http://webdataanalysis.net/web-data-warehouse/data-cube-and-olap/\",\"type\":\"link\",\"title\":\"数据立方体与OLAP \| 网站数据分析\"}" %}
 
@@ -216,7 +216,7 @@ Data Cube主要是特定话的小型Data Warehouse，主要服务的对象是特
 
 Start Schema : 主要是所有表环绕，连接中间的一个表
 
-![](../../.gitbook/assets/image%20%2820%29.png)
+![](../../.gitbook/assets/image%20%2821%29.png)
 
  Constellation Schema :  存在多个Star Schema
 

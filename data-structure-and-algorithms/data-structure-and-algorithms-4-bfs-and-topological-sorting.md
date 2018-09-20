@@ -1,6 +1,148 @@
 # Data Structure & Algorithms \(4\) - BFS & Topological Sorting
 
-## 1. BFS在二叉树上的应用
+## 0. BFS解决的问题
+
+BFS主要用来解决两种问题 ：
+
+* 图的遍历 ：比如求距离某个点为1的所有点
+* 最短路径 ：还是当个路径类
+
+#### a. 图的遍历 Traversal in Graph
+
+图的遍历，比如给出无向连通图\(Undirected Connected Graph\)中的一个点，找到这个图里的所有点。这就是一个常见的场景。LintCode 上的 [Clone Graph](http://www.lintcode.com/problem/clone-graph) 就是一个典型的练习题。
+
+* 层级遍历 Level Order Traversal
+  * 也就是说我不仅仅需要知道从一个点出发可以到达哪些点，还需要知道这些点，分别离出发点是第几层遇到的，比如 [Binary Tree Level Order Traversal](http://www.lintcode.com/problem/binary-tree-level-order-traversal/) 就是一个典型的练习题。
+* 由点及面 Connected Component
+* 拓扑排序 Topological Sorting
+
+#### b .最短路径 Shortest Path in Simple Graph
+
+最短路径算法有很多种，BFS 是其中一种，但是他有特殊的使用场景，即必须是在简单图中求最短路径。大部分简单图中使用 BFS 算法时，都是无向图。当然也有可能是有向图，但是在面试中极少会出现。
+
+* **简单图（Simple Graph）:** 图中每条边长度都是1（或边长都相同）。
+
+## 1. 图的基础以及实现
+
+#### 二叉树中进行 BFS 和图中进行 BFS区别
+
+最大的区别就是二叉树中无需使用 HashSet（Python: dict\) 来存储访问过的节点（丢进过 queue 里的节点）。因为二叉树这种数据结构，上下层关系分明，没有环（circle），所以不可能出现一个节点的儿子的儿子是自己的情况。  
+但是在图中，一个节点的邻居的邻居就可能是自己了。
+
+#### 常用存储图的方法
+
+* 邻接矩阵 （Adjacent Matrix）: 稀松矩阵
+* 邻接表 （Edge List）: 存储边与边的关系
+
+#### Python实现：
+
+```python
+class DirectedGraphNode: # 有向图
+    def __init__(self, x):
+        self.label = x
+        self.neighbors = []
+```
+
+以下图为例，node-0的neighbors是\[1,2,3\]，这里很重要，因为是有向的。
+
+![](../.gitbook/assets/image%20%2815%29.png)
+
+如果这里给的是 0 - 1，0 - 2 ，也就是from\_node - to\_node的形式的话，且不用原有方法进行存储。那么1，2，3的入度加1，而0的邻居为\[1，2，3\]，这里非常非常重要。
+
+```python
+for from_node, to_node in [[0, 1], [0, 2]]:
+    node_indegree[to_node] += 1
+    node_neighour[from_node].append(to_node)
+```
+
+#### 知识点补充 - Dummy Node
+
+这里补充一个广泛应用于linked list里面的知识，
+
+#### 什么是 Dummy Node
+
+Dummy Node，翻译为哨兵节点。Dummy Node 一般本身不存储任何实际有意义的值，通常用作"占位"，或者链表的“虚拟头”。如很多的链表问题中，我们会在原来的头head的前面新增一个节点，这个节点没有任何值，但是 next 指向 head。这样就会方便对 head 进行删除或者在前面插入等操作。
+
+```python
+head->node->node->node ...
+=>
+dummy->head->node->node->node...
+```
+
+#### Dummy Node 在 BFS 中如何使用
+
+在 BFS 中，我们主要用 dummy node 来做占位符。即，在队列中每一层节点的结尾，都放一个 `null`（or None in Python，nil in Ruby），来表示这一层的遍历结束了。这里 dummy node 就是一个 null。
+
+* 在分层遍历中，在levels里面加入一个dummy node
+
+## 2. 拓扑排序
+
+这个应该是先掌握BFS之后才列的，这里我觉得和上面衔接比较好。
+
+#### 拓扑排序 Topological Sorting
+
+在图论中，由一个有向无环图的顶点组成的序列，当且仅当满足下列条件时，称为该图的一个拓扑排序（英语：Topological sorting）。也可以定义为：拓扑排序是对有向无环图的顶点的一种排序，它使得如果存在一条从顶点A到顶点B的路径，那么在排序中B出现在A的后面。
+
+* 每个顶点出现且只出现一次；
+* 若A在序列中排在B的前面，则在图中不存在从B到A的路径。
+
+拓扑排序 Topological Sorting 是一个经典的图论问题。他实际的运用中，拓扑排序可以做如下的一些事情：
+
+* 检测编译时的循环依赖
+* 制定有依赖关系的任务的执行顺序
+
+**拓扑排序不是一种排序算法**
+
+虽然名字里有 Sorting，但是相比起我们熟知的 Bubble Sort, Quick Sort 等算法，Topological Sorting 并不是一种严格意义上的 Sorting Algorithm。
+
+确切的说，一张图的拓扑序列可以有很多个，也可能没有。拓扑排序只需要找到其中一个序列，**无需**找到所有序列。
+
+**算法流程**
+
+拓扑排序的算法是典型的宽度优先搜索算法，其大致流程如下：
+
+1. 统计所有点的入度，并初始化拓扑序列为空。
+2. 将所有入度为 0 的点，也就是那些没有任何**依赖**的点，放到宽度优先搜索的队列中
+3. 将队列中的点一个一个的释放出来，放到拓扑序列中，每次释放出某个点 A 的时候，就访问 A 的相邻点（所有A指向的点），并把这些点的入度减去 1。
+4. 如果发现某个点的入度被减去 1 之后变成了 0，则放入队列中。
+5. 直到队列为空时，算法结束。
+
+```python
+class Solution:
+    """
+    @param graph: A list of Directed graph node
+    @return: A list of integer
+    """
+    def topSort(self, graph):
+        node_to_indegree = self.get_indegree(graph)
+
+        # bfs
+        order = []
+        start_nodes = [n for n in graph if node_to_indegree[n] == 0]
+        queue = collections.deque(start_nodes)
+        while queue:
+            node = queue.popleft()
+            order.append(node)
+            for neighbor in node.neighbors:
+                node_to_indegree[neighbor] -= 1
+                if node_to_indegree[neighbor] == 0:
+                    queue.append(neighbor)
+                
+        return order
+    
+    def get_indegree(self, graph):
+        node_to_indegree = {x: 0 for x in graph}
+
+        for node in graph:
+            for neighbor in node.neighbors:
+                node_to_indegree[neighbor] += 1
+                
+        return node_to_indegree
+```
+
+## 3. BFS
+
+### BFS在二叉树上的应用
 
 #### 分层遍历宽度优先搜索模板 :
 
@@ -59,7 +201,7 @@ class Solution:
 
 #### 重要应用-序列化
 
-不要层级遍历
+#### 不要层级遍历
 
 ```python
 from collections import deque
@@ -93,7 +235,7 @@ class Solution:
         return result
 ```
 
-## 2. BFS在图上的应用
+### BFS在图上的应用
 
 使用宽度优先搜索 BFS 的版本。
 
@@ -196,7 +338,7 @@ class Solution:
         return words
 ```
 
-## 3. BFS在矩阵中的应用
+### BFS在矩阵中的应用
 
 #### 433. Number of Islands 
 
@@ -244,4 +386,24 @@ class Solution:
         m, n = len(grid), len(grid[0])
         return 0 <= x < m and 0 <= y < n and grid[x][y]
 ```
+
+## 4. 双向BFS \(Bidirectional BFS\) 
+
+1. 无向图
+2. 所有边的长度都为 1 或者长度都一样
+3. 同时给出了起点和终点
+
+以上 3 个条件都满足的时候，可以使用双向宽度优先搜索来求出起点和终点的最短距离。
+
+#### 算法描述
+
+双向宽度优先搜索本质上还是BFS，只不过变成了起点向终点和终点向起点同时进行扩展，直至两个方向上出现同一个子节点，搜索结束。我们还是可以利用队列来实现：一个队列保存从起点开始搜索的状态，另一个保存从终点开始的状态，两边如果相交了，那么搜索结束。起点到终点的最短距离即为起点到相交节点的距离与终点到相交节点的距离之和。
+
+**双向BFS效率**
+
+假设单向BFS需要搜索 N 层才能到达终点，每层的判断量为 X，那么总的运算量为 X ^ N. 如果换成是双向BFS，前后各自需要搜索 N / 2 层，总运算量为 2 \* X ^ {N / 2}。如果 N 比较大且X 不为 1，则运算量相较于单向BFS可以大大减少，差不多可以减少到原来规模的根号的量级。
+
+
+
+
 
