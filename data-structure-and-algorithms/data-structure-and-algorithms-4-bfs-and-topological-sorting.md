@@ -59,6 +59,40 @@ class Solution:
 
 #### 重要应用-序列化
 
+不要层级遍历
+
+```python
+from collections import deque
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left, self.right = None, None
+"""
+class Solution:
+    """
+    @param root: A Tree
+    @return: Level order a list of lists of integer
+    """
+    def levelOrder(self, root):
+        if root is None:                  # 基本检查，这里是二叉树
+            return []
+            
+        queue = deque([root])             # 变成双向的queue
+        result = []                       # 存储最后的结果
+        while queue:                      # 当队列不为空 
+            node = queue.popleft()
+            result.append(node.val)
+            
+            if node.left:             # 如果左儿子存在，压入队列
+                queue.append(node.left)
+            if node.right:            # 如果右儿子存在，压入队列  
+                queue.append(node.right)
+            result.append(level)          # 合并
+        return result
+```
+
 ## 2. BFS在图上的应用
 
 使用宽度优先搜索 BFS 的版本。
