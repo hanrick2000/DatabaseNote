@@ -1,7 +1,7 @@
 # Table of contents
 
 * [Notes](README.md)
-* [MySQL - Leetcode Solutions](untitled/README.md)
+* [Leetcode Solutions](untitled/README.md)
   * [MySQL - Window Function](untitled/mysql-window-function.md)
   * [MySQL - CTE](untitled/sql-qi-ta-ji-shu-bu-chong.md)
   * [MySQL Query Performance](untitled/mysql-query-performance.md)

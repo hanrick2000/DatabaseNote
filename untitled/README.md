@@ -1,4 +1,4 @@
-# MySQL - Leetcode Solutions
+# Leetcode Solutions
 
 ## 导言
 
