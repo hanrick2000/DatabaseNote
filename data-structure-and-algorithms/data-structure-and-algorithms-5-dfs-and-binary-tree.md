@@ -1,155 +1,205 @@
 # Data Structure & Algorithms \(5\) - DFS & Binary Tree
 
-## 1. 遍历\(Traverse\)
+## 1. 第一类考察形态 ：求值、路径
 
-遍历（Traversal），顾名思义，就是**通过某种顺序，一个一个访问一个数据结构中的元素**。比如我们如果需要遍历一个数组，无非就是要么从前往后，要么从后往前遍历。但是对于一棵二叉树来说，他就有很多种方式进行遍历：
+这里的基本解决思路是递归，既然是递归，那么重要的在于找到递归条件，并给出corner case，然后再进行解决，这个整体的解决思路。
 
-1. 层序遍历（Level order）
-2. 先序遍历（Pre order）
-3. 中序遍历（In order）
-4. 后序遍历（Post order）
+#### 596. Minimum Subtree
 
-我们在之前的课程中，已经学习过了二叉树的层序遍历，也就是使用 BFS 算法来获得二叉树的分层信息。通过 BFS 获得的顺序我们也可以称之为 BFS Order。而剩下的三种遍历，都需要通过深度优先搜索的方式来获得。而这一小节中，我们将讲一下通过深度优先搜索（DFS）来获得的节点顺序，
-
-**a. 先序遍历（又叫先根遍历、前序遍历）**
-
-首先访问根结点，然后遍历左子树，最后遍历右子树。**遍历左、右子树时，仍按先序遍历**。若二叉树为空则返回。
-
-该过程可简记为**根左右**，注意该过程是**递归的**。如图先序遍历结果是：**ABDECF**。  
-
-
-![&#x56FE;&#x7247;](http://media.jiuzhang.com/markdown/images/3/15/d77b07ce-27f7-11e8-9f14-0242ac110002.jpg)
-
-**b. 中序遍历（又叫中根遍历）**
-
-首先遍历左子树，然后访问根结点，最后遍历右子树。**遍历左、右子树时，仍按中序遍历**。若二叉树为空则返回。简记为**左根右**。  
-上图中序遍历结果是：**DBEAFC**。
-
-**c. 后序遍历（又叫后根遍历）**
-
-首先遍历左子树，然后遍历右子树，最后访问根结点。**遍历左、右子树时，仍按后序遍历**。若二叉树为空则返回。简记为**左右根**。  
-上图后序遍历结果是：**DEBFCA**。
-
-## 2. 分治法\(Divide & Conquer）
-
-分治法（Divide & Conquer Algorithm）是说将一个大问题，拆分为2个或者多个小问题，当小问题得到结果之后，合并他们的结果来得到大问题的结果。
-
-#### 为什么二叉树的问题适合使用分治法？
-
-在一棵二叉树（Binary Tree）中，如果将整棵二叉树看做一个大问题的话，那么根节点（Root）的左子树（Left subtree）就是一个小问题，右子树（Right subtree）是另外一个小问题。这是一个天然就帮你完成了“分”这个步骤的数据结构。
-
-**小结两者之间的关系**
-
-分治法（Divide & Conquer）与遍历法（Traverse）是两种常见的递归（Recursion）方法。从程序实现角度分治法的递归函数，通常有一个`返回值`，遍历法通常没有。
-
-* **分治法解决问题的思路**
-  * 先让左右子树去解决同样的问题，然后得到结果之后，再整合为整棵树的结果。
-* **遍历法解决问题的思路**
-  * 通过前序/中序/后序的某种遍历，游走整棵树，通过一个全局变量或者传递的参数来记录这个过程中所遇到的点和需要计算的结果。
-
-## 3. 递归
-
-**什么是递归 \(Recursion\) ？**
-
-很多书上会把递归（Recursion）当作一种算法。事实上，递归是包含两个层面的意思的：
-
-1. 一种由大化小，由小化无的解决问题的算法。类似的算法还有动态规划（Dynamic Programming）。
-2. 一种程序的实现方式。这种方式就是一个函数（Function / Method / Procedure）自己调用自己。
-
-与之对应的，有非递归（Non-Recursion）和迭代法（Iteration），你可以认为这两个概念是一样的概念（番茄和西红柿的区别）。不需要做区分。
-
-**什么是搜索 \(Search\)？**
-
-搜索分为深度优先搜索（Depth First Search）和宽度优先搜索（Breadth First Search），通常分别简写为 DFS 和 BFS。搜索是一种类似于枚举（Enumerate）的算法。比如我们需要找到一个数组里的最大值，我们可以采用枚举法，因为我们知道数组的范围和大小，比如经典的打擂台算法：
+这里写的时候需要记录历史最小值、历史最小值的root，以及当前的值，并且固定leaf的值，这样一步一步解决这个问题。
 
 ```python
-int max = nums[0];
-for i in range(len(nums)) :
-    max = Math.max(max, nums[i]);
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left, self.right = None, None
+"""
+
+class Solution:
+    """
+    @param root: the root of binary tree
+    @return: the root of the minimum subtree
+    """
+    def findSubtree(self, root):
+        min, subtree, sum = self.find(root)
+        return subtree
+        
+    def find(self, root) :
+        # 如果遇到叶节点时，必然左右不相加，而返回原节点的值
+        if root is None :
+            return sys.maxsize, None, 0 
+            
+        # 这里返回的左边历史最小值，现在的树root，以及现在的左边sum，并不断递归找到叶节点    
+        left_min, left_subtree, left_sum = self.find(root.left)
+        right_min, right_subtree, right_sum = self.find(root.right)
+        
+        # 含当前节点的sum值
+        sum = left_sum + right_sum + root.val
+       
+        # 如果历史最小，不断返回最小点的root和值，并记录当前的sum
+        if left_min == min(left_min, right_min, sum) :
+            return left_min, left_subtree, sum
+        if right_min == min(left_min, right_min, sum) :
+            return right_min, right_subtree, sum
+        
+        # 如果当前最小，返回新的值        
+        return sum, root, sum
+        
 ```
 
-枚举法通常是你知道循环的范围，然后可以用几重循环就搞定的算法。比如我需要找到 所有 x^2 + y^2 = K 的整数组合，可以用两重循环的枚举法：
+#### 480. Binary Tree Paths
+
+递归需要关注return的到底是什么，这个非常的重要，递归是比较难以解决的。
 
 ```python
-// 不要在意这个算法的时间复杂度
-for x in range(k + 1) :
-    for y in range(k + 1) :
-        if x*x + y*y == k :
-            print (x, '-', y)
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left, self.right = None, None
+"""
+
+class Solution:
+    """
+    @param root: the root of the binary tree
+    @return: all root-to-leaf paths
+    """
+    def binaryTreePaths(self, root):
+        # no root
+        if root is None :
+            return []
+        # no childs    
+        if root.right is None and root.left is None :
+            return [str(root.val)]
+        
+        paths = []    
+        # left 
+        for path in self.binaryTreePaths(root.left) : # type list
+            paths.append(str(root.val) + '->' + path)
+        # right
+        for path in self.binaryTreePaths(root.right) :
+            paths.append(str(root.val) + '->' + path)
+            
+        return paths
 ```
 
-而有的问题，比如求 N 个数的全排列，你可能需要用 N 重循环才能解决。这个时候，我们就倾向于采用递归的方式去实现这个变化的 N 重循环。这个时候，我们就把算法称之为`搜索`。因为你已经不能明确的写出一个不依赖于输入数据的多重循环了。
+#### 88. Lowest Common Ancestor of a Binary Tree
 
-通常来说 DFS 我们会采用递归的方式实现（当然你强行写一个非递归的版本也是可以的），而 BFS 则无需递归（使用队列 Queue + 哈希表 HashMap就可以）。**所以我们在面试中，如果一个问题既可以使用 DFS，又可以使用 BFS 的情况下，一定要优先使用 BFS。**因为他是非递归的，而且更容易实现。
+这个题也很好玩
 
-**什么是回溯\(Backtracking\)？**
-
-有的时候，深度优先搜索算法（DFS），又被称之为回溯法，所以你可以完全认为回溯法，就是深度优先搜索算法。在我的理解中，回溯实际上是深度优先搜索过程中的一个步骤。比如我们在进行全子集问题的搜索时，假如当前的集合是 {1,2} 代表我正在寻找以 {1,2}开头的所有集合。那么他的下一步，会去寻找 {1,2,3}开头的所有集合，然后当我们找完所有以 {1,2,3} 开头的集合时，我们需要把 3 从集合中删掉，回到 {1,2}。然后再把 4 放进去，寻找以 {1,2,4} 开头的所有集合。这个把 3 删掉回到 {1,2} 的过程，就是回溯。
-
-```text
-subset.add(nums[i]);
-subsetsHelper(result, subset, nums, i + 1);
-subset.remove(len(nums) - 1) // 这一步就是回溯
+```python
+def lowestCommonAncestor(self, root, A, B):
+        if root is None:
+            return None
+            
+        # 是 A， A下面有B
+        if root is A or root is B:
+            return root
+        # 先无脑的丢给左右子树  
+        left = self.lowestCommonAncestor(root.left, A, B)
+        right = self.lowestCommonAncestor(root.right, A, B)
+        
+        # 当左右子树的结果都非空时，意味着A 和 B 一边一个
+        if left is not None and right is not None:
+            return root
+            
+       # 左子树有一个点，或左子树有LCA
+        if left is not None:
+            return left
+        if right is not None:
+            return right
+            #左右子树啥都没有
+        return None
 ```
 
-## 4. AVL Tree
+## 2. 第二类考察形态 ：二叉树结构变化
 
-平衡二叉树（Balanced Binary Tree，又称为AVL树，**有别于AVL算法**）是二叉树中的一种特殊的形态。二叉树当且仅当满足如下两个条件之一，是平衡二叉树：
+453.
 
-* 空树。
-* **左右子树高度差绝对值不超过1**且**左右子树都是平衡二叉树**。
+```python
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left, self.right = None, None
+"""
 
-![&#x56FE;&#x7247;&#x6765;&#x81EA;&#x7F51;&#x7EDC;](http://media.jiuzhang.com/markdown/images/3/13/36c0bebe-2685-11e8-b3fe-0242ac110002.jpg)
+class Solution:
+    """
+    @param root: a TreeNode, the root of the binary tree
+    @return: nothing
+    """
+    last_node = None
 
-节点旁边的数字表示左右两子树高度差。\(a\)是AVL树，\(b\)不是，\(b\)中5节点不满足AVL树，故4节点，3节点都不再是AVL树。
+    def flatten(self, root):
+        if root is None:
+            return
+        
+        if self.last_node is not None:
+            self.last_node.left = None
+            self.last_node.right = root
+            
+        self.last_node = root
+        right = root.right
+        self.flatten(root.left)
+        self.flatten(right)
+```
 
-#### AVL树的高度为 O\(logN\)
+## 3. 第二类考察形态 ：二叉树搜索树
 
-当AVL树有N个节点时，高度为O\(logN\)O\(logN\)。为何？  
-试想一棵满二叉树，每个节点左右子树高度相同，随着树高的增加，叶子容量指数暴增，故树高一定是O\(logN\)O\(logN\)。而相比于满二叉树，**AVL树仅放宽一个条件，允许左右两子树高度差1**，当树高足够大时，可以把1忽略。如图是高度为9的最小AVL树，若节点更少，树高绝不会超过8，也即为何AVL树高会被限制到O\(logN\)O\(logN\)，因为**树不可能太稀疏**。严格的数学证明复杂,略去。  
+86. Binary Search Tree Iterator
 
+```python
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left, self.right = None, None
 
-![&#x56FE;&#x7247;](http://media.jiuzhang.com/markdown/images/3/13/d4b9b288-268a-11e8-99b6-0242ac110002.jpg)
-
-为何普通二叉树不是O\(logN\)？这里给出最坏的单枝树，若单枝扩展，则树高为O\(N\)  
-
-
-![&#x56FE;&#x7247;](http://media.jiuzhang.com/markdown/images/3/13/23657f56-268c-11e8-b3fe-0242ac110002.jpg)
-
-#### AVL树有什么用？
-
-若[二叉搜索树](http://www.jiuzhang.com/tutorial/algorithm/399)是AVL树，则最大作用是保证查找的**最坏**时间复杂度为O\(logN\)。而且较浅的树对插入和删除等操作也更快。
-
-## 5. BST Tree
-
-二叉搜索树（Binary Search Tree，又名排序二叉树，二叉查找树，通常简写为BST）定义如下：
-
-**空树**或是**具有下列性质的二叉树**：
-
-1. 若左子树不空，则左子树上所有节点值均小于或等于它的根节点值
-2. 若右子树不空，则右子树上所有节点值均大于或等于它的根节点值
-3. 左、右子树也为二叉搜索树
-
-![&#x56FE;&#x7247;](http://media.jiuzhang.com/markdown/images/3/14/cdc97d0c-2723-11e8-9bba-0242ac110002.jpg)
-
-#### BST 的特性
-
-* 按照[中序遍历](http://www.jiuzhang.com/tutorial/algorithm/405#)（inorder traversal）打印各节点，会得到**由小到大**的顺序。
-* 在BST中搜索某值的平均时间复杂度为O\(logN\)，其中N为节点个数。类似二分查找（binary search），将待寻值与节点值比较，若不相等，则**通过是小于还是大于，可断定该值只可能在左子树还是右子树，继续向该子树搜索**。故一次比较平均排除半棵树。
-
-#### BST 的作用
-
-* 通过中序遍历，可快速得到升序节点列表。
-* 在BST中查找元素，只需要**平均**O\(logN\)的时间，这与有序数组（sorted array）一样。但BST**平均**log\(N\)即可实现元素的增加和删除，有序数组却需要O\(N\)。
-
-BST是一种**重要**且**基本**的结构，其相关题目也十分经典，并延伸出很多算法。  
-在BST之上，有许多高级且有趣的变种,以解决各式各样的问题，例如:
-
-* 用于数据库或各语言标准库中索引的[红黑树](https://baike.baidu.com/item/%E7%BA%A2%E9%BB%91%E6%A0%91/2413209?fr=aladdin)
-* 提升二叉树性能底线的[伸展树](https://baike.baidu.com/item/%E4%BC%B8%E5%B1%95%E6%A0%91/7003945?fr=aladdin)
-* 优化红黑树的[AA树](https://baike.baidu.com/item/AA%E6%A0%91/9246960?fr=aladdin)
-* 随机插入的[树堆](https://baike.baidu.com/item/Treap?fromtitle=%E6%A0%91%E5%A0%86&fromid=4478083)
-* 机器学习kNN算法的高维快速搜索[k-d树](https://baike.baidu.com/item/kd-tree/2302515)
+Example of iterate a tree:
+iterator = BSTIterator(root)
+while iterator.hasNext():
+    node = iterator.next()
+    do something for node 
+"""
 
 
+class BSTIterator:
+    """
+    @param: root: The root of binary tree.
+    """
+    def __init__(self, root):
+        self.stack = []
+        while root != None:
+            self.stack.append(root)
+            root = root.left
+
+    """
+    @return: True if there has next node, or false
+    """
+    def hasNext(self):
+        return len(self.stack) > 0
+
+    """
+    @return: return next node
+    """
+    def next(self):
+        node = self.stack[-1]
+        if node.right is not None:
+            n = node.right
+            while n != None:
+                self.stack.append(n)
+                n = n.left
+        else:
+            n = self.stack.pop()
+            while self.stack and self.stack[-1].right == n:
+                n = self.stack.pop()
+        
+        return node
+```
 
