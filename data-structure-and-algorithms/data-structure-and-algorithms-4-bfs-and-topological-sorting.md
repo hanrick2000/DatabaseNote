@@ -403,7 +403,13 @@ class Solution:
 
 假设单向BFS需要搜索 N 层才能到达终点，每层的判断量为 X，那么总的运算量为 X ^ N. 如果换成是双向BFS，前后各自需要搜索 N / 2 层，总运算量为 2 \* X ^ {N / 2}。如果 N 比较大且X 不为 1，则运算量相较于单向BFS可以大大减少，差不多可以减少到原来规模的根号的量级。
 
+## Ladder
 
+![](../.gitbook/assets/screen-shot-2018-09-23-at-10.54.00-am.png)
+
+![](../.gitbook/assets/screen-shot-2018-09-23-at-10.54.05-am.png)
+
+![](../.gitbook/assets/screen-shot-2018-09-23-at-10.54.09-am.png)
 
 
 

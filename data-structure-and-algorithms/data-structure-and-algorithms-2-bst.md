@@ -4,7 +4,7 @@ description: Lintcode
 
 # Data Structure & Algorithms \(2\) - BST
 
-## Binary Search 第一重境界
+## 1. Binary Search 第一重境界
 
 #### Binary Search 基本模板：
 
@@ -106,7 +106,7 @@ class Solution:
         return -1
 ```
 
-## Binary Search 第二重境界
+## 2. Binary Search 第二重境界
 
 * 判断XXOO类型的数组，特点是有明确的区分
 
@@ -365,7 +365,7 @@ class Solution:
             return result
 ```
 
-## Binary Search 第三重境界
+## 3. Binary Search 第三重境界
 
 * Half-half 判断一半不符合就扔掉
 
@@ -449,7 +449,7 @@ class Solution:
         return -1        
 ```
 
-## 其他Logn的算法
+## 4. 其他Logn的算法
 
 #### 140. Fast Power
 
@@ -548,4 +548,12 @@ class Solution:
         return prime_list
         
 ```
+
+## Ladder
+
+![](../.gitbook/assets/screen-shot-2018-09-23-at-10.50.37-am.png)
+
+![](../.gitbook/assets/screen-shot-2018-09-23-at-10.50.43-am.png)
+
+![](../.gitbook/assets/screen-shot-2018-09-23-at-10.50.49-am.png)
 

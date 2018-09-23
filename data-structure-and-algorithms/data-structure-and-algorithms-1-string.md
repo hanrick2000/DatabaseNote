@@ -4,7 +4,7 @@ description: Lintcode
 
 # Data Structure & Algorithms \(1\) - String
 
-### 回文判断
+## 回文判断
 
 这里的题基本都比较难，而且很多时候都是暴力求解。
 
@@ -167,5 +167,9 @@ class Solution:
         return s[start:start + longest]
 ```
 
+## Ladder
 
+![](../.gitbook/assets/screen-shot-2018-09-23-at-10.49.15-am.png)
+
+![](../.gitbook/assets/screen-shot-2018-09-23-at-10.49.19-am.png)
 
