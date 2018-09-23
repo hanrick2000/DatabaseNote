@@ -159,15 +159,185 @@ class MyQueue:
 
 ![&#x56FE;&#x7247;](http://media.jiuzhang.com/markdown/images/3/15/d77b07ce-27f7-11e8-9f14-0242ac110002.jpg)
 
+```python
+# Version 0: Recursion 
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        this.val = val
+        this.left, this.right = None, None
+"""
+class Solution:
+    """
+    @param root: The root of binary tree.
+    @return: Preorder in ArrayList which contains node values.
+    """
+    def preorderTraversal(self, root):
+        self.results = []
+        self.traverse(root)
+        return self.results
+        
+    def traverse(self, root):
+        if root is None:
+            return
+        self.results.append(root.val)
+        self.traverse(root.left)
+        self.traverse(root.right)
+
+# Version 1: Non-Recursion  
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        this.val = val
+        this.left, this.right = None, None
+"""
+class Solution:
+    """
+    @param root: The root of binary tree.
+    @return: Preorder in list which contains node values.
+    """
+    def preorderTraversal(self, root):
+        if root is None:
+            return []
+        stack = [root]
+        preorder = []
+        while stack:
+            node = stack.pop()
+            preorder.append(node.val)
+            if node.right:
+                stack.append(node.right)
+            if node.left:
+                stack.append(node.left)
+        return preorder
+```
+
 **b. 中序遍历（又叫中根遍历）**
 
 首先遍历左子树，然后访问根结点，最后遍历右子树。**遍历左、右子树时，仍按中序遍历**。若二叉树为空则返回。简记为**左根右**。  
 上图中序遍历结果是：**DBEAFC**。
 
+```python
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left, self.right = None, None
+"""
+#1. Recursion
+class Solution:
+    """
+    @param root: A Tree
+    @return: Inorder in ArrayList which contains node values.
+    """
+    def inorderTraversal(self, root):
+        # write your code here
+        self.result = []
+        self.traverse(root)
+        return self.result
+        
+    def traverse(self, root) :
+        if root is None :
+            return 
+        
+        self.traverse(root.left)
+        self.result.append(root.val)
+        self.traverse(root.right)
+
+#2.traverse
+class Solution:
+    """
+    @param root: A Tree
+    @return: Inorder in ArrayList which contains node values.
+    """
+    def inorderTraversal(self, root):
+        if root is None :
+            return []
+            
+        stack, result = [], []
+        
+        while root :
+            stack.append(root)
+            root = root.left
+            
+        while stack :
+            current_node = stack.pop()
+            result.append(current_node.val)
+            
+            if current_node.right :
+                current_node = current_node.right 
+                while current_node :
+                    stack.append(current_node)
+                    current_node = current_node.left
+                    
+        return result
+```
+
 **c. 后序遍历（又叫后根遍历）**
 
 首先遍历左子树，然后遍历右子树，最后访问根结点。**遍历左、右子树时，仍按后序遍历**。若二叉树为空则返回。简记为**左右根**。  
 上图后序遍历结果是：**DEBFCA**。
+
+```python
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left, self.right = None, None
+"""
+# 1. Recursion
+# class Solution:
+#     """
+#     @param root: A Tree
+#     @return: Postorder in ArrayList which contains node values.
+#     """
+#     def postorderTraversal(self, root):
+#         # write your code here
+#         self.result = []
+#         self.traverse(root)
+#         return self.result
+        
+#     def traverse(self, root) :
+#         if root is None :
+#             return
+        
+#         self.traverse(root.left)
+#         self.traverse(root.right)
+#         self.result.append(root.val)
+        
+# 2. Traverse
+class Solution:
+    """
+    @param root: A Tree
+    @return: Postorder in ArrayList which contains node values.
+    """
+    def postorderTraversal(self, root):
+        # 非递归
+        result = []
+        stack = []
+
+        curNode = root
+        while stack or curNode:
+            # 能左就左，否则向右一步
+            while curNode:
+                stack.append(curNode)
+                curNode = curNode.left if curNode.left else curNode.right
+
+            # pop stack，添加到结果
+            curNode = stack.pop()
+            result.append(curNode.val)
+
+            # 栈不空且当前节点是栈顶的左子节点，转到其右兄弟，否则退栈
+            if stack and stack[-1].left == curNode:
+                curNode = stack[-1].right
+            else:
+                curNode = None
+
+        return result
+```
 
 ### 2. 分治法\(Divide & Conquer）
 
