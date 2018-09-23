@@ -1,133 +1,6 @@
-# Data Structure & Algorithms
+# Data Structure & Algorithms \(5\) - DFS & Binary Tree
 
-## 0. 核心思想
-
-这里我的主要目的是强化算法应对面试，因而所有的题解和思路都是基于面试和套路的，主要是快速熟悉算法和解决问题，非常面向工程，而非系统地学习算法，具有非常强的功利性，主要是因为时间紧迫。
-
-**方法论**：一套模板为基础来解决所有相似的问题，并通过不断地重复以实现不断对自己的模板进行深入的理解，从而形成自己的风格并不断提高。
-
-## 1. 栈
-
-### 什么是栈（Stack）？
-
-栈（stack）是一种采用**后进先出**（LIFO，last in first out）策略的抽象数据结构。比如物流装车，后装的货物先卸，先转的货物后卸。栈在数据结构中的地位很重要，在算法中的应用也很多，比如用于非递归的遍历二叉树，计算逆波兰表达式，等等。
-
-栈一般用一个存储结构（常用数组，偶见链表），存储元素。并用一个指针记录**栈顶位置**。**栈底位置**则是指栈中元素数量为0时的栈顶位置，也即栈开始的位置。  
-栈的主要操作：
-
-* `push()`，将新的元素压入栈顶，同时栈顶上升。
-* `pop()`，将新的元素弹出栈顶，同时栈顶下降。
-* `empty()`，栈是否为空。
-* `peek()`，返回栈顶元素。
-
-Python，直接使用`list`，查看栈顶用`[-1]`这样的切片操作，弹出栈顶时用`list.pop()`，压栈时用`list.append()`
-
-### 栈的实现
-
-```python
-class Stack:
-    # initialize your data structure here.
-    def __init__(self):
-        self.queue = []
-
-    # @param x, an integer, push a new item into the stack
-    # @return nothing
-    def push(self, x):
-        # Write your code here
-        self.queue.append(x)
-
-    # @return nothing, pop the top of the stack
-    def pop(self):
-        # Write your code here
-        for x in range(len(self.queue) - 1):
-            self.queue.append(self.queue.pop(0))
-        self.queue.pop(0)
-
-    # @return an integer, return the top of the stack
-    def top(self):
-        # Write your code here
-        top = None
-        for x in range(len(self.queue)):
-            top = self.queue.pop(0)
-            self.queue.append(top)
-        return top
-
-    # @return an boolean, check the stack is empty or not.
-    def isEmpty(self):
-        # Write your code here
-        return self.queue == []
-```
-
-### 栈在计算机内存当中的应用
-
-我们在程序运行时，常说的内存中的堆栈，其实就是栈空间。这一段空间存放着程序运行时，产生的各种临时变量、函数调用，一旦这些内容失去其作用域，就会被自动销毁。
-
-函数调用其实是栈的很好的例子，后调用的函数先结束，所以为了调用函数，所需要的内存结构，栈是再合适不过了。在内存当中，**栈从高地址不断向低地址扩展**，随着程序运行的层层深入，栈顶指针不断指向内存中更低的地址。
-
-## 2. 队列
-
-### 什么是队列（Queue）？
-
-队列（queue）是一种采用**先进先出**（FIFO，first in first out）策略的抽象数据结构。比如生活中排队，总是按照先来的先服务，后来的后服务。队列在数据结构中举足轻重，其在算法中应用广泛，**最常用的就是在宽度优先搜索\(BFS）中，记录待扩展的节点**。
-
-队列内部存储元素的方式，一般有两种，**数组**（array）和**链表**（linked list）。两者的最主要区别是：
-
-* 数组对**随机访问**有较好性能。
-* 链表对**插入**和**删除**元素有较好性能。
-
-Python中，使用`collections.deque`，双端队列。
-
-队列的主要操作有：
-
-* `add()`队尾追加元素
-* `poll()`弹出队首元素
-* `size()`返回队列长度
-* `empty()`判断队列为空
-
-### 队列的实现
-
-```python
-class MyQueue:
-
-    def __init__(self):
-        self.stack1 = []
-        self.stack2 = []
-
-    def adjust(self):
-        if len(self.stack2) == 0:
-            while len(self.stack1) != 0:
-                self.stack2.append(self.stack1.pop())
-                
-    def push(self, element):
-        self.stack1.append(element)
-
-    def top(self):
-        self.adjust()
-        return self.stack2[len(self.stack2) - 1]
-
-    def pop(self):
-        self.adjust()
-        return self.stack2.pop()
-```
-
-## 3. 哈希表
-
-哈希表（Hash Table，也叫散列表），是根据关键码值 \(Key-Value\) 而直接进行访问的数据结构。也就是说，它通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度。哈希表的实现主要需要解决两个问题，哈希函数和冲突解决。
-
-### 哈希函数 {#哈希函数}
-
-哈希函数也叫散列函数，它对不同的输出值得到一个固定长度的消息摘要。理想的哈希函数对于不同的输入应该产生不同的结构，同时散列结果应当具有同一性（输出值尽量均匀）和雪崩效应（微小的输入值变化使得输出值发生巨大的变化）。  
-
-
-## Heap
-
-## 数组
-
-## 链表
-
-## 5. 二叉树专题
-
-### 1. 遍历\(Traverse\)
+## 1. 遍历\(Traverse\)
 
 遍历（Traversal），顾名思义，就是**通过某种顺序，一个一个访问一个数据结构中的元素**。比如我们如果需要遍历一个数组，无非就是要么从前往后，要么从后往前遍历。但是对于一棵二叉树来说，他就有很多种方式进行遍历：
 
@@ -157,7 +30,7 @@ class MyQueue:
 首先遍历左子树，然后遍历右子树，最后访问根结点。**遍历左、右子树时，仍按后序遍历**。若二叉树为空则返回。简记为**左右根**。  
 上图后序遍历结果是：**DEBFCA**。
 
-### 2. 分治法\(Divide & Conquer）
+## 2. 分治法\(Divide & Conquer）
 
 分治法（Divide & Conquer Algorithm）是说将一个大问题，拆分为2个或者多个小问题，当小问题得到结果之后，合并他们的结果来得到大问题的结果。
 
@@ -174,7 +47,7 @@ class MyQueue:
 * **遍历法解决问题的思路**
   * 通过前序/中序/后序的某种遍历，游走整棵树，通过一个全局变量或者传递的参数来记录这个过程中所遇到的点和需要计算的结果。
 
-### 3. 递归
+## 3. 递归
 
 **什么是递归 \(Recursion\) ？**
 
@@ -219,7 +92,7 @@ subsetsHelper(result, subset, nums, i + 1);
 subset.remove(len(nums) - 1) // 这一步就是回溯
 ```
 
-### 4. AVL Tree
+## 4. AVL Tree
 
 平衡二叉树（Balanced Binary Tree，又称为AVL树，**有别于AVL算法**）是二叉树中的一种特殊的形态。二叉树当且仅当满足如下两个条件之一，是平衡二叉树：
 
@@ -247,7 +120,7 @@ subset.remove(len(nums) - 1) // 这一步就是回溯
 
 若[二叉搜索树](http://www.jiuzhang.com/tutorial/algorithm/399)是AVL树，则最大作用是保证查找的**最坏**时间复杂度为O\(logN\)。而且较浅的树对插入和删除等操作也更快。
 
-### 5. BST Tree
+## 5. BST Tree
 
 二叉搜索树（Binary Search Tree，又名排序二叉树，二叉查找树，通常简写为BST）定义如下：
 
