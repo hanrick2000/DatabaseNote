@@ -14,6 +14,8 @@
   * [Data Structure & Algorithms \(3\) - Two Pointers](data-structure-and-algorithms/data-structure-and-algorithms-3-two-pointers.md)
   * [Data Structure & Algorithms \(4\) - BFS & Topological Sorting](data-structure-and-algorithms/data-structure-and-algorithms-4-bfs-and-topological-sorting.md)
   * [Data Structure & Algorithms \(5\) - DFS & Binary Tree](data-structure-and-algorithms/data-structure-and-algorithms-5-dfs-and-binary-tree.md)
+* [Advanced Algorithms](advanced-algorithms/README.md)
+  * [Advanced Algorithms \(1\) - Two Pointers Follow up](advanced-algorithms/advanced-algorithms-1-two-pointers-follow-up.md)
 * [Data Warehousing for Business Intelligence](data-warehousing-for-business-intelligence/README.md)
   * [1.Database Management Essentials](data-warehousing-for-business-intelligence/1.database-management-essentials/README.md)
     * [Database Management Essentials （1）](data-warehousing-for-business-intelligence/1.database-management-essentials/1.database-management-essentials.md)
