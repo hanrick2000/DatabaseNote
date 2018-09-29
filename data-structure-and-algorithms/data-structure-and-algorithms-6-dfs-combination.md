@@ -99,7 +99,13 @@ class Solution:
             subset.pop()
 ```
 
-## 2. 练习
+#### 通用的DFS时间复杂度计算公式 
+
+O\(答案个数 \* 构造每个答案的时间\)
+
+http://www.jiuzhang.com/qa/2994/
+
+## 2. 重复元素和限制条件
 
 #### 135. Combination Sum
 
@@ -175,4 +181,8 @@ class Solution:
             self.dfs(nums, i + 1, subset, target - nums[i])
             subset.pop()
 ```
+
+## 3. 记忆化搜索
+
+
 
