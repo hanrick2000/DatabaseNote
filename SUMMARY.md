@@ -16,6 +16,7 @@
   * [Data Structure & Algorithms - Binary Tree Pre](data-structure-and-algorithms/data-structure-and-algorithms-binary-tree-pre.md)
   * [Data Structure & Algorithms \(5\) - DFS & Binary Tree](data-structure-and-algorithms/data-structure-and-algorithms-5-dfs-and-binary-tree.md)
   * [Data Structure & Algorithms \(6\) - DFS Combination](data-structure-and-algorithms/data-structure-and-algorithms-6-dfs-combination.md)
+  * [Data Structure & Algorithms \(7\) - DFS Permutation & Graph](data-structure-and-algorithms/data-structure-and-algorithms-7-dfs-permutation-and-graph.md)
 * [Advanced Algorithms](advanced-algorithms/README.md)
   * [Advanced Algorithms \(1\) - Two Pointers Follow up](advanced-algorithms/advanced-algorithms-1-two-pointers-follow-up.md)
 * [Data Warehousing for Business Intelligence](data-warehousing-for-business-intelligence/README.md)

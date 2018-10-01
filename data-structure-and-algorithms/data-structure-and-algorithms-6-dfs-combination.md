@@ -184,5 +184,48 @@ class Solution:
 
 ## 3. 记忆化搜索
 
+#### 192. Wildcard Matching
 
+这个题不是特别难，但是很典型。
+
+```python
+class Solution:
+    """
+    @param s: A string 
+    @param p: A string includes "?" and "*"
+    @return: is Match?
+    """
+    def isMatch(self, source, pattern):
+        return self.is_match(source, 0, pattern, 0, {})
+    
+    def is_match(self, source, i, pattern, j, memo) :
+        # 记忆化搜索
+        if (i, j) in memo :
+            return memo[(i, j)]
+        # DFS出口    
+        # 如果source为空
+        if len(source) == i :
+            # check pattern
+            for index in range(j, len(pattern)) :
+                if pattern[index] != '*' :
+                    return False
+            return True
+        # pattern empty
+        if len(pattern) == j :
+            return False
+            
+        # 递归条件
+        # 如果不是*，看一下是否match，然后找下一个
+        if pattern[j] != '*' :
+            matched = self.is_match_char(source[i], pattern[j]) and self.is_match(source, i + 1, pattern, j + 1, memo)
+        # 如果是*,两个指针随便移动一个即可
+        else :
+            matched = self.is_match(source, i + 1, pattern, j, memo) or self.is_match(source, i, pattern, j + 1, memo)
+        # 记忆
+        memo[(i, j)] = matched
+        return matched
+    
+    def is_match_char(self, s, p) :
+        return s == p or p == '?'
+```
 
