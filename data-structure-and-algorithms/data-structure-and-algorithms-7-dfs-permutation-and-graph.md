@@ -12,7 +12,7 @@
 
 这一小节中我们需要掌握：
 
-## 1.普通的全排列问题
+## 1. 普通的全排列问题
 
 全排列问题和组合问题的代码模板基本一样，差异在于全排列需要用每次遍历全数组，因此需要用visited或者哈希表来控制不要访问这个元素。而组合天然可以使用index来控制不回头即可。
 
@@ -86,11 +86,15 @@ class Solution:
             self.visited[i] = False    
 ```
 
-## 3 非递归的全排列算法
+## 3. 非递归的全排列算法
 
 
 
 
+
+## 4. 补充
+
+### N皇后问题
 
 #### 33. N-Queens
 
@@ -149,5 +153,50 @@ class Solution:
         if row - col in self.visited['diff'] :
             return False
         return True
+```
+
+## 
+
+### word四兄弟
+
+#### 582. Word Break II
+
+```python
+class Solution:
+    """
+    @param: s: A string
+    @param: wordDict: A set of words.
+    @return: All possible sentences.
+    """
+    def wordBreak(self, s, wordDict):
+        return self.dfs(s, wordDict, {})
+        
+    def dfs(self, s, wordDict, memo) :
+        # 记忆化搜索
+        if s in memo :
+            return memo[s]
+        # 递归的出口
+        if len(s) == 0 :
+            return []
+            
+        partitions = []    
+        # 每一次遍历整个字符串    
+        for i in range(1, len(s)) :
+            prefix = s[:i]
+            # 直到找到第一个在字典里的字符
+            if prefix not in wordDict :
+                continue
+            # 继续对后面字符进行寻找
+            sub_partitions = self.dfs(s[i:], wordDict, {})
+            # 前缀加上后面所以的可能性
+            for partition in sub_partitions :
+                partitions.append(prefix + ' ' + partition)
+        # corner case - 整个字符串在dict里
+        if s in wordDict :
+            partitions.append(s)
+        # 记忆化搜索    
+        memo[s] = partitions 
+        
+        return partitions
 ```
 
