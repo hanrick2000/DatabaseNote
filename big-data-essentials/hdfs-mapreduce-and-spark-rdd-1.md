@@ -115,39 +115,42 @@ GFS和DFS的区别
 
 ![](../.gitbook/assets/screen-shot-2018-10-01-at-8.38.28-pm.png)
 
-**Identify distance**
+#### **Identify distance**
 
-* Same Machine : If you request data from HDFS, and this data is available on the same machine, then you can use data locality to read data directly from hard drive without any extra RPC codes. So the distance is zero. 
-* Same Rack : If a datanode is located in the same rack, then the distance is two.
-* Different Rack : If you are going to read data from another rack, then the distance is equal to four. 
-* Another Data Center : If the data is allocated in another data center, then you will get an of delivery overhead. In that case, the distance is 6. 
+* Same Machine : 本地存储在同一台机器上，不需要任何额外的PRC，距离为0。
+* Same Rack : 如果存储在同一个机架上，距离为2
+* Different Rack : 不同的机架上，距离为4
+* Another Data Center : 存储在另一个数据中心，距离为6
 
 ![](../.gitbook/assets/screen-shot-2018-10-01-at-8.38.57-pm.png)
 
+{% embed data="{\"url\":\"https://blog.csdn.net/l1028386804/article/details/51935169\",\"type\":\"link\",\"title\":\"Hadoop之——机架感知配置 - 刘亚壮的专栏 - CSDN博客\",\"description\":\"1.背景       Hadoop在设计时考虑到数据的安全与高效，数据文件默认在HDFS上存放三份，存储策略为本地一份，同机架内其它某一节点上一份，不同机架的某一节点上一份。这样如果本地数据损坏，节点可以从同一机架内的相邻节点拿到数据，速度肯定比从跨机架节点上拿数据要快；同时，如果整个机架的网络出现异常，也能保证在其它机架的节点上找到数据。为了降低整体的带宽消耗和读取延时，HDFS会尽量让读取程\",\"icon\":{\"type\":\"icon\",\"url\":\"https://csdnimg.cn/public/favicon.ico\",\"aspectRatio\":0}}" %}
+
 **Redundancy Model**
 
-* First Replica : The first replica is usually located on the same node if you write data from a DataNode machine. Otherwise, the first DataNode to put replica is chosen by random. 
-* Second Replica : The second replica is usually placed in a different rack. 
-* Third Replica : The third replica is located on a different machine in the same rack as the second replica.
+* First Replica : 第一个复制通常都是同一个节点，不然就是随机选择
+* Second Replica : 第二个复制通常在不同的机架上 
+* Third Replica : 第三个备份在第二个备份的不同机架的其他机器上
+
+因为每次都要一次三份，所以每次的replica以及recovery都需要形成一个pipeline，也就是下图。
 
 ![](../.gitbook/assets/screen-shot-2018-10-01-at-8.39.20-pm.png)
-
-![](quiver-image-url/7DC1EBC107C44D30C3723D69137E19FB.png)
 
 ### Block and Replica States, Recovery Process {#block-and-replica-states-recovery-process}
 
 ![](../.gitbook/assets/screen-shot-2018-10-01-at-8.39.51-pm.png)
 
-* Block: Block is a meta-information storage on a name node and provides information about replica's locations and their states.
+* Block： 在同一节点存储 meta-information 并提供信息关于block的位置和状态信息，不存储数据，存的是信息
   * Each block of data has a version number called Generation Stamp or GS for short. 
-* Replica: Replica is a physical data storage on a data node. 
+* Replica：主要是在节点存储物理信息
   * If replica is in a finalized state then it means that meta-information for this block on name node is aligned with all the corresponding replica's states and data.
 
 **Replica States :**
 
-* RBW \(Replica Being Written to\) : It is the state of the last block of an open file or a file which was reopened for appending. Bytes that are acknowledged by the downstream data nodes in a pipeline are visible for a reader of this replica.
-* RWR \(Replica Waiting to be Recovered\) : It is a state of all Being Written replicas after data node failure and recovery.
-* RUR \(Replica Under Recovery\): HDFS client requests a lease from a name node to have an exclusive access to write or append data to a file. In case of HDFS client lease expiration.
+* RBW \(Replica Being Written to\) : 通常是文件的最后一个block或者重新被打开等待合并的状态。
+  * Bytes that are acknowledged by the downstream data nodes in a pipeline are visible for a reader of this replica.
+* RWR \(Replica Waiting to be Recovered\) : 主要发生在failure 和 recovery 之后
+* RUR \(Replica Under Recovery\): HDFS client 从name node获取权限以进行数据write和append操作，目的是防止HDFS client lease过期。
 
 **Block States :**
 

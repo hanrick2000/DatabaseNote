@@ -88,3 +88,66 @@ class Solution:
 
 ## 3 非递归的全排列算法
 
+
+
+
+
+#### 33. N-Queens
+
+本质还是一道permutation问题，选出符合条件的permutation 比如 \[0,1,2,3\]，然后分列计算，第一列的第0个，第二列的第一个之类的。整体题的难度不是很大，但是要能够搞清楚行和列的计算比较复杂。
+
+```python
+class Solution:
+    """
+    @param: n: The number of queens
+    @return: All distinct solutions
+    """
+    def solveNQueens(self, n):
+        self.boards = []
+        self.visited = { 'col': set(),
+                         'sum': set(),
+                         'diff': set()}
+        self.dfs(n, [])
+        return self.boards
+        
+    def dfs(self, n, permutation) :
+        if len(permutation) == n :
+            self.boards.append(self.draw(permutation)) 
+            return
+        
+        row = len(permutation) 
+        
+        for col in range(n) :
+            if not self.is_valid(permutation, col) :
+                continue
+            permutation.append(col)
+            self.visited['col'].add(col)
+            self.visited['sum'].add(row + col)
+            self.visited['diff'].add(row - col)
+            self.dfs(n, permutation)
+            self.visited['col'].remove(col)
+            self.visited['sum'].remove(row + col)
+            self.visited['diff'].remove(row - col)            
+            permutation.pop()
+        
+    def draw(self, permutation) :
+        board = []
+        n = len(permutation)
+        for col in permutation :
+            list_str = ''.join(['Q' if c == col else '.' for c in range(n)])
+            board.append(list_str)
+        return board
+        
+    def is_valid(self, permutation, col) :
+        
+        row = len(permutation)
+        
+        if col in self.visited['col'] :
+            return False
+        if row + col in self.visited['sum'] :
+            return False
+        if row - col in self.visited['diff'] :
+            return False
+        return True
+```
+
