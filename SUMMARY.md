@@ -21,6 +21,8 @@
   * [Advanced Algorithms \(1\) - Two Pointers Follow up](advanced-algorithms/advanced-algorithms-1-two-pointers-follow-up.md)
 * [System Design](system-design/README.md)
   * [System Design \(1\)  - Twitter Design](system-design/system-design-1-twitter-design.md)
+* [Big Data Essentials](big-data-essentials/README.md)
+  * [HDFS, MapReduce and Spark RDD \(1\)](big-data-essentials/hdfs-mapreduce-and-spark-rdd-1.md)
 * [Data Warehousing for Business Intelligence](data-warehousing-for-business-intelligence/README.md)
   * [1.Database Management Essentials](data-warehousing-for-business-intelligence/1.database-management-essentials/README.md)
     * [Database Management Essentials （1）](data-warehousing-for-business-intelligence/1.database-management-essentials/1.database-management-essentials.md)
