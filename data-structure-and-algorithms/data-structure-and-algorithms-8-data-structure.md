@@ -83,6 +83,8 @@ class MyQueue:
         return self.stack2.pop()
 ```
 
+{% embed data="{\"url\":\"https://docs.python.org/3/library/queue.html\",\"type\":\"link\",\"title\":\"queue — A synchronized queue class — Python 3.7.1rc1 documentation\",\"icon\":{\"type\":\"icon\",\"url\":\"https://docs.python.org/3/\_static/py.png\",\"aspectRatio\":0}}" %}
+
 #### 642. Moving Average from Data Stream
 
 一开始是每次都将queue里面原始加起来然后再去计算，主要的启示是:
@@ -254,7 +256,100 @@ class Solution:
         return val
 ```
 
-## 数组
+## 6. 数组
 
-## 链表
+#### 子数组 Subarray
+
+主要解决子数组问题用到的主要是前缀和
+
+* PrefixSum\[i\] = A\[0\] + A\[1\] + ... A\[i - 1\]
+* PrefixSum\[0\] = 0 
+
+易知构造 PrefixSum 耗费 O\(n\) 时间和 O\(n\) 空间，如需计算子数组从下标i到下标j之间的所有数之和，则有  
+
+* Sum\(i~j\) = PrefixSum\[j + 1\] - PrefixSum\[i\]
+
+#### 两个排序数组的中位数
+
+在两个排序数组中，求他们合并到一起之后的中位数，
+
+时间复杂度要求：O\(log\(n+m\)\)O\(log\(n+m\)\)，其中 n, m 分别为两个数组的长度
+
+#### LintCode 练习地址：
+
+[http://www.lintcode.com/problem/median-of-two-sorted-arrays/](http://www.lintcode.com/problem/median-of-two-sorted-arrays/)
+
+#### 解法
+
+这个题有三种做法：
+
+1. 基于 FindKth 的算法。整体思想类似于 median of unsorted array 可以用 find kth from unsorted array 的解题思路。
+2. 基于中点比较的算法。一头一尾各自丢掉一些，去掉一半的时候，整个问题的形式不变。可以推广到 median of k sorted arrays.
+3. 基于二分的方法。二分 median 的值，然后再用二分法看一下两个数组里有多少个数小于这个二分出来的值。
+
+#### 插入新区间
+
+#### 问题描述
+
+给一个排好序的区间序列，插入一段新区间。求插入之后的区间序列。要求输出的区间序列是没有重叠的。
+
+LintCode 练习地址：[http://www.lintcode.com/problem/insert-interval/](http://www.lintcode.com/problem/insert-interval/)
+
+#### 算法描述
+
+1. 将该新区间按照**左端值**插入原区间中，使得原区间**左端值**是有序的。
+2. 遍历原区间列表，并把它复制到一个新的`answer`区间列表当中，`answer`是最后要返回的结果。
+3. 遍历时，要记录上一次访问的区间`last`。若当前区间**左端值**小于等于`last`区间的**右端值**，说明这两区间有重叠，此时仅更新`last`的**右端值**为这两区间**右端值**较大者；若当前区间**左端值**大于`last`的**右端值**，则可以直接加入`answer`。
+4. 返回`answer`。
+
+**F.A.Q**  
+**Q：第三步有什么意义？**  
+A：插入新区间后的原区间列表，仅能保证左端是有序的。而区间中是否存在重叠，右端是否有序，这些都是未知的。
+
+**Q：时空复杂度多少？**  
+A：都是O\(N\)O\(N\)。
+
+**Q：有没有更高效的做法？**  
+A：有！在查找左端新区见待插位置时，可以采用二分查找。原算法的的第三步，实际上是在查找右端的位置，也可以用二分查找，这样两次查找的复杂度都降为了O\(logN\)O\(logN\)。但是，**完全没必要**，因为这个算法涉及到数组中间位置的移动，所以O\(N\)O\(N\)的时间复杂度是逃不开的，二分查找的改进对效率提升不明显，而且会增大编码难度。有兴趣的同学可以自己尝试~
+
+#### 外排序和K路归并算法
+
+### 介绍
+
+外排序算法（External Sorting），是指在**内存不够**的情况下，如何对存储在一个或者多个**大文件**中的数据进行排序的算法。外排序算法通常是解决一些大数据处理问题的第一个步骤，或者是面试官所会考察的算法基本功。外排序算法是**海量数据处理算法**中十分重要的一块。  
+在学习这类大数据算法时，经常要考虑到内存、缓存、准确度等因素，这和我们之前见到的算法都略有差别。
+
+### 基本步骤
+
+外排序算法分为两个基本步骤：
+
+1. 将大文件切分为若干个个小文件，并分别使用内存排好序
+2. 使用**K路归并算法**（k-way merge）将若干个排好序的小文件合并到一个大文件中
+
+**第一步：文件拆分**
+
+根据内存的大小，尽可能多的分批次的将数据 Load 到内存中，并使用系统自带的内存排序函数（或者自己写个快速排序算法），将其排好序，并输出到一个个小文件中。比如一个文件有1T，内存有1G，那么我们就这个大文件中的内容按照 1G 的大小，分批次的导入内存，排序之后输出得到 `1024` 个 1G 的小文件。
+
+**第二步：K路归并算法**
+
+K路归并算法使用的是数据结构堆（Heap）来完成的，使用 Java 或者 C++ 的同学可以直接用语言自带的 PriorityQueue（C++中叫priority\_queue）来代替。
+
+我们将 K 个文件中的第一个元素加入到堆里，假设数据是从小到大排序的话，那么这个堆是一个最小堆（Min Heap）。每次从堆中选出最小的元素，输出到目标结果文件中，然后**如果这个元素来自第 x 个文件，则从第 x 个文件中继续读入一个新的数进来放到堆里，并重复上述操作**，直到所有元素都被输出到目标结果文件中。
+
+**Follow up: 一个个从文件中读入数据，一个个输出到目标文件中操作很慢，如何优化？**
+
+如果我们每个文件只读入1个元素并放入堆里的话，总共只用到了 `1024` 个元素，这很小，没有充分的利用好内存。另外，单个读入和单个输出的方式也不是磁盘的高效使用方式。因此我们可以为输入和输出都分别加入一个缓冲（Buffer）。假如一个元素有10个字节大小的话，`1024` 个元素一共 10K，1G的内存可以支持约 100K 组这样的数据，那么我们就为每个文件设置一个 100K 大小的 Buffer，**每次需要从某个文件中读数据，都将这个 Buffer 装满。当然 Buffer 中的数据都用完的时候，再批量的从文件中读入**。输出同理，设置一个 Buffer 来避免单个输出带来的效率缓慢。
+
+#### 相关练习
+
+**Lintcode相关练习**  
+[合并K个有序数组](http://www.lintcode.com/zh-cn/problem/merge-k-sorted-arrays/)  
+[合并K个有序链表](http://www.lintcode.com/zh-cn/problem/merge-k-sorted-lists/)
+
+**面试相关问题**  
+[面试题：合并 K 个排好序的大文件](http://www.jiuzhang.com/tutorial/big-data-interview-questions/221)  
+[面试题：求两个超大文件中 URLs 的交集](http://www.jiuzhang.com/tutorial/big-data-interview-questions/269)
+
+**更多海量数据算法相关知识可参见**  
+[九章算法——海量数据处理算法与面试题全集](http://www.jiuzhang.com/tutorial/big-data-interview-questions/148)
 
