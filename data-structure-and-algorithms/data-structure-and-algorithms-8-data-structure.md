@@ -258,7 +258,91 @@ class Solution:
 
 ## 6. 数组
 
-#### 子数组 Subarray
+#### Intersection
+
+349. [Intersection of Two Arrays](https://leetcode.com/problems/intersection-of-two-arrays)    
+
+很多种方法
+
+```python
+# 解法1
+class Solution:
+    # @param {int[]} nums1 an integer array
+    # @param {int[]} nums2 an integer array
+    # @return {int[]} an integer array
+    def intersection(self, nums1, nums2):
+        # Write your code here
+        return list(set(nums1) & set(nums2))
+# 解法2
+class Solution:
+    """
+    @param nums1: an integer array
+    @param nums2: an integer array
+    @return: an integer array
+    """
+    def intersection(self, nums1, nums2):
+        nums1.sort()
+        nums2.sort()
+        p1, p2 = 0, 0
+        result = []
+        while p1 != len(nums1) and p2 != len(nums2):
+            if nums1[p1] < nums2[p2]:
+                p1 += 1
+            elif nums2[p2] < nums1[p1]:
+                p2 += 1
+            else:
+                result.append(nums1[p1])
+                p1 += 1
+                p2 += 1
+        return list(set(result))
+```
+
+350. [Intersection of Two Arrays II](https://leetcode.com/problems/intersection-of-two-arrays-ii)    
+
+双指针对排序的进行处理
+
+```python
+# 解法1
+class Solution:
+    # @param {int[]} nums1 an integer array
+    # @param {int[]} nums2 an integer array
+    # @return {int[]} an integer array
+    def intersection(self, nums1, nums2):
+        # Write your code here
+        counts = collections.Counter(nums1)
+        result = []
+
+        for num in nums2:
+            if counts[num] > 0:
+                result.append(num)
+                counts[num] -= 1
+
+        return result
+# 解法2        
+class Solution:
+    """
+    @param nums1: an integer array
+    @param nums2: an integer array
+    @return: an integer array
+    """
+    def intersection(self, nums1, nums2):
+        nums1.sort()
+        nums2.sort()
+        p1, p2 = 0, 0
+        result = []
+        while p1 != len(nums1) and p2 != len(nums2):
+            if nums1[p1] < nums2[p2]:
+                p1 += 1
+            elif nums2[p2] < nums1[p1]:
+                p2 += 1
+            else:
+                result.append(nums1[p1])
+                p1 += 1
+                p2 += 1
+        return result
+```
+
+#### 1. 子数组 Subarray
 
 主要解决子数组问题用到的主要是前缀和
 
@@ -269,7 +353,7 @@ class Solution:
 
 * Sum\(i~j\) = PrefixSum\[j + 1\] - PrefixSum\[i\]
 
-#### 两个排序数组的中位数
+#### 2. 两个排序数组的中位数
 
 在两个排序数组中，求他们合并到一起之后的中位数，
 
@@ -287,7 +371,35 @@ class Solution:
 2. 基于中点比较的算法。一头一尾各自丢掉一些，去掉一半的时候，整个问题的形式不变。可以推广到 median of k sorted arrays.
 3. 基于二分的方法。二分 median 的值，然后再用二分法看一下两个数组里有多少个数小于这个二分出来的值。
 
-#### 插入新区间
+#### 3. 合并区间
+
+56. [Merge Intervals](https://leetcode.com/problems/merge-intervals)    
+
+```python
+"""
+Definition of Interval.
+class Interval(object):
+    def __init__(self, start, end):
+        self.start = start
+        self.end = end
+"""
+
+class Solution:
+    # @param intervals, a list of Interval
+    # @return a list of Interval
+    def merge(self, intervals):
+        # 先进行排序
+        intervals = sorted(intervals, key=lambda x: x.start)
+        result = []
+        for interval in intervals:
+            # 如果没有interval, 或者result里面最后一个不能合并
+            if len(result) == 0 or result[-1].end < interval.start:
+                result.append(interval)
+            # 如果可以合并    
+            else:
+                result[-1].end = max(result[-1].end, interval.end)
+        return result
+```
 
 #### 问题描述
 
@@ -352,4 +464,151 @@ K路归并算法使用的是数据结构堆（Heap）来完成的，使用 Java 
 
 **更多海量数据算法相关知识可参见**  
 [九章算法——海量数据处理算法与面试题全集](http://www.jiuzhang.com/tutorial/big-data-interview-questions/148)
+
+## 7. K路归并类问题
+
+#### 第一种：通过队列的队首进行比较
+
+21. [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists)
+
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def mergeTwoLists(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        dummy = ListNode(0)
+        head = dummy
+        # 取链表左边值进行比较，小的被串起来
+        while l1 is not None and l2 is not None :
+            
+            if l1.val < l2.val :
+                dummy.next = ListNode(l1.val)
+                l1 = l1.next
+            else : 
+                dummy.next = ListNode(l2.val)
+                l2 = l2.next
+            dummy = dummy.next
+        # 有可能没有走完，需要重复    
+        if l1 is not None :
+            dummy.next = l1
+        if l2 is not None :
+            dummy.next = l2
+        
+        return head.next
+```
+
+23 . [Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists)    
+
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+from heapq import heappop, heappush
+
+class Solution:
+    """
+    @param lists: a list of ListNode
+    @return: The head of one sorted list.
+    """
+    def mergeKLists(self, lists):
+        self.sequence = 0
+        
+        if not lists:
+            return None
+        
+        trav = dummy = ListNode(-1)
+        heap = []
+        for ll in lists:
+            if ll:
+                self.heappushNode(heap, ll)
+                
+        while heap:
+            node = heappop(heap)[2]
+            trav.next = node
+            trav = trav.next
+            #print(trav.val)
+            if trav.next:
+                self.heappushNode(heap, trav.next)
+                
+        return dummy.next
+            
+    def heappushNode(self, heap, node):
+        self.sequence += 1
+        heappush(heap, (node.val, self.sequence, node))
+```
+
+#### 第二种：in-place 的归并
+
+* 把小数组 Merge 到有足够空余空间的大数组里
+
+88. [Merge Sorted Array](https://leetcode.com/problems/merge-sorted-array)
+
+逆向思维，从后端比较
+
+```python
+class Solution:
+    def merge(self, nums1, m, nums2, n):
+        """
+        :type nums1: List[int]
+        :type m: int
+        :type nums2: List[int]
+        :type n: int
+        :rtype: void Do not return anything, modify nums1 in-place instead.
+        """
+        # 已有num的起始
+        i, j = m - 1, n - 1
+        index = m + n - 1
+        # start from end
+        while i >= 0 and j >= 0 :
+            if nums1[i] < nums2[j] :
+                nums1[index] = nums2[j] 
+                j -= 1
+            else :
+                nums1[index] = nums1[i]
+                i -= 1
+            index -= 1
+        # if j != 0 compare num2
+        # [4,5,6,0,0,0] -> [4,5,6,4,5,6]
+        # [1,2,3]       -> [1,2,3]
+        while j >= 0 :
+            nums1[index] = nums2[j]
+            index -= 1
+            j -= 1
+```
+
+#### 第三种：区间类
+
+56. [Merge Intervals](https://leetcode.com/problems/merge-intervals)    
+
+```python
+class Solution:
+    def merge(self, intervals):
+        """
+        :type intervals: List[Interval]
+        :rtype: List[Interval]
+        """
+        result = []
+        # 因为是相邻处理，需要排序
+        intervals = sorted(intervals, key = lambda x : x.start)
+        
+        for interval in intervals :
+            # result = [] or can  merge
+            if len(result) == 0 or result[-1].end < interval.start :
+                result.append(interval)
+            else :
+                result[-1].end = max(result[-1].end, interval.end)
+        return result
+```
 
