@@ -124,7 +124,7 @@ GFS和DFS的区别
 
 ![](../.gitbook/assets/screen-shot-2018-10-01-at-8.38.57-pm.png)
 
-{% embed data="{\"url\":\"https://blog.csdn.net/l1028386804/article/details/51935169\",\"type\":\"link\",\"title\":\"Hadoop之——机架感知配置 - 刘亚壮的专栏 - CSDN博客\",\"description\":\"1.背景       Hadoop在设计时考虑到数据的安全与高效，数据文件默认在HDFS上存放三份，存储策略为本地一份，同机架内其它某一节点上一份，不同机架的某一节点上一份。这样如果本地数据损坏，节点可以从同一机架内的相邻节点拿到数据，速度肯定比从跨机架节点上拿数据要快；同时，如果整个机架的网络出现异常，也能保证在其它机架的节点上找到数据。为了降低整体的带宽消耗和读取延时，HDFS会尽量让读取程\",\"icon\":{\"type\":\"icon\",\"url\":\"https://csdnimg.cn/public/favicon.ico\",\"aspectRatio\":0}}" %}
+{% embed url="https://blog.csdn.net/l1028386804/article/details/51935169" %}
 
 **Redundancy Model**
 

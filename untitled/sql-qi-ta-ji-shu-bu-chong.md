@@ -112,5 +112,5 @@ FROM cte_count;
 
 感觉这个不太可能会考到，就先总结到这里
 
-{% embed data="{\"url\":\"http://www.mysqltutorial.org/mysql-recursive-cte/\",\"type\":\"link\",\"title\":\"A Definitive Guide To MySQL Recursive CTE\",\"description\":\"In this tutorial, you will learn about MySQL recursive CTE and how to use it to traverse hierarchical data in the MySQL database.\",\"icon\":{\"type\":\"icon\",\"url\":\"http://www.mysqltutorial.org/wp-content/uploads/2018/03/cropped-favicon-1-192x192.png\",\"width\":192,\"height\":192,\"aspectRatio\":1},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"http://www.mysqltutorial.org/wp-content/uploads/2017/07/MySQL-Recursive-CTE.png\",\"width\":702,\"height\":315,\"aspectRatio\":0.44871794871794873}}" %}
+{% embed url="http://www.mysqltutorial.org/mysql-recursive-cte/" %}
 

@@ -2,7 +2,7 @@
 
 有的时候面试也会问到SQL query的性能的问题，主要搬运自这里
 
-{% embed data="{\"url\":\"https://community.modeanalytics.com/sql/tutorial/sql-performance-tuning/\",\"type\":\"link\",\"title\":\"Performance Tuning SQL Queries\",\"description\":\"This lesson of the SQL tutorial for data analysis covers how to conduct SQL performance tuning by reducing table size, simplifying joins, and the EXPLAIN command.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://community.modeanalytics.com/images/favicons/android-chrome-192x192.png\",\"width\":192,\"height\":192,\"aspectRatio\":1},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://community.modeanalytics.com/images/og-images/sql-facebook.png\",\"width\":1200,\"height\":627,\"aspectRatio\":0.5225}}" %}
+{% embed url="https://community.modeanalytics.com/sql/tutorial/sql-performance-tuning/" %}
 
 **主要因素：**
 

@@ -83,7 +83,7 @@ class MyQueue:
         return self.stack2.pop()
 ```
 
-{% embed data="{\"url\":\"https://docs.python.org/3/library/queue.html\",\"type\":\"link\",\"title\":\"queue — A synchronized queue class — Python 3.7.1rc1 documentation\",\"icon\":{\"type\":\"icon\",\"url\":\"https://docs.python.org/3/\_static/py.png\",\"aspectRatio\":0}}" %}
+{% embed url="https://docs.python.org/3/library/queue.html" %}
 
 #### 642. Moving Average from Data Stream
 
@@ -172,7 +172,7 @@ class Stack:
 
 函数调用其实是栈的很好的例子，后调用的函数先结束，所以为了调用函数，所需要的内存结构，栈是再合适不过了。在内存当中，**栈从高地址不断向低地址扩展**，随着程序运行的层层深入，栈顶指针不断指向内存中更低的地址。
 
-{% embed data="{\"url\":\"https://www.cnblogs.com/kevinGaoblog/archive/2012/03/23/2413102.html\",\"type\":\"link\",\"title\":\"栈空间和堆空间 - kevinGao - 博客园\",\"description\":\"一个由C/C++编译的程序占用的内存分为以下几个部分：1、栈区（stack）：又编译器自动分配释放，存放函数的参数值，局部变量的值等，其操作方式类似于数据结构的栈。2、堆区（heap）：一般是由程序员\",\"icon\":{\"type\":\"icon\",\"url\":\"https://www.cnblogs.com/favicon.ico\",\"aspectRatio\":0}}" %}
+{% embed url="https://www.cnblogs.com/kevinGaoblog/archive/2012/03/23/2413102.html" %}
 
 ## 4. 哈希表 Hash
 
@@ -194,13 +194,13 @@ class Stack:
 * 闭散列法（Closed Hashing）。是指在发生冲突的时候，后来的元素，往下一个位置去找空位。
 * 重哈希（Refresh Hashing）。哈希表容量的大小在一开始是不确定的。如果哈希表存储的元素太多（如超过容量的十分之一），我们应该将哈希表容量扩大一倍，并将所有的哈希值重新安排。
 
-{% embed data="{\"url\":\"https://www.jianshu.com/p/bdf6109ecb18\",\"type\":\"link\",\"title\":\"129. 重哈希\",\"description\":\"描述 哈希表容量的大小在一开始是不确定的。如果哈希表存储的元素太多（如超过容量的十分之一），我们应该将哈希表容量扩大一倍，并将所有的哈希值重新安排。假设你有如下一哈希表：size=3, capa...\",\"icon\":{\"type\":\"icon\",\"url\":\"https://cdn2.jianshu.io/assets/apple-touch-icons/152-bf209460fc1c17bfd3e2b84c8e758bc11ca3e570fd411c3bbd84149b97453b99.png\",\"width\":152,\"height\":152,\"aspectRatio\":1}}" %}
+{% embed url="https://www.jianshu.com/p/bdf6109ecb18" %}
 
 ## 5. Heap
 
 堆（heap）也被称为优先队列（priority queue）。队列中允许的操作是先进先出（FIFO），在队尾插入元素，在队头取出元素。而堆也是一样，在堆底插入元素，在堆顶取出元素，但是堆中元素的排列不是按照到来的先后顺序，而是按照一定的优先顺序排列的。这个优先顺序可以是元素的大小或者其他规则。如图一所示就是一个堆，堆优先顺序就是大的元素排在前面，小的元素排在后面，这样得到的堆称为**最大堆**。
 
-{% embed data="{\"url\":\"https://blog.csdn.net/juanqinyang/article/details/51418629\",\"type\":\"link\",\"title\":\"数据结构-堆（heap） - 蜗牛君的奋斗史 - CSDN博客\",\"description\":\"堆（heap）也被称为优先队列（priority queue）。队列中允许的操作是先进先出（FIFO），在队尾插入元素，在队头取出元素。而堆也是一样，在堆底插入元素，在堆顶取出元素，但是堆中元素的排列不是按照到来的先后顺序，而是按照一定的优先顺序排列的。这个优先顺序可以是元素的大小或者其他规则。\",\"icon\":{\"type\":\"icon\",\"url\":\"https://csdnimg.cn/public/favicon.ico\",\"aspectRatio\":0}}" %}
+{% embed url="https://blog.csdn.net/juanqinyang/article/details/51418629" %}
 
 #### 操作的时间复杂度
 
@@ -210,7 +210,7 @@ class Stack:
 
 既然堆有这种最大先出的性质，那么利用堆，就可以构建优先队列。大家知道普通的队列是“先进先出”的原则，而优先队列则是“最大先出”的原则，也就是说，队列中的每一个元素都有一个权重，权重大的最先出队。这种思路最常见的应用是医院排队，一种原则是让病情更严重的患者最先就诊，那如果按照这个原则设计一个就医系统的话，优先队列就是最恰当的选择。
 
-{% embed data="{\"url\":\"https://blog.csdn.net/guoziqing506/article/details/52372469\",\"type\":\"link\",\"title\":\"堆的实现与优先队列 - guoziqing506的博客 - CSDN博客\",\"description\":\"堆（Heap）这种数据结构对我们来说是极为有用的。因为它可以非常方便地帮我们完成高效的动态的排序。接下来，我将给出堆的原理以及实现堆的具体操作。   先看一下堆的结构，在此，只需要牢记两点： 1. 堆是一棵完全二叉树 2. 堆中每个节点都大于等于其任何子节点   所谓完全二叉树，一定要满足这个特征：这棵树除最后一层外，每一层都是满的，且最后一层如果不满，所有节点都位于最左边。看下图\",\"icon\":{\"type\":\"icon\",\"url\":\"https://csdnimg.cn/public/favicon.ico\",\"aspectRatio\":0}}" %}
+{% embed url="https://blog.csdn.net/guoziqing506/article/details/52372469" %}
 
 #### Heap的常见操作
 

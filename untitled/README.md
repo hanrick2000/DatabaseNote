@@ -1,8 +1,8 @@
-# Leetcode Solutions
+# Leetcode Database Solutions
 
 ## 导言
 
-主要数据库版本：MySQL - \(类似postgre\)
+主要数据库版本：MySQL - \(类似postgre\)，面试需要加入SQL Sever
 
 我主要自己使用的是MySQL数据库，因为这个用的比较多。从MySQL 8.0之后，CET以及Window Function都可以使用了，但是在Leetcode的系统中应该还是旧版本的MySQL 5.X系列。
 

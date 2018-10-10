@@ -85,5 +85,5 @@
 
 补充：
 
-{% embed data="{\"url\":\"https://blog.csdn.net/xuxurui007/article/details/7738330\",\"type\":\"link\",\"title\":\"数据库范式（1NF 2NF 3NF BCNF） - CSDN博客\",\"description\":\"数据库范式那些事（博客园）     数据库范式1NF 2NF 3NF BCNF\(实例）      设计范式（范式,数据库设计范式,数据库的设计范式）是符合某一种级别的关系模式的集合。构造数据库必须遵循一定的规则。在关系数据库中，这种规则就是范式。关系数据库中的关系必须满足一定的要求，即满足不同的范式。目前关系数据库有六种范式：第一范式（1NF）、第二范式（2NF）、第三范式（3NF）\",\"icon\":{\"type\":\"icon\",\"url\":\"https://csdnimg.cn/public/favicon.ico\",\"aspectRatio\":0}}" %}
+{% embed url="https://blog.csdn.net/xuxurui007/article/details/7738330" %}
 

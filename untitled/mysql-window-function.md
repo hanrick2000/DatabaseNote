@@ -53,7 +53,7 @@ MySQL定义的窗口函数如下:
 
 简单来说，窗口函数主要是一种用来计算行之间相关的函数，例如：我们想要得到running total，就需要依次对前面一行的数据进行累加。这里主要练习的网址如下:
 
-{% embed data="{\"url\":\"https://community.modeanalytics.com/sql/tutorial/sql-window-functions/\",\"type\":\"link\",\"title\":\"SQL Window Functions\",\"description\":\"This lesson of the SQL tutorial for data analysis covers SQL windowing functions such as ROW\_NUMBER\(\), NTILE, LAG, and LEAD.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://community.modeanalytics.com/images/favicons/android-chrome-192x192.png\",\"width\":192,\"height\":192,\"aspectRatio\":1},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://community.modeanalytics.com/images/og-images/sql-facebook.png\",\"width\":1200,\"height\":627,\"aspectRatio\":0.5225}}" %}
+{% embed url="https://community.modeanalytics.com/sql/tutorial/sql-window-functions/" %}
 
 以Running Total 为例:
 

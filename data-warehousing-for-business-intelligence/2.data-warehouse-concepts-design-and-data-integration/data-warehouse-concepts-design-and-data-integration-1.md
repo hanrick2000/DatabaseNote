@@ -159,7 +159,7 @@ Data Cube主要是特定话的小型Data Warehouse，主要服务的对象是特
 
 ![](../../.gitbook/assets/image%20%2820%29.png)
 
-{% embed data="{\"url\":\"http://webdataanalysis.net/web-data-warehouse/data-cube-and-olap/\",\"type\":\"link\",\"title\":\"数据立方体与OLAP \| 网站数据分析\"}" %}
+{% embed url="http://webdataanalysis.net/web-data-warehouse/data-cube-and-olap/" %}
 
 #### Microsoft多维表示
 

@@ -170,7 +170,7 @@ where length(city) in (select max(length(city)) from station)
 * Rlike : 是部分匹配
 * Mysql不区分大小写
 
-{% embed data="{\"url\":\"https://blog.csdn.net/qq\_34359327/article/details/78601426\",\"type\":\"link\",\"title\":\"【MySQL笔记】like、rlike、REGEXP关键词的使用 - CSDN博客\",\"description\":\"MySQL workbench中like、rlike和regexp常用的方法\",\"icon\":{\"type\":\"icon\",\"url\":\"https://csdnimg.cn/public/favicon.ico\",\"aspectRatio\":0}}" %}
+{% embed url="https://blog.csdn.net/qq\_34359327/article/details/78601426" %}
 
 ```sql
 select distinct city
@@ -192,7 +192,7 @@ where city Rlike '[aeiou]$';
 
 这个题考的更加深入一些，包括贪婪匹配之类的，需要熟练掌握，.\*以及.\*?之类的用法，见下面的blog:
 
-{% embed data="{\"url\":\"http://database.51cto.com/art/200811/98155\_all.htm\",\"type\":\"link\",\"title\":\"MySQL中的字符串模式匹配 - 51CTO.COM\",\"description\":\"本文介绍了有关字符串模式匹配的有关知识。标准的SQL模式匹配是SQL语言的标准，可以被其它关系数据库系统接受。扩展正规表达式模式匹配是根据Unix系统的标准开发了，一般只可使用在MySQL上，但是其功能要比标准的SQL模式匹配更强。\"}" %}
+{% embed url="http://database.51cto.com/art/200811/98155\_all.htm" %}
 
 ```sql
 select distinct city

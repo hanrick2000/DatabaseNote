@@ -112,7 +112,7 @@ SELECT CustState, CustName, SUM(SalesDollar) AS SumSales,
 * Derived table
 * 并不仅仅是子集，而是有着特殊的目的 （我一般理解为缓存cache）
 
-{% embed data="{\"url\":\"https://blog.csdn.net/zhanghao\_Hulk/article/details/52311797\",\"type\":\"link\",\"title\":\"数据库视图view简介 - CSDN博客\",\"description\":\"视图是一个虚拟表，其内容由查询定义。     同真实的表一样，视图包含一系列带有名称的列和行数据。但是，视图并不在数据库中以存储的数据值集形式存在。行和列数据来自由定义视图的查询所引用的表，并且在引用视图时动态生成。     对其中所引用的基础表来说，视图的作用类似于筛选，基于数据表\(可为多个表\)的查询结果来筛选。定义视图的筛选可以来自当前或其它数据库的一个或多个表，或者其它视图。分布式查询也可用于定义使用多个异类源数据的视图。     视图是存储在数据库中的查询的SQL 语句，它主要出于两种原因：安全原\",\"icon\":{\"type\":\"icon\",\"url\":\"https://csdnimg.cn/public/favicon.ico\",\"aspectRatio\":0}}" %}
+{% embed url="https://blog.csdn.net/zhanghao\_Hulk/article/details/52311797" %}
 
 #### View的主要advantages :
 

@@ -75,5 +75,5 @@ a = ['1','2','3']
 
 基本常用的就这样，其他的不是很常用，遇到了再补充
 
-{% embed data="{\"url\":\"https://docs.python.org/3/library/stdtypes.html\",\"type\":\"link\",\"title\":\"4. Built-in Types — Python 3.7.0 documentation\",\"icon\":{\"type\":\"icon\",\"url\":\"https://docs.python.org/3/\_static/py.png\",\"aspectRatio\":0}}" %}
+{% embed url="https://docs.python.org/3/library/stdtypes.html" %}
 
