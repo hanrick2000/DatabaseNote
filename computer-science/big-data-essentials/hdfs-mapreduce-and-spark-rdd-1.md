@@ -61,7 +61,7 @@
 
 ### **Scaling Distributed File System** {#-scalling-distributed-file-system-}
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-8.36.22-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-8.36.22-pm.png)
 
 #### **How to Store all data?**
 
@@ -72,7 +72,7 @@
 * Collection of Nodes \(Scale Out/Horizontal Scaling\) 
   * 使用多台小机器分摊，水平提升
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-8.37.10-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-8.37.10-pm.png)
 
 #### **GFS Key Components**
 
@@ -91,7 +91,7 @@
   * Master Node存的是管理信息包括位置之类的
   * Metadata : includes administrative information about creation time, access properties, and so on
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-8.37.34-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-8.37.34-pm.png)
 
 #### **GFS & HDFS**
 
@@ -100,7 +100,7 @@ GFS和DFS的区别
 * 是否开源：GFS不开源，HDFS开源
 * 编写语言 
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-8.38.03-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-8.38.03-pm.png)
 
 #### **How to read files?**
 
@@ -113,7 +113,7 @@ GFS和DFS的区别
 * 首先发送请求得到所有node的位置
 * 如果数据丢失了，从其他节点读取
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-8.38.28-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-8.38.28-pm.png)
 
 #### **Identify distance**
 
@@ -122,7 +122,7 @@ GFS和DFS的区别
 * Different Rack : 不同的机架上，距离为4
 * Another Data Center : 存储在另一个数据中心，距离为6
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-8.38.57-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-8.38.57-pm.png)
 
 {% embed url="https://blog.csdn.net/l1028386804/article/details/51935169" %}
 
@@ -134,11 +134,11 @@ GFS和DFS的区别
 
 因为每次都要一次三份，所以每次的replica以及recovery都需要形成一个pipeline，也就是下图。
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-8.39.20-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-8.39.20-pm.png)
 
 ### Block and Replica States, Recovery Process {#block-and-replica-states-recovery-process}
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-8.39.51-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-8.39.51-pm.png)
 
 * Block： 在同一节点存储 meta-information 并提供信息关于block的位置和状态信息，不存储数据，存的是信息
   * Each block of data has a version number called Generation Stamp or GS for short. 
@@ -159,13 +159,13 @@ GFS和DFS的区别
 * committed : there are already some finalized replicas but not all of them.
 * complete : state where all the replicas are in the finalized state and therefore they have identical visible length and generation stamps
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-8.40.43-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-8.40.43-pm.png)
 
 **Block Recovery :**  
 During the block recovery process NameNode has to ensure that all of the corresponding replicas of a block will transition to a common state logically and physically. By physically I mean that all the correspondent replicas should have the same on disk content. To accomplish it, NameNode chooses a primary datanode called PD in a design document. As the last step, PD notifies NameNode about the result, success or failure. In case of failure, NameNode could retry block recovery process.   
 ![](quiver-image-url/D2CCF8D2BBA585F5EE78CFBEE6299464.png)
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-8.41.03-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-8.41.03-pm.png)
 
 **Lease Recovery :**
 
@@ -174,11 +174,11 @@ Lease manager manages all the leases at the NameNode. HDFS clients request at le
 * concurrency control: Even if a client is still alive, it won't be able to write data to a file. 
 * consistency guarantee. All replicas should draw back to a consistence state to have the same on-disk data and generation stamp. 
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-8.41.51-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-8.41.51-pm.png)
 
 **Pipeline Recovery :**
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-8.42.09-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-8.42.09-pm.png)
 
 When you write to an HDFS file, HDFS client writes data block by block. Each block is constructed through a right pipeline, as the first client breaks down block into pieces called packets. These packets are propagated to the DataNodes through the pipeline.  
 
@@ -210,7 +210,7 @@ Check node status : hdfs fsck /data/wiki/en\_articles -files
 HDFS client likes an agency to use Command Line to save data into HDFS from local machine.  
 
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-8.42.40-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-8.42.40-pm.png)
 
 ### Namenode Architecture {#namenode-architecture}
 
@@ -225,17 +225,17 @@ The more files you have in a distributed storage, the more load you have on a Na
 When you read block of data from a hard drive, first you need to locate this work on a disk. Quite naturally, this operation is called seek. Having a reading speed of three and a half gigabyte per second, you will be able to read 128 megabyte in 30 to 40 milliseconds. Typical drive seek time is less than one percent of the aforementioned number. It is exactly the reason for having 128 megabyte block size. It is one choice to have less than one percent overhead for reading the random block of data from a hard drive, and keeping block size small at the same time. We can more easily keep equal utilization of hard drive space over the cluster with small block size.   
 
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-8.43.02-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-8.43.02-pm.png)
 
 NameNode server is a single point of failure. In case this service goes down, the whole HDFS storage becomes unavailable, even for read-only operations. So, there are a number of technical tricks to make NameNode decisions durable and to speed up NameNode recovery process. NameNode uses write-ahead log, or WAL for short, strategy to persist matter information modifications. This log is called the edit log. It can be replicated to different hard drives. It is also usually replicated to an NFS storage. With NFS storage, you will be able to tolerate full NameNode crash. However, edit log is not enough to reproduce NameNode state. You should also have a snapshot of memory at some point in time from which you can replay transaction stored in the edit log. This snapshot is called fsimage. You usually have a HiLoad and a NameNode, so edit log will grow quite fast. It is a normal scenario when replay of one week of transactions from edit log will take several hours to boot a NameNode.   
 
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-8.43.28-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-8.43.28-pm.png)
 
 As you can guess, it is not appropriate for a high demand service. For this reason, Hadoop developers invented secondary NameNode. Secondary NameNode, or better to say, **checkpoint NameNodes** \(not backup node\), compacts the edit log by creating a new fsimage. New fsimage is made of all the fsimage by applying all stored transactions in edit log.  
 
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-8.43.43-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-8.43.43-pm.png)
 
 It is a robust and poorly asynchronous process. You should also take in mind that secondary NameNode consumes the same amount of RAM to build a new fsimage. The amount of drives in your cluster has a linear relation to the speed of data processing. Overall, these numbers will be a good reference for you when you decide to install your own cluster for research and development purposes. Summing up, you now can explain how NameNode stores meta information hierarchy and how it achieves durability.
 
@@ -260,7 +260,7 @@ Types :
 * Stores sequence of key-value pairs
 * Java-specific serialization/deserialization
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-8.44.05-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-8.44.05-pm.png)
 
 **Avro**
 
@@ -273,7 +273,7 @@ Types :
 
 
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-8.44.27-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-8.44.27-pm.png)
 
   
 
@@ -285,11 +285,11 @@ Types :
   * split rows into row groups
   * transpose values within a row group
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-8.45.15-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-8.45.15-pm.png)
 
 **Parquet**
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-8.45.20-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-8.45.20-pm.png)
 
 **Tips:**
 
@@ -309,12 +309,12 @@ Types :
 **Compression**  
 
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-8.45.55-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-8.45.55-pm.png)
 
 **When to use compression**  
 
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-8.45.58-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-8.45.58-pm.png)
 
 **Raise awareness about application bottlenecks**
 

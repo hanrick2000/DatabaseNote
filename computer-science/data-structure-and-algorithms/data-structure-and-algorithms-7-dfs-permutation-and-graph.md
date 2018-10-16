@@ -226,7 +226,7 @@ class Solution:
         return "".join([str(x) for x in per])
 ```
 
-![](../.gitbook/assets/screen-shot-2018-10-03-at-12.07.50-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-03-at-12.07.50-pm.png)
 
 ## 5. 补充
 

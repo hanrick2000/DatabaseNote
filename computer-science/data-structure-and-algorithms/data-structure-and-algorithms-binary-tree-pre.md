@@ -2,7 +2,7 @@
 
 ## 二叉树专题
 
-![](../.gitbook/assets/screen-shot-2018-09-23-at-11.47.12-am.png)
+![](../../.gitbook/assets/screen-shot-2018-09-23-at-11.47.12-am.png)
 
 ### 1. 遍历\(Traverse\)
 

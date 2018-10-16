@@ -26,7 +26,7 @@
 
 #### 4S分析法 Scenario, Service, Storage, Scale
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-3.02.34-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-3.02.34-pm.png)
 
 ### Scenario 场景
 
@@ -38,7 +38,7 @@
 * DAU :  Daily Active User
 * MAU : Monthly Active User
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-3.03.48-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-3.03.48-pm.png)
 
 * **Step 1: Enumerate**
   * 说人话: 把Twitter的功能一个个罗列出来
@@ -89,7 +89,7 @@
 
 ### Service 服务
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-3.15.05-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-3.15.05-pm.png)
 
 #### 首先将大系统拆成小服务
 
@@ -131,11 +131,11 @@
 
 数据库系统中读取的数据，大部分情况下\(除了被 cache 的\)，都还是会到文件系统上去读取出来的。因此两个系统的读写效率\(不考虑复杂查询\)可以认为是差不多的。
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-3.21.57-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-3.21.57-pm.png)
 
 #### 进一步设计需要的schema
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-3.22.44-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-3.22.44-pm.png)
 
 #### 新鲜事系统
 
@@ -160,7 +160,7 @@
 
 每次用户发出请求，就从数据库之中获取信息。
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-3.27.56-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-3.27.56-pm.png)
 
 * **算法**
   * 在用户查看News Feed时，获取每个好友的前100条Tweets，合并出前100条News Feed
@@ -172,15 +172,15 @@
 
 #### 缺陷
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-3.29.02-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-3.29.02-pm.png)
 
 #### Push Model 
 
 每一次一个用户发一条twitter，提前将数据准备好给用户。
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-3.30.49-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-3.30.49-pm.png)
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-3.32.12-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-3.32.12-pm.png)
 
 * 算法
   * 为每个用户建一个List存储他的News Feed信息
@@ -194,9 +194,9 @@
 
 #### 缺陷
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-3.32.49-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-3.32.49-pm.png)
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-3.35.35-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-3.35.35-pm.png)
 
 #### 前三个S的小节
 
@@ -256,7 +256,7 @@
   * 无解?完全切换回Pull?
   * Trade off: Pull + Push vs Pull
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-3.42.21-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-3.42.21-pm.png)
 
 * Push 结合 Pull 的优化方案
   * 普通的用户仍然 Push
@@ -264,9 +264,9 @@
   * 对于明星用户，不 Push 到用户的 News Feed 中
   * 当用户需要的时候，来明星用户的 Timeline 里取，并合并到 News Feed 里
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-3.43.22-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-3.43.22-pm.png)
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-3.43.51-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-3.43.51-pm.png)
 
 #### 小结：
 
@@ -316,9 +316,9 @@
 
 #### 拓展问题2: 如何存储 likes?
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-3.49.01-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-3.49.01-pm.png)
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-3.49.27-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-3.49.27-pm.png)
 
 #### 拓展问题3: 惊群现象 Thundering Herd 
 
@@ -351,5 +351,5 @@
   * 内存中的数据断电就会丢失 
   * Cache 比硬盘贵
 
-![](../.gitbook/assets/screen-shot-2018-10-01-at-3.56.38-pm.png)
+![](../../.gitbook/assets/screen-shot-2018-10-01-at-3.56.38-pm.png)
 

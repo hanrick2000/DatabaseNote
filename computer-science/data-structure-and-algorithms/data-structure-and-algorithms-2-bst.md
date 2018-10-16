@@ -551,9 +551,9 @@ class Solution:
 
 ## Ladder
 
-![](../.gitbook/assets/screen-shot-2018-09-23-at-10.50.37-am.png)
+![](../../.gitbook/assets/screen-shot-2018-09-23-at-10.50.37-am.png)
 
-![](../.gitbook/assets/screen-shot-2018-09-23-at-10.50.43-am.png)
+![](../../.gitbook/assets/screen-shot-2018-09-23-at-10.50.43-am.png)
 
-![](../.gitbook/assets/screen-shot-2018-09-23-at-10.50.49-am.png)
+![](../../.gitbook/assets/screen-shot-2018-09-23-at-10.50.49-am.png)
 

@@ -6,7 +6,7 @@
 
 主要基于三个原因，主要是数据库不单单是数据库，而要向reporting和data analysis方向发展，因而需要对数据进行一步步的处理，这是主要动因。
 
-![](../../.gitbook/assets/screen-shot-2018-09-08-at-1.21.16-pm.png)
+![](../../../.gitbook/assets/screen-shot-2018-09-08-at-1.21.16-pm.png)
 
 这里英文写的非常好，理解并背诵。
 
@@ -33,7 +33,7 @@
 
 #### DW的特征 
 
-![](../../.gitbook/assets/screen-shot-2018-09-17-at-8.58.57-pm.png)
+![](../../../.gitbook/assets/screen-shot-2018-09-17-at-8.58.57-pm.png)
 
 * Subject-oriented: Organized around business entities \(e.g., customers, products, and employees\) rather than business processes
 * Integrated: many transformations to unify source data from independent data sources \(units of measure, data formats, naming conventions\)
@@ -44,7 +44,7 @@
 
 具体来说，DW主要是为了决策而服务的。
 
-![](../../.gitbook/assets/screen-shot-2018-09-08-at-1.34.13-pm.png)
+![](../../../.gitbook/assets/screen-shot-2018-09-08-at-1.34.13-pm.png)
 
 #### 搭建数据仓库的主要困难 ：
 
@@ -67,13 +67,13 @@
 * 基本的两种结构 - 自上而下和自下而上
 * Decentralized & Centralized : 去中心化这里指的是将数据存储在不同的地方，而中心化有一个统一的数据库，这个概念重要是因为涉及后面数据库的分布式搭建。
 
-![](../../.gitbook/assets/screen-shot-2018-09-08-at-1.51.53-pm.png)
+![](../../../.gitbook/assets/screen-shot-2018-09-08-at-1.51.53-pm.png)
 
 #### Top-Down Architecture的具体实现
 
 先将数据存入Staging DB，然后进行整合和ETL进入DW，从而进行整个企业级层面的分析。
 
-![](../../.gitbook/assets/image%20%2823%29.png)
+![](../../../.gitbook/assets/image%20%2823%29.png)
 
 #### Bottom-up Architecture 的具体实现
 
@@ -84,15 +84,15 @@ Data marts: 小型数据仓库，主要为个体或部门服务
 * 这种方法会失去长期的收益，主要是分析端
 * 最终还是需要集成成一个中心化的数据库
 
-![](../../.gitbook/assets/image%20%2813%29.png)
+![](../../../.gitbook/assets/image%20%2813%29.png)
 
 ####  Federated Architecture 
 
-![](../../.gitbook/assets/image%20%2817%29.png)
+![](../../../.gitbook/assets/image%20%2817%29.png)
 
 #### 基本系统框架的发展
 
-![](../../.gitbook/assets/screen-shot-2018-09-08-at-2.08.57-pm.png)
+![](../../../.gitbook/assets/screen-shot-2018-09-08-at-2.08.57-pm.png)
 
 实际上能够跨越不同的阶段是非常难：
 
@@ -101,15 +101,15 @@ Data marts: 小型数据仓库，主要为个体或部门服务
 
 ####  TPC-DS Data Warehouse
 
-![](../../.gitbook/assets/image%20%2810%29.png)
+![](../../../.gitbook/assets/image%20%2810%29.png)
 
 #### 主要的职位:
 
 码一下，以后也能清楚自己的发展路径
 
-![](../../.gitbook/assets/screen-shot-2018-09-08-at-2.14.09-pm.png)
+![](../../../.gitbook/assets/screen-shot-2018-09-08-at-2.14.09-pm.png)
 
-![](../../.gitbook/assets/screen-shot-2018-09-08-at-2.14.15-pm.png)
+![](../../../.gitbook/assets/screen-shot-2018-09-08-at-2.14.15-pm.png)
 
 ## 2.  Data Cube基本概念
 
@@ -129,7 +129,7 @@ Data Cube主要是特定话的小型Data Warehouse，主要服务的对象是特
 
 #### 一个简单的例子：
 
-![](../../.gitbook/assets/image%20%288%29.png)
+![](../../../.gitbook/assets/image%20%288%29.png)
 
 * Dimensions : Location, Product, Time
 * Members : Colorado, Mono laser, 1/1/2017
@@ -153,17 +153,17 @@ Data Cube主要是特定话的小型Data Warehouse，主要服务的对象是特
 
 #### 基本的Cube操作
 
-![](../../.gitbook/assets/screen-shot-2018-09-08-at-6.01.57-pm.png)
+![](../../../.gitbook/assets/screen-shot-2018-09-08-at-6.01.57-pm.png)
 
-![](../../.gitbook/assets/image%20%2818%29.png)
+![](../../../.gitbook/assets/image%20%2818%29.png)
 
-![](../../.gitbook/assets/image%20%2820%29.png)
+![](../../../.gitbook/assets/image%20%2820%29.png)
 
 {% embed url="http://webdataanalysis.net/web-data-warehouse/data-cube-and-olap/" %}
 
 #### Microsoft多维表示
 
-![](../../.gitbook/assets/screen-shot-2018-09-08-at-6.04.30-pm.png)
+![](../../../.gitbook/assets/screen-shot-2018-09-08-at-6.04.30-pm.png)
 
 ## 3. Data Cube的基本实现
 
@@ -176,7 +176,7 @@ Data Cube主要是特定话的小型Data Warehouse，主要服务的对象是特
 * 大量的研究和投资已经进入Data Warehouse领域
 * 大型Data Warehouse已经使用了关系型数据库
 
-![](../../.gitbook/assets/screen-shot-2018-09-09-at-10.57.41-am.png)
+![](../../../.gitbook/assets/screen-shot-2018-09-09-at-10.57.41-am.png)
 
 #### Data Cube的实现 ：
 
@@ -216,15 +216,15 @@ Data Cube主要是特定话的小型Data Warehouse，主要服务的对象是特
 
 Start Schema : 主要是所有表环绕，连接中间的一个表
 
-![](../../.gitbook/assets/image%20%2821%29.png)
+![](../../../.gitbook/assets/image%20%2821%29.png)
 
  Constellation Schema :  存在多个Star Schema
 
-![](../../.gitbook/assets/image%20%284%29.png)
+![](../../../.gitbook/assets/image%20%284%29.png)
 
 Snowflake : 在Star Schema的基础上，再连接一些其他的表
 
-![](../../.gitbook/assets/image%20%2811%29.png)
+![](../../../.gitbook/assets/image%20%2811%29.png)
 
 #### 完整性变化：
 
@@ -270,9 +270,9 @@ Snowflake : 在Star Schema的基础上，再连接一些其他的表
 * 简化
 * 从数据库源发展到 data warehouse 
 
-![](../../.gitbook/assets/screen-shot-2018-09-09-at-11.26.47-am.png)
+![](../../../.gitbook/assets/screen-shot-2018-09-09-at-11.26.47-am.png)
 
-![](../../.gitbook/assets/screen-shot-2018-09-09-at-11.26.53-am.png)
+![](../../../.gitbook/assets/screen-shot-2018-09-09-at-11.26.53-am.png)
 
 #### 设计方法： 
 
@@ -289,7 +289,7 @@ Snowflake : 在Star Schema的基础上，再连接一些其他的表
     * Determine details of dimensions
     * Define measures
 
-![](../../.gitbook/assets/image%20%2814%29.png)
+![](../../../.gitbook/assets/image%20%2814%29.png)
 
 ####  Supply-Driven Methodology
 
@@ -304,7 +304,7 @@ Snowflake : 在Star Schema的基础上，再连接一些其他的表
   * Collapse
   * Aggregate
 
-![](../../.gitbook/assets/image%20%285%29.png)
+![](../../../.gitbook/assets/image%20%285%29.png)
 
 ####  Hybrid Methodology
 
@@ -319,7 +319,7 @@ Snowflake : 在Star Schema的基础上，再连接一些其他的表
   * Convert schemas to common terminology
   * Match demand and supply models
 
-![](../../.gitbook/assets/image%20%286%29.png)
+![](../../../.gitbook/assets/image%20%286%29.png)
 
 
 

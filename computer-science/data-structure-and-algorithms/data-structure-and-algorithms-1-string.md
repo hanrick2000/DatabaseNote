@@ -169,7 +169,7 @@ class Solution:
 
 ## Ladder
 
-![](../.gitbook/assets/screen-shot-2018-09-23-at-10.49.15-am.png)
+![](../../.gitbook/assets/screen-shot-2018-09-23-at-10.49.15-am.png)
 
-![](../.gitbook/assets/screen-shot-2018-09-23-at-10.49.19-am.png)
+![](../../.gitbook/assets/screen-shot-2018-09-23-at-10.49.19-am.png)
 

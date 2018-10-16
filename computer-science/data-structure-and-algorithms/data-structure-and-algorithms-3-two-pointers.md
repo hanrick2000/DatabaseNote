@@ -750,11 +750,11 @@ class Solution:
 
 ## Ladder
 
-![](../.gitbook/assets/screen-shot-2018-09-23-at-10.52.12-am%20%281%29.png)
+![](../../.gitbook/assets/screen-shot-2018-09-23-at-10.52.12-am%20%281%29.png)
 
-![](../.gitbook/assets/screen-shot-2018-09-23-at-10.52.17-am.png)
+![](../../.gitbook/assets/screen-shot-2018-09-23-at-10.52.17-am.png)
 
-![](../.gitbook/assets/screen-shot-2018-09-23-at-10.52.21-am.png)
+![](../../.gitbook/assets/screen-shot-2018-09-23-at-10.52.21-am.png)
 
 
 
