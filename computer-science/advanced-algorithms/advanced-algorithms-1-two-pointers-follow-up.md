@@ -1,8 +1,10 @@
 # Advanced Algorithms \(1\) - Two Pointers Follow up
 
+![](../../.gitbook/assets/screen-shot-2018-10-16-at-8.50.31-pm.png)
+
 #### 406. Minimum Size Subarray Sum
 
-双指针遍历，不回头。
+双指针遍历，分为左右两个left和right
 
 ```python
 class Solution:
@@ -12,33 +14,51 @@ class Solution:
     @return: an integer representing the minimum size of subarray
     """
     def minimumSize(self, nums, s):
+        # get maximum length
         n = len(nums)
-        
-        if s is None  or n == 0 :
+        # test case
+        if n == 0 or s is None :
             return -1
-            
-        left, right = 0, 0 
+        # same direction two pointers
+        left, right = 0, 0
         sum = 0
-        mini_length = n + 1
-        
+        mini_len = n + 1
         for left in range(n) :
-            
-            while right < n and sum < s :
+            # get right value
+            while right < n and sum < s:
                 sum += nums[right]
                 right += 1
-                
+            # find
             if sum >= s :
-                mini_length = min(mini_length, right - left) 
-                
+                mini_len = min(mini_len, right - left)
+            # remove left 
             sum -= nums[left]
-            
-        if mini_length == n + 1:
-            return -1
-            
-        return mini_length
-                
-            
-            
+        # not find 
+        if mini_len == n + 1:
+            return  -1
         
+        return mini_len
+```
+
+#### 384. Longest Substring Without Repeating Characters
+
+```python
+class Solution:
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        n = len(s)
+        left, right = 0, 0
+        max_val, hashmap = 0, {}
+        
+        for left in range(n) :
+            while right < n and s[right] not in hashmap :
+                hashmap[s[right]] = True
+                right += 1
+            max_val = max(max_val, right - left)
+            hashmap.pop(s[left])
+        return max_val
 ```
 
