@@ -1,5 +1,9 @@
 # Advanced Algorithms \(1\) - Two Pointers Follow up
 
+## 1. 同向双指针
+
+基本模板
+
 ![](../../.gitbook/assets/screen-shot-2018-10-16-at-8.50.31-pm.png)
 
 #### 406. Minimum Size Subarray Sum
@@ -41,6 +45,8 @@ class Solution:
 ```
 
 #### 384. Longest Substring Without Repeating Characters
+
+主要通过hashset来进行判断
 
 ```python
 class Solution:
