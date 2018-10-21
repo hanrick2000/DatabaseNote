@@ -748,6 +748,47 @@ class Solution:
 | Quick | nlogn | 1 | 不好，平均时间 |
 | Merge | nlogn | n | 好，稳定 |
 
+#### Quick Select
+
+quick sort二分
+
+```python
+class Solution:
+    """
+    @param: k: An integer
+    @param: nums: An integer array
+    @return: kth smallest element
+    """
+    def kthSmallest(self, k, nums):
+        return self.quick_select(0, len(nums) - 1, nums, k - 1)
+        
+    def quick_select(self, start, end, nums, k) :
+        if start == end :
+            return nums[start]
+            
+        left, right = start, end
+        pivot = nums[(start + end) // 2]
+        
+        while left <= right :
+            while left <= right and nums[left] < pivot :
+                left += 1
+            while left <= right and nums[right] > pivot :
+                right -= 1
+                
+            if left <= right :
+                nums[left], nums[right] = nums[right], nums[left]
+                # start, right, left, end
+                left += 1
+                right -= 1
+        
+        if start <= right and right >= k :
+            self.quick_select(start, right, nums, k)
+        if left <= end and left <= k :
+            self.quick_select(left, end, nums, k)
+            
+        return nums[k]
+```
+
 ## Ladder
 
 ![](../../.gitbook/assets/screen-shot-2018-09-23-at-10.52.12-am%20%281%29.png)
