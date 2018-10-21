@@ -636,10 +636,6 @@ class Solution:
             left += 1
 ```
 
-
-
-
-
 ## 3. 经典排序算法
 
 **Quick Sort**

@@ -183,5 +183,45 @@ class Solution:
 
 查找类问题大多可以二分，这里本质还是二分加双指针，核心算法是quick select，这个非常重要。这里比较典型的是top k问题。
 
+主要模板quick select
+
+```python
+class Solution:
+    """
+    @param: k: An integer
+    @param: nums: An integer array
+    @return: kth smallest element
+    """
+    def kthSmallest(self, k, nums):
+        return self.quick_select(0, len(nums) - 1, nums, k - 1)
+        
+    def quick_select(self, start, end, nums, k) :
+        # corner case
+        if start == end :
+            return nums[start]
+            
+        left, right = start, end
+        pivot = nums[(start + end) // 2]
+        # quick sort
+        while left <= right :
+            while left <= right and nums[left] < pivot :
+                left += 1
+            while left <= right and nums[right] > pivot :
+                right -= 1
+                
+            if left <= right :
+                nums[left], nums[right] = nums[right], nums[left]
+                # start, right, left, end
+                left += 1
+                right -= 1
+        # half-half        
+        if start <= right and right >= k :
+            self.quick_select(start, right, nums, k)
+        if left <= end and left <= k :
+            self.quick_select(left, end, nums, k)
+            
+        return nums[k]
+```
+
 
 
