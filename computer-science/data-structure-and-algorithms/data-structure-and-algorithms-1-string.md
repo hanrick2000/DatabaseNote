@@ -53,7 +53,7 @@ class Solution:
                 return 2*cnt + 1
 ```
 
-#### 627. Longest Palindrome
+#### 415. Valid Palindrome
 
 相向双指针，进行检查
 
