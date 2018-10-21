@@ -162,7 +162,7 @@ from station
 where length(city) in (select max(length(city)) from station)
 ```
 
-#### Weather Observation Station 6 {#weather-observation-station-5}
+#### Weather Observation Station 6 <a id="weather-observation-station-5"></a>
 
 主要是考察了MySQL的正则表达式，这里语法有一些不一样，我感觉面试不会考到，但是还是应该复习一下。具体内容见下面的博文，我觉得总结的非常好。这里需要注意的是：
 
@@ -261,7 +261,7 @@ from Employee
 order by name;
 ```
 
-####  Employee Salaries {#employee-names}
+####  Employee Salaries <a id="employee-names"></a>
 
 ```sql
 select name
@@ -270,7 +270,7 @@ where salary > 2000 and months < 10
 order by employee_id ;
 ```
 
-#### 小结 {#employee-names}
+#### 小结 <a id="employee-names"></a>
 
 Basic Select这一部分基本就是过了一下基本的所有常规语法和用法。需要注意的地方如下：
 

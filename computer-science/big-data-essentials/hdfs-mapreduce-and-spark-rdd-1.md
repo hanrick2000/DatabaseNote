@@ -59,7 +59,7 @@
 
 ## **1. GFS初步**
 
-### **Scaling Distributed File System** {#-scalling-distributed-file-system-}
+### **Scaling Distributed File System** <a id="-scalling-distributed-file-system-"></a>
 
 ![](../../.gitbook/assets/screen-shot-2018-10-01-at-8.36.22-pm.png)
 
@@ -136,7 +136,7 @@ GFS和DFS的区别
 
 ![](../../.gitbook/assets/screen-shot-2018-10-01-at-8.39.20-pm.png)
 
-### Block and Replica States, Recovery Process {#block-and-replica-states-recovery-process}
+### Block and Replica States, Recovery Process <a id="block-and-replica-states-recovery-process"></a>
 
 ![](../../.gitbook/assets/screen-shot-2018-10-01-at-8.39.51-pm.png)
 
@@ -189,7 +189,7 @@ Data streaming stage is defined by time range from t1 to t2, where t1 is the tim
 
 If you're writing to a new file and a failure happens during this top stage, then you can easily abandon DataNode pipeline and request a new one from scratch. If DataNode is not able to continue process packets appropriately, for instance because of these problems, then it allots the DataNode pipeline about it, by closing all the connections. When HDFS client detects a fire, it stops sending new packets to the existing pipeline, request a new generation stamp from a NameNode, and rebuilds a pipeline from good DataNodes.
 
-### HDFS client {#hdfs-client}
+### HDFS client <a id="hdfs-client"></a>
 
 Basic Commands:  
 man: hdfs dfs -help  
@@ -212,7 +212,7 @@ HDFS client likes an agency to use Command Line to save data into HDFS from loca
 
 ![](../../.gitbook/assets/screen-shot-2018-10-01-at-8.42.40-pm.png)
 
-### Namenode Architecture {#namenode-architecture}
+### Namenode Architecture <a id="namenode-architecture"></a>
 
 **NameNode** is a service responsible for keeping hierarchy of folders and files.
 
@@ -239,7 +239,7 @@ As you can guess, it is not appropriate for a high demand service. For this reas
 
 It is a robust and poorly asynchronous process. You should also take in mind that secondary NameNode consumes the same amount of RAM to build a new fsimage. The amount of drives in your cluster has a linear relation to the speed of data processing. Overall, these numbers will be a good reference for you when you decide to install your own cluster for research and development purposes. Summing up, you now can explain how NameNode stores meta information hierarchy and how it achieves durability.
 
-### Data modeling and file formats {#data-modeling-and-file-formats}
+### Data modeling and file formats <a id="data-modeling-and-file-formats"></a>
 
 Data model: a way you think about your data elements, what they are, what domain they come from, how different elements relate to each other, what they are composed of abstract model, explicitly defines the structure of data
 
@@ -252,7 +252,7 @@ Types :
 * Relational data model
 * Graph data model
 
-#### **Binary Formats** {#-binary-formats-}
+#### **Binary Formats** <a id="-binary-formats-"></a>
 
 **Sequence File**
 
