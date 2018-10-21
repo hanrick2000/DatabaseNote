@@ -149,23 +149,49 @@ class Solution:
 ```python
 class Solution:
     """
-    @param nums: An integer array sorted in ascending order
+    @param A: an integer array
     @param target: An integer
-    @return: An integer
+    @param k: An integer
+    @return: an integer array
     """
-    def lastPosition(self, nums, target):
+    def kClosestNumbers(self, A, target, k):
         
-        # empty
-        if len(nums) == 0 or target is None:
-            return -1
+        if len(A) == 0 or target is None :
+            return []
+            
+        start, end = 0, len(A) - 1
         
-        lastLocation = -1
+        while start + 1 < end :
+            
+            mid = (start + end) // 2
+            
+            if target >= A[mid] :
+                start = mid
+            else :
+                end = mid
         
-        for i in range(len(nums)) :
-            if target == nums[i] :
-                lastLocation = i
+        result = []
         
-        return lastLocation
+        while k > 0  :
+            
+            if self.left_close(start, end, target, A) :
+                result.append(A[start])
+                start -= 1
+            else :
+                result.append(A[end])
+                end += 1
+            k -= 1
+            
+        return result
+            
+    def left_close(self, start, end, target, A) :
+        
+        if start < 0 :
+            return False
+        if end >= len(A) :
+            return True
+        return abs(A[start] - target) <= abs(A[end] - target)
+        
 ```
 
 #### 447. Search in a Big Sorted Array
