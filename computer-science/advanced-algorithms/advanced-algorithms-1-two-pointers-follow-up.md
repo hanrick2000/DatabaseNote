@@ -183,7 +183,11 @@ class Solution:
 
 查找类问题大多可以二分，这里本质还是二分加双指针，核心算法是quick select，这个非常重要。这里比较典型的是top k问题。
 
-主要模板quick select
+### 2.1 一维查找
+
+#### 461. Kth Smallest Numbers in Unsorted Array
+
+这个主要是在原有的merge sort基础上进行优化，原有的merge sort是O\(nlogn\)，这里通过二分优化到了O\(n\)
 
 ```python
 class Solution:
@@ -223,5 +227,154 @@ class Solution:
         return nums[k]
 ```
 
+### 2.2 二维查找
 
+这里主要的一种核心的思想是K merged sorted array，即K路归并算法，这里主要就是follow up这一种思路。
+
+假设给了N个平均长度为M的数组，这里要分类讨论一下：
+
+* 所有的数组都是无序的
+  * 全部放到一个array之中进行quick select : O\(MN\) **最优**
+  * 对每个数组进行排序再利用最大堆：O\(nmlogm + klogn\)
+    * 每个排序mlogm，一共n个，堆的大小是n，取k次
+* 所有的数组是有序的
+  * 直接使用最大堆，类似多路归并算法：O\(klogn + N\)
+    * 堆化N，pop k次 klogn
+  * 更快的解法，二分答案：O\(NlogMlog range \) **最优**
+    * 每次都要看n个数组的元素，每次二分原有数组，每次再看range的范围
+
+#### 543. Kth Largest in N Arrays
+
+这里使用了quick select的算法。
+
+```python
+class Solution:
+    """
+    @param arrays: a list of array
+    @param k: An integer
+    @return: an integer, K-th largest element in N arrays
+    """
+    def KthInArrays(self, arrays, k):
+        # write your code here
+        merge_array = []
+        for array in arrays :
+            merge_array.extend(array)
+        n = len(merge_array) - 1
+        
+        return self.quick_select(0, n, merge_array, k -1)
+            
+    def quick_select(self, start, end, nums, k):
+        if start == end :
+            return nums[start]
+            
+        left, right = start, end
+        pivot = nums[(start + end) // 2]
+        
+        while left <= right :
+            while left <= right and nums[left] > pivot :
+                left += 1
+            while left <= right and nums[right] < pivot :
+                right -= 1
+            
+            if left <= right :
+                nums[left], nums[right] = nums[right], nums[left]
+                # start, right, left, end
+                left += 1
+                right -= 1
+            
+        if start <= right and right >= k :
+            self.quick_select(start, right, nums, k)
+        if left <= end and left <= k :
+            self.quick_select(left, end, nums, k)
+            
+        return nums[k]
+```
+
+使用heap的做法
+
+```python
+import heapq
+class Solution:
+    """
+    @param arrays: a list of array
+    @param k: An integer
+    @return: an integer, K-th largest element in N arrays
+    """
+    def KthInArrays(self, arrays, k):
+        # sort array
+        sorted_array = []
+        for array in arrays :
+            if array :
+                sorted_array.append(sorted(array, reverse = True))
+        # heapify
+        heap = []
+        for index, array in enumerate(sorted_array):
+            heap.append((-array[0], index, 0))
+        heapq.heapify(heap)
+        # pop k times
+        for _ in range(k) :
+            val, x, y = heapq.heappop(heap)
+            if y + 1 < len(sorted_array[x]) :
+                heapq.heappush(heap, (-sorted_array[x][y + 1], x, y + 1))
+        
+        return -val
+```
+
+#### 1272. Kth Smallest Element in a Sorted Matrix
+
+用前面任意一个解法都可以秒
+
+```python
+import heapq
+class Solution:
+    """
+    @param matrix: List[List[int]]
+    @param k: a integer
+    @return: return a integer
+    """
+    def kthSmallest(self, matrix, k):
+        # heapify
+        heap = []
+        for index, array in enumerate(matrix) :
+            heapq.heappush(heap, (array[0], index, 0))
+        heapq.heapify(heap)
+        # pop k times
+        for _ in range(k) :
+            val, x, y = heapq.heappop(heap)
+            if y + 1 < len(matrix[x]) :
+                heapq.heappush(heap, (matrix[x][y + 1], x, y + 1))
+                
+        return val
+```
+
+#### 465. Kth Smallest Sum In Two Sorted Arrays
+
+使用记忆化搜索将所有之前访问过的坐标放入visited，避免下次再次访问从而影响了最小的值。
+
+```python
+import heapq
+class Solution:
+    """
+    @param A: an integer arrays sorted in ascending order
+    @param B: an integer arrays sorted in ascending order
+    @param k: An integer
+    @return: An integer
+    """
+    def kthSmallestSum(self, A, B, k):
+        # heapify
+        heap = [(A[0] + B[0], 0, 0)]
+        heapq.heapify(heap)
+        visited = {(0, 0) : True}
+        # pop k times
+        for _ in range(k):
+            val, a, b = heapq.heappop(heap)
+            if a + 1 < len(A) and (a + 1, b) not in visited :
+                heapq.heappush(heap, (A[a + 1] + B[b], a + 1, b))
+                visited[(a + 1, b)] = True
+            if b + 1 < len(B) and (a, b + 1) not in visited  :
+                heapq.heappush(heap, (A[a] + B[b + 1], a, b + 1))
+                visited[(a, b + 1)] = True
+                
+        return val
+```
 
