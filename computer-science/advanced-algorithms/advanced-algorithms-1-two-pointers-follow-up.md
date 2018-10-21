@@ -2,13 +2,30 @@
 
 ## 1. 同向双指针
 
-基本模板
+基本套路就是下图，稍微修改了下形成自己的风格。
 
 ![](../../.gitbook/assets/screen-shot-2018-10-16-at-8.50.31-pm.png)
 
+```python
+left, right = 0, 0
+for left in range(n):
+    while right < n and subarray 不满足：
+        right += 1 # 拓宽序列 注意right不回头
+    
+    if subarray 满足条件：
+        看下是否满足条件
+    
+    将nums[left]移除 # remove left
+```
+
 #### 406. Minimum Size Subarray Sum
 
-双指针遍历，分为左右两个left和right
+双指针遍历，分为左右两个left和right，控制两个条件
+
+* sum需要大于threshold
+* mini\_len要最小
+
+控制这两个带入模板就可以了
 
 ```python
 class Solution:
@@ -46,7 +63,10 @@ class Solution:
 
 #### 384. Longest Substring Without Repeating Characters
 
-主要通过hashset来进行判断
+主要通过hashset来进行判断，先找限制条件
+
+* 最长的 需要 longest记录
+* 不重复需要hashset判断
 
 ```python
 class Solution:
@@ -71,6 +91,10 @@ class Solution:
 #### 32. Minimum Window Substring
 
 主要是要用length和hashmap来控制字符串的数字，详细见下。
+
+* 需要hashset形成target的char作为限制条件
+* 需要保证length最小
+* 需要注意hashset在get和pop的时候需要确认顺序
 
 ```python
 class Solution:
@@ -123,6 +147,8 @@ class Solution:
 
 和上一个题差不多，基本同一个套路
 
+* 主要需要注意控制条件，小于k或者在hash里面
+
 ```python
 class Solution:
     """
@@ -152,4 +178,10 @@ class Solution:
             
         return longest
 ```
+
+## 2. 查找类问题
+
+查找类问题大多可以二分，这里本质还是二分加双指针，核心算法是quick select，这个非常重要。
+
+我们dd
 
