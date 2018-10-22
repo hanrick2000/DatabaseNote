@@ -21,6 +21,7 @@
   * [Data Structure & Algorithms \(8\) - Data Structure](computer-science/data-structure-and-algorithms/data-structure-and-algorithms-8-data-structure.md)
 * [Advanced Algorithms](computer-science/advanced-algorithms/README.md)
   * [Advanced Algorithms \(1\) - Two Pointers Follow up](computer-science/advanced-algorithms/advanced-algorithms-1-two-pointers-follow-up.md)
+  * [Advanced Algorithms \(2\) - Union Find & Tire](computer-science/advanced-algorithms/advanced-algorithms-2-union-find-and-tire.md)
 * [Python Built-in Functions](computer-science/python-built-in-functions/README.md)
   * [String](computer-science/python-built-in-functions/string.md)
 * [System Design](computer-science/system-design/README.md)
