@@ -2,7 +2,7 @@
 
 ## 1. 同向双指针
 
-基本套路就是下图，稍微修改了下形成自己的风格。
+本质遍历2\*N次，从而降低了时间复杂度，主要利用了避免重复的方法来解决问题，基本套路就是下图，稍微修改了下形成自己的风格。
 
 ![](../../.gitbook/assets/screen-shot-2018-10-16-at-8.50.31-pm.png)
 
@@ -20,7 +20,7 @@ for left in range(n):
 
 #### 406. Minimum Size Subarray Sum
 
-双指针遍历，分为左右两个left和right，控制两个条件
+思考限制条件，
 
 * sum需要大于threshold
 * mini\_len要最小
@@ -179,9 +179,16 @@ class Solution:
         return longest
 ```
 
+#### 小结
+
+基本来说，哪些地方可以不变，就是主体模板部分，哪些地方需要改变，就是限制条件：
+
+* 普通sum类条件可以放入循环判断即可
+* 对于hash之类的要像DFS一样，加入之后再推出
+
 ## 2. 查找类问题
 
-查找类问题大多可以二分，这里本质还是二分加双指针，核心算法是quick select，这个非常重要。这里比较典型的是top k问题。
+查找类问题大多可以二分，这里本质还是二分加双指针，核心算法是quick select以及heap，可以说建立在K merged sorted array之上，这里举例比较典型的top k问题。
 
 ### 2.1 一维查找
 
@@ -233,11 +240,11 @@ class Solution:
 
 假设给了N个平均长度为M的数组，这里要分类讨论一下：
 
-* 所有的数组都是无序的
+* **数组都是无序的**
   * 全部放到一个array之中进行quick select : O\(MN\) **最优**
   * 对每个数组进行排序再利用最大堆：O\(nmlogm + klogn\)
     * 每个排序mlogm，一共n个，堆的大小是n，取k次
-* 所有的数组是有序的
+* **数组是有序的**
   * 直接使用最大堆，类似多路归并算法：O\(klogn + N\)
     * 堆化N，pop k次 klogn
   * 更快的解法，二分答案：O\(NlogMlog range \) **最优**
@@ -245,7 +252,7 @@ class Solution:
 
 #### 543. Kth Largest in N Arrays
 
-这里使用了quick select的算法。
+这里使用了quick select的算法将所有原有数组进行拼接求解
 
 ```python
 class Solution:
@@ -292,6 +299,10 @@ class Solution:
 
 使用heap的做法
 
+* 排序 - 先行对所有数组进行排序
+* 堆化 - 将所有数组第一个元素加index压入heap \(主要heap 比较是有顺序的\)
+* pop&push - 每一次pop一个元素出来，就将该数组下一个元素压入heap
+
 ```python
 import heapq
 class Solution:
@@ -322,7 +333,7 @@ class Solution:
 
 #### 1272. Kth Smallest Element in a Sorted Matrix
 
-用前面任意一个解法都可以秒
+用前面任意一个解法都可以秒，这个题和前一个题基本是一样的。
 
 ```python
 import heapq
@@ -350,6 +361,8 @@ class Solution:
 #### 465. Kth Smallest Sum In Two Sorted Arrays
 
 使用记忆化搜索将所有之前访问过的坐标放入visited，避免下次再次访问从而影响了最小的值。
+
+* 类似消消乐的二维矩阵 - 需要避免重复
 
 ```python
 import heapq
