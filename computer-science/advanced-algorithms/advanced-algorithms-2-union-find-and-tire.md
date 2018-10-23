@@ -468,6 +468,8 @@ class Solution:
 
 #### Tire的实现
 
+#### 442. Implement Trie \(Prefix Tree\)
+
 * insert 插入单词
 * find 找到单词所在的TireNode
   * 没有返回None
@@ -513,5 +515,228 @@ class Trie:
     def startsWith(self, prefix):
         # 同上一个，只要wor不空就行
         return self.find(prefix) is not None
+```
+
+#### 473. Add and Search Word - Data structure design
+
+这个题本质不是特别的难，依旧是使用了Tire的数据结构，非常的巧妙
+
+* 借助DFS进行遍历
+  * 如果不是 . 的话，就对下一层进行搜索
+  * 如果是 . 的话，对改层所有的children的child进行搜索
+
+```python
+class TrieNode :
+    def __init__(self) :
+        self.children = {}
+        self.is_word = False
+        
+class WordDictionary:
+
+    def __init__(self):
+        self.root = TrieNode()
+        
+    def addWord(self, word):
+        node = self.root
+        for c in word :
+            if c not in node.children :
+                node.children[c] = TrieNode()
+            node = node.children[c]
+        node.is_word = True
+
+    def search(self, word):
+        if word is None :
+            return False
+        return self.search_helper(self.root, word, 0)
+    
+    def search_helper(self, node, word, i):
+        if node is None :
+            return False
+        if i >= len(word) :
+            return node.is_word 
+        
+        c = word[i]
+        if c != '.' :
+            return self.search_helper(node.children.get(c), word, i + 1)
+        
+        for child in node.children :
+            if self.search_helper(node.children[child], word, i + 1) :
+                return True
+        return False
+```
+
+#### 634. Word Squares
+
+剪枝
+
+```python
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.is_word = False
+        self.word_list = []
+
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+        
+    def add(self, word):
+        node = self.root
+        for c in word:
+            if c not in node.children:
+                node.children[c] = TrieNode()
+            node = node.children[c]
+            node.word_list.append(word)
+        node.is_word = True
+
+    def find(self, word):
+        node = self.root
+        for c in word:
+            node = node.children.get(c)
+            if node is None:
+                return None
+        return node
+        
+    def get_words_with_prefix(self, prefix):
+        node = self.find(prefix)
+        return [] if node is None else node.word_list
+        
+    def contains(self, word):
+        node = self.find(word)
+        return node is not None and node.is_word
+        
+        
+class Solution:
+    """
+    @param: words: a set of words without duplicates
+    @return: all word squares
+    """
+    def wordSquares(self, words):
+        trie = Trie()
+        for word in words:
+            trie.add(word)
+            
+        squares = []
+        for word in words:
+            self.search(trie, [word], squares)
+        
+        return squares
+        
+    def search(self, trie, square, squares):
+        n = len(square[0])
+        curt_index = len(square)
+        if curt_index == n:
+            squares.append(list(square))
+            return
+        
+        # Pruning, it's ok to remove it, but will be slower
+        for row_index in range(curt_index, n):
+            prefix = ''.join([square[i][row_index] for i in range(curt_index)])
+            if trie.find(prefix) is None:
+                return
+        
+        prefix = ''.join([square[i][curt_index] for i in range(curt_index)])
+        for word in trie.get_words_with_prefix(prefix):
+            square.append(word)
+            self.search(trie, square, squares)
+            square.pop() # remove the last word
+```
+
+#### 132. Word Search II
+
+Tire解法
+
+```python
+DIRECTIONS = [(0, -1), (0, 1), (-1, 0), (1, 0)]
+
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.is_word = False
+        self.word = None
+        
+        
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+        
+    def add(self, word):
+        node = self.root
+        for c in word:
+            if c not in node.children:
+                node.children[c] = TrieNode()
+            node = node.children[c]
+        node.is_word = True
+        node.word = word
+        
+    def find(self, word):
+        node = self.root
+        for c in word:
+            node = node.children.get(c)
+            if node is None:
+                return None
+                
+        return node
+        
+
+class Solution:
+    """
+    @param board: A list of lists of character
+    @param words: A list of string
+    @return: A list of string
+    """
+    def wordSearchII(self, board, words):
+        if board is None or len(board) == 0:
+            return []
+            
+        trie = Trie()
+        for word in words:
+            trie.add(word)
+
+        result = set()
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                c = board[i][j]
+                self.search(
+                    board,
+                    i,
+                    j,
+                    trie.root.children.get(c),
+                    set([(i, j)]),
+                    result,
+                )
+                
+        return list(result)
+        
+    def search(self, board, x, y, node, visited, result):
+        if node is None:
+            return
+        
+        if node.is_word:
+            result.add(node.word)
+        
+        for delta_x, delta_y in DIRECTIONS:
+            x_ = x + delta_x
+            y_ = y + delta_y
+            
+            if not self.inside(board, x_, y_):
+                continue
+            if (x_, y_) in visited:
+                continue
+            
+            visited.add((x_, y_))
+            self.search(
+                board,
+                x_,
+                y_,
+                node.children.get(board[x_][y_]),
+                visited,
+                result,
+            )
+            visited.remove((x_, y_))
+            
+    def inside(self, board, x, y):
+        return 0 <= x < len(board) and 0 <= y < len(board[0])
 ```
 
