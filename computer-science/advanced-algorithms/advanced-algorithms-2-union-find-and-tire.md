@@ -249,8 +249,6 @@ class ConnectingGraph3:
 * 联通集个数: 老大哥有几个
   * 老大哥合并一次就少一个，用来控制
 
-
-
 #### 434. Number of Islands II
 
 在原有并查集的模板上进行了加工，主要步骤
@@ -327,6 +325,8 @@ class Solution:
 
 这个题用union find真的是非常巧妙，如果能成为一棵树，必然最后联通的size只有1，这里不考虑平衡二叉树。每次只需要union新的边即可。
 
+* 这里为什么要用range\(n\)，而不用range\(1, n + 1\)
+
 ```python
 class Solution:
     """
@@ -367,9 +367,19 @@ class Solution:
             self.father[root_a] = root_b
 ```
 
-
-
 #### 1070. Accounts Merge
+
+这个题比较复杂，有很多非常细小的点需要注意
+
+* step 0 : 现有的union find的模板定义的是每个node的father是自己，也就是i，所有后面的定义也应该用i，而不是账户的名字
+* step 1 : 先获取所有email的对应的id，然后将相同email的union起来
+* step 2 : 遍历原有的accounts，合并所有老大哥的email
+* step 3 ：排序即可
+
+这个题非常的复杂，需要想的很清楚，个人觉得可能用union find解不是一个特别好的方法，但是对于练习union find非常有价值。
+
+* 命名变量的时候，尽量不同的function使用不同的，不然很难debug
+* 命名的时候注意和global的区别，有时候少一个s，差别还是很大的
 
 ```python
 class Solution:
@@ -378,61 +388,59 @@ class Solution:
     @return: return a List[List[str]]
     """
     def accountsMerge(self, accounts):
-        self.initialize(len(accounts))
-        email_to_ids = self.get_email_to_ids(accounts)
-        
-        # union
-        for email, ids in email_to_ids.items():
+        # init
+        self.father = {}
+        for i in range(len(accounts)) : # enumerate starts from 0
+            self.father[i] = i
+        # build email's father and union all have same 
+        email_father = self.email_father(accounts)
+        for (email, ids) in email_father.items() :
             root_id = ids[0]
-            for id in ids[1:]:
-                self.union(id, root_id)
-                
-        id_to_email_set = self.get_id_to_email_set(accounts)
+            for id in ids[1:] :
+                self.union(root_id, id)
+        # sort
+        id_emails = self.id_email_merge(accounts)
+        sorted_output = []
+        for id, emails in id_emails.items():
+            sorted_output.append([accounts[id][0]] + sorted(emails))
+        return sorted_output
         
-        merged_accounts = []
-        for user_id, email_set in id_to_email_set.items():
-            merged_accounts.append([
-                accounts[user_id][0],
-                *sorted(email_set),
-            ])
-        return merged_accounts
-    
-    def get_id_to_email_set(self, accounts):
-        id_to_email_set = {}
-        for user_id, account in enumerate(accounts):
-            root_user_id = self.find(user_id)
-            email_set = id_to_email_set.get(root_user_id, set())
+    def id_email_merge(self, accounts) :
+        # merge all emails with same id
+        id_emails = {}
+        for id, account in enumerate(accounts) :
+            # init with set - add
+            root_id = self.find(id) 
+            email_set = id_emails.get(root_id, set())
             for email in account[1:]:
                 email_set.add(email)
-            id_to_email_set[root_user_id] = email_set
-        return id_to_email_set
-            
-    def get_email_to_ids(self, accounts):
-        email_to_ids = {}
-        for i, account in enumerate(accounts):
-            for email in account[1:]:
-                email_to_ids[email] = email_to_ids.get(email, [])
-                email_to_ids[email].append(i)
-        return email_to_ids
+            id_emails[root_id] = email_set
+        return id_emails
         
-    def initialize(self, n):
-        self.father = {}
-        for i in range(n):
-            self.father[i] = i
-            
-    def union(self, id1, id2):
-        self.father[self.find(id1)] = self.find(id2)
-
-    def find(self, user_id):
+    def email_father(self, accounts) :
+        email_father = {}
+        for id, account in enumerate(accounts) :
+            # avoid the user id
+            for email in account[1:] :
+                # init with list - append
+                email_father[email] = email_father.get(email, [])
+                email_father[email].append(id)
+        return email_father
+    
+    
+    def find(self, node) :
         path = []
-        while user_id != self.father[user_id]:
-            path.append(user_id)
-            user_id = self.father[user_id]
+        while node != self.father[node] :
+            path.append(node)
+            node = self.father[node]
+        
+        for n in path :
+            self.father[n] = node
             
-        for u in path:
-            self.father[u] = user_id
-            
-        return user_id
+        return node
+    
+    def union(self, a, b) :
+        self.father[self.find(a)] = self.find(b)
 ```
 
 #### 小结
@@ -448,7 +456,13 @@ class Solution:
 
 又名 Prefix Tree，来自单词 Retrieval，发音与 Tree 相同。在计算机科学中，trie，又称**前缀树**或**字典樹**，是一种有序树，用于保存关联数组，其中的键通常是字符串。
 
+字典树通过用空间换时间，从而减少了时间复杂度，而增加了空间复杂度。
+
+* search时间复杂度O\(N\)
+
 {% embed url="https://zh.wikipedia.org/wiki/Trie" %}
+
+{% embed url="https://blog.csdn.net/hyman\_yx/article/details/54410619" %}
 
 ![](../../.gitbook/assets/screen-shot-2018-10-22-at-12.02.43-pm.png)
 
@@ -459,40 +473,45 @@ class Solution:
   * 没有返回None
 
 ```python
-class TrieNode:
-    
+class TrieNode: 
+    # 用儿子来存储树结构，而is_word进行O(n)时间查找
     def __init__(self):
         self.children = {}
         self.is_word = False
-    
-    
+        
 class Trie:
-    
     def __init__(self):
         self.root = TrieNode()
-
+        
+    # 从根节点遍历，如果不在第一层儿子们里就加入，类似链表
     def insert(self, word):
         node = self.root
         for c in word:
             if c not in node.children:
                 node.children[c] = TrieNode()
+            # 链的下一个
             node = node.children[c]
         
         node.is_word = True
-
+        
+    # 遍历子树
     def find(self, word):
         node = self.root
         for c in word:
+            # 看c在不在儿子里，不在就是None，在就返回节点
             node = node.children.get(c)
             if node is None:
                 return None
         return node
-        
+       
     def search(self, word):
         node = self.find(word)
+        # 节点不为空，且字典中存了该字符
+        # 如果存了word -> wor是不应该存在的，这个意思
         return node is not None and node.is_word
 
     def startsWith(self, prefix):
+        # 同上一个，只要wor不空就行
         return self.find(prefix) is not None
 ```
 
