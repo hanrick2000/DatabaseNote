@@ -18,7 +18,7 @@ for left in range(n):
     将nums[left]移除 # remove left
 ```
 
-#### 406. Minimum Size Subarray Sum
+#### [406. Minimum Size Subarray Sum](https://www.lintcode.com/problem/minimum-size-subarray-sum/description)
 
 思考限制条件，
 
@@ -61,7 +61,7 @@ class Solution:
         return mini_len
 ```
 
-#### 384. Longest Substring Without Repeating Characters
+#### [384. Longest Substring Without Repeating Characters](https://www.lintcode.com/problem/longest-substring-without-repeating-characters/)
 
 主要通过hashset来进行判断，先找限制条件
 
@@ -88,7 +88,7 @@ class Solution:
         return max_val
 ```
 
-#### 32. Minimum Window Substring
+#### [32. Minimum Window Substring](https://www.lintcode.com/problem/minimum-window-substring/)
 
 主要是要用length和hashmap来控制字符串的数字，详细见下。
 
@@ -143,7 +143,7 @@ class Solution:
         return hashset
 ```
 
-#### 386. Longest Substring with At Most K Distinct Characters
+#### [386. Longest Substring with At Most K Distinct Characters](https://www.lintcode.com/problem/longest-substring-with-at-most-k-distinct-characters/description)
 
 和上一个题差不多，基本同一个套路
 
@@ -192,7 +192,7 @@ class Solution:
 
 ### 2.1 一维查找
 
-#### 461. Kth Smallest Numbers in Unsorted Array
+#### [461. Kth Smallest Numbers in Unsorted Array](https://www.lintcode.com/problem/kth-smallest-numbers-in-unsorted-array/)
 
 这个主要是在原有的merge sort基础上进行优化，原有的merge sort是O\(nlogn\)，这里通过二分优化到了O\(n\)
 
@@ -250,7 +250,7 @@ class Solution:
   * 更快的解法，二分答案：O\(NlogMlog range \) **最优**
     * 每次都要看n个数组的元素，每次二分原有数组，每次再看range的范围
 
-#### 543. Kth Largest in N Arrays
+#### [543. Kth Largest in N Arrays](https://www.lintcode.com/problem/kth-largest-in-n-arrays/)
 
 这里使用了quick select的算法将所有原有数组进行拼接求解
 
@@ -331,7 +331,7 @@ class Solution:
         return -val
 ```
 
-#### 1272. Kth Smallest Element in a Sorted Matrix
+#### [1272. Kth Smallest Element in a Sorted Matrix](https://www.lintcode.com/problem/kth-smallest-element-in-a-sorted-matrix/)
 
 用前面任意一个解法都可以秒，这个题和前一个题基本是一样的。
 
@@ -358,7 +358,7 @@ class Solution:
         return val
 ```
 
-#### 465. Kth Smallest Sum In Two Sorted Arrays
+#### [465. Kth Smallest Sum In Two Sorted Arrays](https://www.lintcode.com/problem/kth-smallest-sum-in-two-sorted-arrays/)
 
 使用记忆化搜索将所有之前访问过的坐标放入visited，避免下次再次访问从而影响了最小的值。
 
@@ -390,4 +390,10 @@ class Solution:
                 
         return val
 ```
+
+## 3. Ladder
+
+![](../../.gitbook/assets/screen-shot-2018-10-24-at-11.54.57-am.png)
+
+![](../../.gitbook/assets/screen-shot-2018-10-24-at-11.55.02-am.png)
 

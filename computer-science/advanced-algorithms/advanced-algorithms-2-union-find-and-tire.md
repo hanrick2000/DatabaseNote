@@ -761,3 +761,5 @@ class Solution:
         return 0 <= x < len(board) and 0 <= y < len(board[0])
 ```
 
+## 3. Ladder
+
