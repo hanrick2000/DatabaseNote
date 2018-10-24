@@ -1,4 +1,4 @@
-# Data Structure & Algorithms \(5\) - DFS & Binary Tree
+# Algorithms \(5\) - DFS & Binary Tree
 
 ## 1. 第一类考察形态 ：求值、路径
 

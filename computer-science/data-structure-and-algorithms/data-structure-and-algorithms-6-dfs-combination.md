@@ -1,4 +1,4 @@
-# Data Structure & Algorithms \(6\) - DFS Combination
+# Algorithms \(6\) - DFS Combination
 
 在非二叉树上的深度优先搜索（Depth-first Search）中，90%的问题，不是求组合（Combination）就是求排列（Permutation）。特别是组合类的深度优先搜索的问题特别的多。
 

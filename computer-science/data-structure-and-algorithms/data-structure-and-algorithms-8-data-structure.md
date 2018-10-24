@@ -1,21 +1,22 @@
-# Data Structure & Algorithms \(8\) - Data Structure
+# Algorithms \(8\) - Data Structure
 
 ## 1. 数据结构设计类问题
 
-比如你需要设计一个 Set 的数据结构，提供 lowerBound 和 add 两个方法。
+假设我们需要设计一个 Set 的数据结构，提供 lowerBound 和 add 两个方法：
 
-* lowerBound 的意思是，找到比某个数小的最大值 
+* lowerBound 找到比某个数小的最大值 
+* add 将数据加入set
 
-具体比较
+在实际的操作中：
 
-* 算法1:  使用数组存储，每次打擂台进行比较，插入就直接插入到数组最后面
+* 算法1:  使用**数组存储**，每次打擂台进行比较，插入就直接插入到数组最后面
   * O\(n\) lowerBound 
   * O\(1\) add
-* 算法2: 使用红黑树\(Red-black Tree\)存储，Java 里的 TreeSet，C++ 里的 map 
+* 算法2: 使用**红黑树\(Red-black Tree\)**存储，Java 里的 TreeSet，C++ 里的 map 
   * O\(logn\) lowerBound 
   * O\(logn\) add
 
-上面两个算法谁好谁坏呢?
+#### 上面两个算法谁好谁坏呢?
 
 **不一定谁好谁坏 !   要看这两个方法被调用的频率如何。**
 
@@ -29,15 +30,15 @@
 数据结构可以认为是一个数据存储集合以及定义在这个集合上的若干操作\(功能），它有如下的三种考法: 
 
 * 考法1：问某种数据结构的基本原理，并要求实现
-  * 例题:说一下 Hash 的原理并实现一个 Hash 表 
+  * 例题: 说一下 Hash 的原理并实现一个 Hash 表 
 * 考法2：使用某种数据结构完成事情
-  * 例题:归并 K 个有序数组 
+  * 例题: 归并 K 个有序数组 
 * 考法3：实现一种数据结构，提供一些特定的功能，通常需要一个或者多个数据结构配合在一起使用
-  * 例题:最高频 K 项问题
+  * 例题: 最高频 K 项问题
 
 #### 数据结构时间复杂度的衡量方法
 
-数据结构通常会提供“多个”对外接口，只用一个时间复杂度是很难对其进行正确评价的，所以通常要对每个接口的时间复杂度进行描述
+数据结构通常会提供“多个”对外接口，只用一个时间复杂度是很难对其进行正确评价的，所以通常要对每个接口的时间复杂度进行描述。
 
 ## 2. 队列 Queue
 
@@ -48,9 +49,7 @@
 * 数组对**随机访问**有较好性能。
 * 链表对**插入**和**删除**元素有较好性能。
 
-Python中，使用`collections.deque`，双端队列。
-
-队列的主要操作有：
+Python中，使用`collections.deque`，即双端队列，队列的主要操作有：
 
 * `add()`队尾追加元素 - O\(1\)
 * `poll()`弹出队首元素 - O\(1\)
@@ -58,30 +57,6 @@ Python中，使用`collections.deque`，双端队列。
 * `empty()`判断队列为空 - O\(1\)
 
 #### 队列的实现
-
-```python
-class MyQueue:
-
-    def __init__(self):
-        self.stack1 = []
-        self.stack2 = []
-
-    def adjust(self):
-        if len(self.stack2) == 0:
-            while len(self.stack1) != 0:
-                self.stack2.append(self.stack1.pop())
-                
-    def push(self, element):
-        self.stack1.append(element)
-
-    def top(self):
-        self.adjust()
-        return self.stack2[len(self.stack2) - 1]
-
-    def pop(self):
-        self.adjust()
-        return self.stack2.pop()
-```
 
 {% embed url="https://docs.python.org/3/library/queue.html" %}
 
@@ -132,39 +107,9 @@ Python，直接使用`list`，查看栈顶用`[-1]`这样的切片操作，弹�
 
 #### 栈的实现
 
-```python
-class Stack:
-    # initialize your data structure here.
-    def __init__(self):
-        self.queue = []
+#### [495. Implement Stack](https://www.lintcode.com/problem/implement-stack/description)
 
-    # @param x, an integer, push a new item into the stack
-    # @return nothing
-    def push(self, x):
-        # Write your code here
-        self.queue.append(x)
-
-    # @return nothing, pop the top of the stack
-    def pop(self):
-        # Write your code here
-        for x in range(len(self.queue) - 1):
-            self.queue.append(self.queue.pop(0))
-        self.queue.pop(0)
-
-    # @return an integer, return the top of the stack
-    def top(self):
-        # Write your code here
-        top = None
-        for x in range(len(self.queue)):
-            top = self.queue.pop(0)
-            self.queue.append(top)
-        return top
-
-    # @return an boolean, check the stack is empty or not.
-    def isEmpty(self):
-        # Write your code here
-        return self.queue == []
-```
+* python的\[ \] 就是stack，一般的stack实现是通过array数据，或者Linklist
 
 #### 栈在计算机内存当中的应用
 
@@ -173,6 +118,13 @@ class Stack:
 函数调用其实是栈的很好的例子，后调用的函数先结束，所以为了调用函数，所需要的内存结构，栈是再合适不过了。在内存当中，**栈从高地址不断向低地址扩展**，随着程序运行的层层深入，栈顶指针不断指向内存中更低的地址。
 
 {% embed url="https://www.cnblogs.com/kevinGaoblog/archive/2012/03/23/2413102.html" %}
+
+#### 小结
+
+这里的stack和queue并没有实际是因为在python里面混淆了array和stack的概念，从而使得很多东西显得奇奇怪怪的
+
+* stack 数组实现
+* queue 链表实现 
 
 ## 4. 哈希表 Hash
 
@@ -186,6 +138,23 @@ class Stack:
 * O\(1\) Find 
 * O\(1\) Delete
 
+#### [128. Hash Function](https://www.lintcode.com/problem/hash-function/description)
+
+```python
+class Solution:
+    """
+    @param key: A string you should hash
+    @param HASH_SIZE: An integer
+    @return: An integer
+    """
+    def hashCode(self, key, HASH_SIZE):
+        # write your code here
+        ans = 0
+        for char in key :
+            ans = (ans*33 + ord(char)) % HASH_SIZE
+        return ans
+```
+
 #### 冲突的解决方式
 
 冲突（Collision），是说两个不同的 key 经过哈希函数的计算后，得到了两个相同的值。解决冲突的方法，主要有两种：
@@ -195,6 +164,50 @@ class Stack:
 * 重哈希（Refresh Hashing）。哈希表容量的大小在一开始是不确定的。如果哈希表存储的元素太多（如超过容量的十分之一），我们应该将哈希表容量扩大一倍，并将所有的哈希值重新安排。
 
 {% embed url="https://www.jianshu.com/p/bdf6109ecb18" %}
+
+#### [129. Rehashing](https://www.lintcode.com/problem/rehashing/description)
+
+```python
+"""
+Definition of ListNode
+class ListNode(object):
+
+    def __init__(self, val, next=None):
+        self.val = val
+        self.next = next
+"""
+class Solution:
+    """
+    @param hashTable: A list of The first node of linked list
+    @return: A list of The first node of linked list which have twice size
+    """
+    def addlistnode(self, node, number):
+        # 把节点和值加入链表
+        if node.next != None:
+            self.addlistnode(node.next, number)
+        else:
+            node.next = ListNode(number)
+
+    def addnode(self, anshashTable, number):
+        # 确定位置，如果是空就插入进去，不然就连起来
+        p = number % len(anshashTable)
+        if anshashTable[p] == None:
+            anshashTable[p] = ListNode(number)
+        else:
+            self.addlistnode(anshashTable[p], number)
+
+    def rehashing(self,hashTable):
+        # 扩容两倍
+        HASH_SIZE = 2 * len(hashTable)
+        anshashTable = [None for i in range(HASH_SIZE)]
+        # 遍历一遍
+        for item in hashTable:
+            p = item
+            while p != None:
+                self.addnode(anshashTable, p.val)
+                p = p.next
+        return anshashTable
+```
 
 ## 5. Heap
 
@@ -207,10 +220,63 @@ class Stack:
 * O\(log N\) Add 
 * O\(log N\) Remove 
 * O\(1\) Min or Max 
+* O\(n\) heapify
 
 既然堆有这种最大先出的性质，那么利用堆，就可以构建优先队列。大家知道普通的队列是“先进先出”的原则，而优先队列则是“最大先出”的原则，也就是说，队列中的每一个元素都有一个权重，权重大的最先出队。这种思路最常见的应用是医院排队，一种原则是让病情更严重的患者最先就诊，那如果按照这个原则设计一个就医系统的话，优先队列就是最恰当的选择。
 
 {% embed url="https://blog.csdn.net/guoziqing506/article/details/52372469" %}
+
+基本来说，在hashheap中，remove可以是O\(logn\)，堆的实现：
+
+* 堆用数组即可实现，即先上后下，先左后右边
+  * root 当前位置 // 2
+  * left 当前位置 \* 2
+  * right 当前位置 \* 2 + 1
+* siftdown 节点向下依次调整，O\(n\)堆化
+* siftup 节点向上依次调整，O\(nlog\)
+
+#### [130. Heapify](https://www.lintcode.com/problem/heapify/description)
+
+```python
+class Solution:
+    """
+    @param: A: Given an integer array
+    @return: nothing
+    """
+    def heapify(self, nums):
+        for i in range(1, len(nums)):
+            self.siftup(i ,nums)
+
+
+    def siftup(self, i, nums):
+        while (i - 1) // 2 >= 0 and nums[i] < nums[(i - 1)// 2]:
+            nums[i], nums[(i - 1) // 2] = nums[(i - 1) // 2], nums[i]
+            i = (i - 1) // 2
+            
+class Solution:
+    """
+    @param: A: Given an integer array
+    @return: nothing
+    """
+    def heapify(self, A):
+        # write your code here
+        for i in range(len(A) / 2, -1, -1):
+            self.siftdown(A, i)
+    
+    def siftdown(self, A, pos):
+        while pos < len(A):
+            smallest = pos
+            if pos * 2 + 1 < len(A) and A[pos * 2 + 1] < A[smallest]:
+                smallest = pos * 2 + 1
+            if pos * 2 + 2 < len(A) and A[pos * 2 + 2] < A[smallest]:
+                smallest = pos * 2 + 2
+            if pos == smallest:
+                break
+            
+            A[smallest], A[pos] = A[pos], A[smallest]
+            
+            pos = smallest
+```
 
 #### Heap的常见操作
 
@@ -225,7 +291,7 @@ class Stack:
 * `heapq.heapify`\(_x_\)
   * Transform list _x_ into a heap, in-place, in linear time.
 
-#### 4. Ugly Number II
+#### [4. Ugly Number II](https://www.lintcode.com/problem/ugly-number-ii/)
 
 这个题很简单，不细说了
 
@@ -260,7 +326,7 @@ class Solution:
 
 #### Intersection
 
-349. [Intersection of Two Arrays](https://leetcode.com/problems/intersection-of-two-arrays)    
+#### [547. Intersection of Two Arrays](https://www.lintcode.com/problem/intersection-of-two-arrays/description)  
 
 很多种方法
 
@@ -297,7 +363,7 @@ class Solution:
         return list(set(result))
 ```
 
-350. [Intersection of Two Arrays II](https://leetcode.com/problems/intersection-of-two-arrays-ii)    
+#### [548. Intersection of Two Arrays II ](https://www.lintcode.com/problem/intersection-of-two-arrays-ii/)   
 
 双指针对排序的进行处理
 
@@ -342,6 +408,8 @@ class Solution:
         return result
 ```
 
+#### 其他方法
+
 #### 1. 子数组 Subarray
 
 主要解决子数组问题用到的主要是前缀和
@@ -373,7 +441,7 @@ class Solution:
 
 #### 3. 合并区间
 
-56. [Merge Intervals](https://leetcode.com/problems/merge-intervals)    
+#### [156. Merge Intervals](https://www.lintcode.com/problem/merge-intervals/description)   
 
 ```python
 """
@@ -424,14 +492,14 @@ A：都是O\(N\)O\(N\)。
 **Q：有没有更高效的做法？**  
 A：有！在查找左端新区见待插位置时，可以采用二分查找。原算法的的第三步，实际上是在查找右端的位置，也可以用二分查找，这样两次查找的复杂度都降为了O\(logN\)O\(logN\)。但是，**完全没必要**，因为这个算法涉及到数组中间位置的移动，所以O\(N\)O\(N\)的时间复杂度是逃不开的，二分查找的改进对效率提升不明显，而且会增大编码难度。有兴趣的同学可以自己尝试~
 
-#### 外排序和K路归并算法
+## 7. 外排序和K路归并算法
 
-### 介绍
+#### 介绍
 
 外排序算法（External Sorting），是指在**内存不够**的情况下，如何对存储在一个或者多个**大文件**中的数据进行排序的算法。外排序算法通常是解决一些大数据处理问题的第一个步骤，或者是面试官所会考察的算法基本功。外排序算法是**海量数据处理算法**中十分重要的一块。  
 在学习这类大数据算法时，经常要考虑到内存、缓存、准确度等因素，这和我们之前见到的算法都略有差别。
 
-### 基本步骤
+#### 基本步骤
 
 外排序算法分为两个基本步骤：
 
@@ -465,11 +533,11 @@ K路归并算法使用的是数据结构堆（Heap）来完成的，使用 Java 
 **更多海量数据算法相关知识可参见**  
 [九章算法——海量数据处理算法与面试题全集](http://www.jiuzhang.com/tutorial/big-data-interview-questions/148)
 
-## 7. K路归并类问题
+### K路归并类问题
 
 #### 第一种：通过队列的队首进行比较
 
-21. [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists)
+#### [165. Merge Two Sorted Lists](https://www.lintcode.com/problem/merge-two-sorted-lists/description)
 
 ```python
 # Definition for singly-linked list.
@@ -506,7 +574,7 @@ class Solution:
         return head.next
 ```
 
-23 . [Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists)    
+#### [104. Merge K Sorted Lists](https://www.lintcode.com/problem/merge-k-sorted-lists/description)
 
 ```python
 # Definition for singly-linked list.
@@ -553,7 +621,7 @@ class Solution:
 
 * 把小数组 Merge 到有足够空余空间的大数组里
 
-88. [Merge Sorted Array](https://leetcode.com/problems/merge-sorted-array)
+#### [64. Merge Sorted Array](https://www.lintcode.com/problem/merge-sorted-array/description)
 
 逆向思维，从后端比较
 
@@ -590,7 +658,7 @@ class Solution:
 
 #### 第三种：区间类
 
-56. [Merge Intervals](https://leetcode.com/problems/merge-intervals)    
+#### [156. Merge Intervals](https://www.lintcode.com/problem/merge-intervals/description)
 
 ```python
 class Solution:

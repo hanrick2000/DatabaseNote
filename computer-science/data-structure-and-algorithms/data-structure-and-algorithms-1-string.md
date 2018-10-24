@@ -2,7 +2,7 @@
 description: Lintcode
 ---
 
-# Data Structure & Algorithms \(1\) - String
+# Algorithms \(1\) - String
 
 ## 回文判断
 

@@ -1,4 +1,4 @@
-# Data Structure & Algorithms \(7\) - DFS Permutation & Graph
+# Algorithms \(7\) - DFS Permutation & Graph
 
 全排列问题是“排列式”深度优先搜索问题的鼻祖。很多搜索的问题都可以用类似全排列的代码来完成。包括我们前面学过的全子集问题的一种做法。
 

@@ -1,4 +1,4 @@
-# Data Structure & Algorithms - Binary Tree Pre
+# Algorithms - Binary Tree Pre
 
 ## 二叉树专题
 

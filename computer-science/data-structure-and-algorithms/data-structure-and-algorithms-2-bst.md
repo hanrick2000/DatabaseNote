@@ -2,7 +2,7 @@
 description: Lintcode
 ---
 
-# Data Structure & Algorithms \(2\) - BST
+# Algorithms \(2\) - BST
 
 ## 1. Binary Search 第一重境界
 

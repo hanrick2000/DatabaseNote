@@ -1,4 +1,4 @@
-# Data Structure & Algorithms \(3\) - Two Pointers
+# Algorithms \(3\) - Two Pointers
 
 双指针算法主要是在数组一端存在两个指针，同时向一边移动，用这样的方式来解决例如Two Sum的问题。
 

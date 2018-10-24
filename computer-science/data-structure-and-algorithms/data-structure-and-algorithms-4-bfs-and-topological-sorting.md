@@ -1,4 +1,4 @@
-# Data Structure & Algorithms \(4\) - BFS & Topological Sorting
+# Algorithms \(4\) - BFS & Topological Sorting
 
 ## 0. BFS解决的问题
 
