@@ -457,9 +457,66 @@ class Solution:
 
 #### [629. Minimum Spanning Tree](https://www.lintcode.com/problem/minimum-spanning-tree/description)
 
-{% embed url="https://www.programiz.com/dsa/kruskal-algorithm" %}
+{% embed url="https://en.wikipedia.org/wiki/Kruskal%27s\_algorithm" %}
 
 {% embed url="https://en.wikipedia.org/wiki/Prim%27s\_algorithm" %}
+
+使用了Kruskal算法，先排序，再union
+
+```python
+class Solution:
+    # @param {Connection[]} connections given a list of connections
+    # include two cities and cost
+    # @return {Connection[]} a list of connections from results
+    def lowestCost(self, connections):
+        # Write your code here
+        if connections is None or len(connections) == 0:
+            return []
+            
+        connections.sort(key=lambda x: (x.cost, x.city1, x.city2))
+        self.initialize(connections)
+        
+        results = []
+        for connection in connections:
+            city1 = connection.city1
+            city2 = connection.city2
+            if self.union(city1, city2):
+                results.append(connection)
+                
+        if self.count != len(self.father) - 1:
+            return []
+        return results
+        
+        
+    def initialize(self, connections):
+        self.father = {}
+        self.count = 0
+        for connection in connections:
+            city1 = connection.city1
+            city2 = connection.city2
+            if city1 not in self.father:
+                self.father[city1] = city1
+            if city2 not in self.father:
+                self.father[city2] = city2
+            
+    def union(self, city1, city2):
+        root_1 = self.find(city1)
+        root_2 = self.find(city2)
+        if root_1 != root_2:
+            self.father[root_1] = root_2
+            self.count += 1
+            return True
+        return False
+    
+    def find(self, city):
+        path = []
+        while self.father[city] != city:
+            path.append(city)
+            city = self.father[city]
+        for p in path:
+            self.father[p] = city
+        return city
+```
 
 ## 2. Tire
 
@@ -586,82 +643,81 @@ class WordDictionary:
 
 #### [634. Word Squares](https://www.lintcode.com/problem/word-squares/)
 
-这里使用了可行性优化
+这个题一开始觉得比较复杂，后来感觉其实一般，主要是一旦定义了Trie，整体就优化了很多，几个值得注意的小细节。
 
-剪枝
+* 剪枝，根据所有的前缀组合来看是否前缀存在，不存在就prune
+* 这里要善于test，要给一个例子进去去验证自己的理解比较好
 
 ```python
-class TrieNode:
-    def __init__(self):
+# define data structure
+class TrieNode :
+    def __init__(self) :
         self.children = {}
         self.is_word = False
         self.word_list = []
-
-
-class Trie:
-    def __init__(self):
-        self.root = TrieNode()
         
-    def add(self, word):
+class Trie :
+    def __init__(self) :
+        self.root = TrieNode()
+    
+    def add(self, word) :
         node = self.root
-        for c in word:
-            if c not in node.children:
+        for c in word :
+            if c not in node.children :
                 node.children[c] = TrieNode()
             node = node.children[c]
             node.word_list.append(word)
         node.is_word = True
-
-    def find(self, word):
-        node = self.root
-        for c in word:
+    
+    def find(self, word) :
+        node = self.root 
+        for c in word :
             node = node.children.get(c)
-            if node is None:
+            if node is None :
                 return None
         return node
         
-    def get_words_with_prefix(self, prefix):
+    def words_prefix(self, prefix) :
         node = self.find(prefix)
         return [] if node is None else node.word_list
-        
-    def contains(self, word):
-        node = self.find(word)
-        return node is not None and node.is_word
-        
-        
+
+
 class Solution:
-    """
-    @param: words: a set of words without duplicates
-    @return: all word squares
-    """
+
     def wordSquares(self, words):
+        # 初始化trie，加入单词
         trie = Trie()
-        for word in words:
+        for word in words :
             trie.add(word)
-            
+        # 检测是否可以加入，sqaure为list
         squares = []
-        for word in words:
+        for word in words :
             self.search(trie, [word], squares)
-        
+            
         return squares
         
-    def search(self, trie, square, squares):
-        n = len(square[0])
-        curt_index = len(square)
-        if curt_index == n:
+    def search(self, trie, square, squares) :
+        # eg. ['wall', 'area'] n: 单词长度 4, pos: 单词数目 2
+        n, pos = len(square[0]), len(square)
+        # 递归出口 - 需要deep copy 
+        if n == pos :
             squares.append(list(square))
-            return
+            return 
         
-        # Pruning, it's ok to remove it, but will be slower
-        for row_index in range(curt_index, n):
-            prefix = ''.join([square[i][row_index] for i in range(curt_index)])
-            if trie.find(prefix) is None:
-                return
-        
-        prefix = ''.join([square[i][curt_index] for i in range(curt_index)])
-        for word in trie.get_words_with_prefix(prefix):
+        # 剪枝 - 以后面为前缀的是否存在
+        for col in range(pos, n) :
+            prefix = ''.join(square[i][col] for i in range(pos))
+            if trie.find(prefix) is None :
+                return 
+    
+        # ['wall',
+        #  'area']  prefix = 'le'，下一个应该以le开头，每行的pos - 2
+        prefix = ''.join(square[i][pos] for i in range(pos))
+        for word in trie.words_prefix(prefix) :
+            # 尝试将word加入
             square.append(word)
             self.search(trie, square, squares)
-            square.pop() # remove the last word
+            square.pop()
 ```
 
 #### [132. Word Search II](https://www.lintcode.com/problem/word-search-ii/)
