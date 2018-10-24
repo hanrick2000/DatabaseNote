@@ -4,10 +4,12 @@
 
 #### 什么是Union Find ?
 
-一种用于支持集合快速合并和查找操作的数据结构 
+一种用于支持集合快速合并和查找操作的数据结构，别名disjoint set。
 
-* O\(logn\) - 平均是O\(1\) 合并两个集合 - Union
-* O\(logn\) - 平均是O\(1\) 查询元素所属集合 - Find
+* 平均是O\(1\) 合并两个集合 - Union
+* 平均是O\(1\) 查询元素所属集合 - Find
+  * 具体的时间复杂度是log\*n - log\(logn\)
+  * 阿克曼函数的反函数
 
 {% embed url="https://en.wikipedia.org/wiki/Proof\_of\_O\(log\*n\)\_time\_complexity\_of\_union%E2%80%93find" %}
 
@@ -47,6 +49,7 @@ def __init__(self, n) :
 
 ```python
 # 错误模板
+# 本身其实没问题的，主要是最坏情况成链时，时间复杂度会退化到O(n^2)
 def find(self, node):
     while self.father[node] != node :
         node = self.father[node]
@@ -117,7 +120,7 @@ class UnionFind :
 * 获得某个集合的元素个数
 * 统计当前集合个数
 
-#### 589. Connecting Graph
+#### [589. Connecting Graph](https://www.lintcode.com/problem/connecting-graph/)
 
 主要是练习前面的模板，判断两个点是否在同一个集合。
 
@@ -162,7 +165,7 @@ class ConnectingGraph:
         return node        
 ```
 
-#### 590. Connecting Graph II
+#### [590. Connecting Graph II](https://www.lintcode.com/problem/connecting-graph-ii)
 
 多开一个hash用来记录每个节点下面连了几个：
 
@@ -204,7 +207,7 @@ class ConnectingGraph2:
         return self.count[self.find(a)]
 ```
 
-#### 591. Connecting Graph III
+#### [591. Connecting Graph III](https://www.lintcode.com/problem/connecting-graph-iii)
 
 只有connect的时候才会导致连接的self.size减少，主要控制的就是这里，其他的基本就是这样。
 
@@ -249,7 +252,7 @@ class ConnectingGraph3:
 * 联通集个数: 老大哥有几个
   * 老大哥合并一次就少一个，用来控制
 
-#### 434. Number of Islands II
+#### [434. Number of Islands II](https://www.lintcode.com/problem/number-of-distinct-islands-ii/)
 
 在原有并查集的模板上进行了加工，主要步骤
 
@@ -321,11 +324,11 @@ class Solution:
             self.size -= 1
 ```
 
-#### 178. Graph Valid Tree
+#### [178. Graph Valid Tree](https://www.lintcode.com/problem/graph-valid-tree/)
 
 这个题用union find真的是非常巧妙，如果能成为一棵树，必然最后联通的size只有1，这里不考虑平衡二叉树。每次只需要union新的边即可。
 
-* 这里为什么要用range\(n\)，而不用range\(1, n + 1\)
+* 这里为什么要用range\(n\)，而不用range\(1, n + 1\)，是因为需要根据题目要求来进行设计
 
 ```python
 class Solution:
@@ -367,14 +370,14 @@ class Solution:
             self.father[root_a] = root_b
 ```
 
-#### 1070. Accounts Merge
+#### [1070. Accounts Merge](https://www.lintcode.com/problem/accounts-merge/)
 
-这个题比较复杂，有很多非常细小的点需要注意
+这个题比较复杂，有很多非常细小的点需要注意，这里的关键是用到了信息检索里面的forward index和inverted index概念。
 
-* step 0 : 现有的union find的模板定义的是每个node的father是自己，也就是i，所有后面的定义也应该用i，而不是账户的名字
-* step 1 : 先获取所有email的对应的id，然后将相同email的union起来
-* step 2 : 遍历原有的accounts，合并所有老大哥的email
-* step 3 ：排序即可
+* Step 0 : 现有的union find的模板定义的是每个node的father是自己，也就是i，所有后面的定义也应该用i，而不是账户的名字
+* Step 1 : 先获取所有email的对应的id，然后将相同email的union起来
+* Step 2 : 遍历原有的accounts，合并所有老大哥的email
+* Step 3 ：排序即可
 
 这个题非常的复杂，需要想的很清楚，个人觉得可能用union find解不是一个特别好的方法，但是对于练习union find非常有价值。
 
@@ -450,11 +453,27 @@ class Solution:
 * 联通性问题都可以用BFS和Union Find解决
 * 而需要拆开两个集合的时候**无法**使用Union Find
 
+补充一些题:
+
+#### [629. Minimum Spanning Tree](https://www.lintcode.com/problem/minimum-spanning-tree/description)
+
+{% embed url="https://www.programiz.com/dsa/kruskal-algorithm" %}
+
+{% embed url="https://en.wikipedia.org/wiki/Prim%27s\_algorithm" %}
+
 ## 2. Tire
 
 #### 什么是字典树？
 
 又名 Prefix Tree，来自单词 Retrieval，发音与 Tree 相同。在计算机科学中，trie，又称**前缀树**或**字典樹**，是一种有序树，用于保存关联数组，其中的键通常是字符串。
+
+#### 主要考点
+
+* 实现一个 Trie
+* 比较 Trie 和 Hash 的优劣
+  * Trie需要寻址l次，而hash只有一次
+* 字符矩阵类问题使用 Trie 比 Hash 更高效
+  * hash需要找26个字母，但tire只看儿子有几个
 
 字典树通过用空间换时间，从而减少了时间复杂度，而增加了空间复杂度。
 
@@ -468,7 +487,7 @@ class Solution:
 
 #### Tire的实现
 
-#### 442. Implement Trie \(Prefix Tree\)
+#### [442. Implement Trie \(Prefix Tree\)](https://www.lintcode.com/problem/implement-trie-prefix-tree/description)
 
 * insert 插入单词
 * find 找到单词所在的TireNode
@@ -517,7 +536,7 @@ class Trie:
         return self.find(prefix) is not None
 ```
 
-#### 473. Add and Search Word - Data structure design
+#### [473. Add and Search Word - Data structure design](https://www.lintcode.com/problem/implement-trie-prefix-tree/description)
 
 这个题本质不是特别的难，依旧是使用了Tire的数据结构，非常的巧妙
 
@@ -565,7 +584,9 @@ class WordDictionary:
         return False
 ```
 
-#### 634. Word Squares
+#### [634. Word Squares](https://www.lintcode.com/problem/word-squares/)
+
+这里使用了可行性优化
 
 剪枝
 
@@ -643,7 +664,7 @@ class Solution:
             square.pop() # remove the last word
 ```
 
-#### 132. Word Search II
+#### [132. Word Search II](https://www.lintcode.com/problem/word-search-ii/)
 
 Tire解法
 
