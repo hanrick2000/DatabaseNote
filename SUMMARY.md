@@ -1,14 +1,11 @@
 # Table of contents
 
-* [Notes](README.md)
+* [Intro](README.md)
 
 ## Computer Science
 
 * [Big Data Essentials](computer-science/big-data-essentials/README.md)
   * [HDFS, MapReduce and Spark RDD \(1\)](computer-science/big-data-essentials/hdfs-mapreduce-and-spark-rdd-1.md)
-  * [Hackrank SQL](computer-science/big-data-essentials/hackrank-sql/README.md)
-    * [Hackrank SQL database \(1\)](computer-science/big-data-essentials/hackrank-sql/hackrank-sql-database.md)
-    * [Hackrank SQL database \(2\)](computer-science/big-data-essentials/hackrank-sql/hackrank-sql-database-2.md)
 * [Algorithms](computer-science/data-structure-and-algorithms/README.md)
   * [Algorithms \(1\) - String](computer-science/data-structure-and-algorithms/data-structure-and-algorithms-1-string.md)
   * [Algorithms \(2\) - BST](computer-science/data-structure-and-algorithms/data-structure-and-algorithms-2-bst.md)
@@ -42,6 +39,9 @@
     * [Relational Database Support for Data Warehouses \(2\)](database/data-warehousing-for-business-intelligence/3.relational-database-support-for-data-warehouses/relational-database-support-for-data-warehouses-1.md)
   * [4.Business Intelligence Concepts, Tools, and Applications](database/data-warehousing-for-business-intelligence/4.business-intelligence-concepts-tools-and-applications.md)
   * [5.Design and Build a Data Warehouse for Business Intelligence Implementation](database/data-warehousing-for-business-intelligence/5.design-and-build-a-data-warehouse-for-business-intelligence-implementation.md)
+* [Hackrank SQL](database/hackrank-sql/README.md)
+  * [Hackrank SQL database \(1\)](database/hackrank-sql/hackrank-sql-database.md)
+  * [Hackrank SQL database \(2\)](database/hackrank-sql/hackrank-sql-database-2.md)
 * [Leetcode Database Solutions](database/untitled-1/README.md)
   * [MSSQL 解答](database/untitled-1/mssql-jie-da.md)
   * [MySQL - Window Function](database/untitled-1/mysql-window-function.md)
