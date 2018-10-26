@@ -28,15 +28,9 @@
 ## Database
 
 * [Data Warehousing for Business Intelligence](database/data-warehousing-for-business-intelligence/README.md)
-  * [1.Database Management Essentials](database/data-warehousing-for-business-intelligence/1.database-management-essentials/README.md)
-    * [Database Management Essentials （1）](database/data-warehousing-for-business-intelligence/1.database-management-essentials/1.database-management-essentials.md)
-    * [Database Management Essentials （2）](database/data-warehousing-for-business-intelligence/1.database-management-essentials/untitled-1.md)
-  * [2.Data Warehouse Concepts, Design, and Data Integration](database/data-warehousing-for-business-intelligence/2.data-warehouse-concepts-design-and-data-integration/README.md)
-    * [Data Warehouse Concepts, Design, and Data Integration （1）](database/data-warehousing-for-business-intelligence/2.data-warehouse-concepts-design-and-data-integration/data-warehouse-concepts-design-and-data-integration-1.md)
-    * [Data Warehouse Concepts, Design, and Data Integration （2）](database/data-warehousing-for-business-intelligence/2.data-warehouse-concepts-design-and-data-integration/data-warehouse-concepts-design-and-data-integration-2.md)
-  * [3.Relational Database Support for Data Warehouses](database/data-warehousing-for-business-intelligence/3.relational-database-support-for-data-warehouses/README.md)
-    * [Relational Database Support for Data Warehouses \(1\)](database/data-warehousing-for-business-intelligence/3.relational-database-support-for-data-warehouses/relational-database-support-for-data-warehouses-2.md)
-    * [Relational Database Support for Data Warehouses \(2\)](database/data-warehousing-for-business-intelligence/3.relational-database-support-for-data-warehouses/relational-database-support-for-data-warehouses-1.md)
+  * [1.Database Management Essentials](database/data-warehousing-for-business-intelligence/1.database-management-essentials.md)
+  * [2.Data Warehouse Concepts, Design, and Data Integration](database/data-warehousing-for-business-intelligence/2.data-warehouse-concepts-design-and-data-integration.md)
+  * [3.Relational Database Support for Data Warehouses](database/data-warehousing-for-business-intelligence/3.relational-database-support-for-data-warehouses.md)
   * [4.Business Intelligence Concepts, Tools, and Applications](database/data-warehousing-for-business-intelligence/4.business-intelligence-concepts-tools-and-applications.md)
   * [5.Design and Build a Data Warehouse for Business Intelligence Implementation](database/data-warehousing-for-business-intelligence/5.design-and-build-a-data-warehouse-for-business-intelligence-implementation.md)
 * [Hackrank SQL](database/hackrank-sql/README.md)
