@@ -4,18 +4,18 @@
 
 本质遍历2\*N次，从而降低了时间复杂度，主要利用了避免重复的方法来解决问题，基本套路就是下图，稍微修改了下形成自己的风格。
 
-![](../../.gitbook/assets/screen-shot-2018-10-16-at-8.50.31-pm.png)
-
 ```python
 left, right = 0, 0
+# 循环每个 subarray 的其实位置
 for left in range(n):
-    while right < n and subarray 不满足：
-        right += 1 # 拓宽序列 注意right不回头
+    while right < n and subarray 不满足条件：
+        # 拓宽序列 注意right不回头
+        right += 1 
     
     if subarray 满足条件：
-        看下是否满足条件
+        打擂台，看下是否最优
     
-    将nums[left]移除 # remove left
+    将nums[left]移出当前的 subarray # remove left
 ```
 
 #### [406. Minimum Size Subarray Sum](https://www.lintcode.com/problem/minimum-size-subarray-sum/description)
