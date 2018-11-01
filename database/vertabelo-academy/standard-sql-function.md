@@ -1,8 +1,12 @@
-# Vertabelo Academy
+# Standard SQL Function
+
+
 
 ## 1. Introduction
 
 数据库版本 ： PostgreSQL
+
+这里的题因为比较细致，所以有的题非常的简单，还是戒骄戒躁，认认真真来做一遍吧。
 
 ## 2. Text
 
@@ -80,7 +84,7 @@
 * `abs(x)` - returns a absolute value of `x`
 * `sqrt(x)` - returns a square root of `x`
 
-## 4.Date, Time, Timestamp
+## 4. Date, Time, Timestamp
 
 #### 主要区别
 
@@ -135,5 +139,100 @@
 * `INTERVAL '2-1' YEAR TO MONTH` 混合间隔，2年1个月
 * `CURRENT_DATE`, `CURRENT_TIME` or `CURRENT_TIMESTAMP`
 
+## 5. Null
 
+null是非常特殊的一种数据类型，它在数据库中有自己的定义，所以在比较的时候会出现问题。
+
+* Null 的比较需要使用is null 或 is not null，这是由于它本身数据定义的特质。
+  * 这里有个比较好的用法， in \('a', 'b', null\)。
+* null 在一般的算术运算和文本计算中是失效的
+
+#### Coalesce
+
+* COALESCE\(x,y\) 会返回x 与 y中不是Null的值
+* 函数支持嵌套
+
+#### Nullif
+
+* 如果检测到0，一般给出null
+
+#### 小结
+
+* Rule number one: never trust a `NULL`. Keep your eyes open.
+* Use the operator `IS NULL` to check if the column is `NULL`.
+* Use the operator `IS NOT NULL`to check if the column is `not NULL`.
+* The equality and non-equality conditions \(`price = 7`, `price = NULL`, `price > 15`\) are NEVER true when the argument is `NULL`.
+* Arithmetical operations \(e.g. `a + b`\) and most functions \(e.g. `a || b`, `length(a)`\) will return a `NULL` if any of the values is a `NULL`.
+* `COALESCE(x,y,…)` returns the first **non-NULL** argument.
+* `NULLIF(x,y)` returns `x` when `x != y` or `NULL` when `x = y`.
+* In some databases, you can use `NULLS FIRST` or `NULLS LAST`to specify how `NULL`s are treated in the `ORDER BY` clause.
+
+## 6. Aggregation
+
+#### count\(\) 
+
+* 要注意的是可能会考count\(distinct \)
+* count\(\*\)和count\(col\)的区别，后者有0
+
+#### avg\(\)
+
+* avg在统计的时候并不统计null，这也是聚合函数的特性
+* avg\(coalesce\(col, 0\)\)来进行补充
+
+#### sum, max, min
+
+#### 小结
+
+* `COUNT(*)` counts the number of all rows.
+* `COUNT(column1)` counts the number of rows where `column1`is not `NULL`.
+* `COUNT` can be used to count non-`NULL` expressions.
+* Avoid `COUNT(*)` with `LEFT JOIN`s.
+* `DISTINCT` only takes into account distinctive values.
+* `AVG`, `SUM`, `MAX` and `MIN` ignore `NULL`s, but `COUNT` takes them into account when counting the number of rows.
+* You can use `COALESCE(x,y)` to replace **x** with **y** when **x** is `NULL`. For example, you can replace `NULL`s with **0**.
+* You can use `AVG`, `SUM`, `MIN` or `MAX` with `DISTINCT`.
+* You can use `ROUND` to round the score obtained with `AVG`.
+
+## 7. Case When
+
+case when还是有很多花式的操作的，之前一直没有注意到，现在想想这些操作在生产reporting的时候还是非常有用的。
+
+* 最简单的例子是同一个col的不同值
+
+  ```text
+  CASE column_name
+    WHEN value1 THEN text1
+    WHEN value2 THEN text2
+    …
+    ELSE text_else
+  END
+  ```
+
+* 但是一旦需要条件的时候就需要从case 后面写入when
+
+  ```text
+  CASE
+    WHEN condition1 THEN text1
+    WHEN condition2 THEN text2
+    …
+    ELSE text_else
+  END
+  ```
+
+* The `ELSE` part is optional.
+* Remember about the `END` clause at the end.
+* You can use `CASE WHEN` with `SUM` to count multiple values in a single query:
+
+  ```text
+  SUM(CASE WHEN x THEN 1 ELSE 0 END)
+  ```
+
+* Similarly, you can use `CASE WHEN` with `COUNT` to count multiple values in a single query
+
+  ```text
+  COUNT(CASE WHEN x THEN column END)
+  ```
+
+* 还可以在group by 里面写case when
+* 小细节是要注意case的判断是一条一条来的，而且null的归属非常的重要。
 

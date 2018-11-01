@@ -42,7 +42,9 @@
   * [MySQL - Window Function](database/untitled-1/mysql-window-function.md)
   * [MySQL - CTE](database/untitled-1/sql-qi-ta-ji-shu-bu-chong.md)
   * [MySQL Query Performance](database/untitled-1/mysql-query-performance.md)
-* [Vertabelo Academy](database/vertabelo-academy.md)
+* [Vertabelo Academy](database/vertabelo-academy/README.md)
+  * [Standard SQL Function](database/vertabelo-academy/standard-sql-function.md)
+  * [Window Functions](database/vertabelo-academy/window-functions.md)
 
 ## Statistics
 
