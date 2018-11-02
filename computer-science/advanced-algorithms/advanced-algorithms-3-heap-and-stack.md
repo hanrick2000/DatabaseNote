@@ -9,6 +9,8 @@
 * 这里尝试过将两个循环写在一起来减少代码量，但是不行
 * 整体来说，时间复杂度并没有改变，所以代码量不太重要
 
+现在的时间和空间复杂度分别是: O\(n\)，O\(n\)
+
 ```python
 class Solution:
     """
@@ -36,9 +38,55 @@ class Solution:
         return water
 ```
 
+#### Follow up : 能不能继续降低空间复杂度？
+
+使用相向双指针，整个算法的思想是计算每个位置上可以盛放的水，累加起来。记录如下几个值：
+
+* left, right =&gt; 左右指针的位置
+* left\_max, right\_max =&gt; 从左到右和从右到左到 left, right 为止，找到的最大的 height
+
+每次比较 left\_max 和 right\_max，
+
+* 如果 left\_max 比较小，就挪动 left 到 left + 1。
+
+与此同时，查看 left 这个位置上能够盛放多少水，这里有两种情况：
+
+* 一种是 left\_max &gt; heights\[left\]，这种情况下，水可以盛放 left\_max - heights\[left\] 那么多。因为右边有 right\_max 挡着，左侧可以到 left\_max。
+* 一种是 left\_max &lt;= heights\[left\]，这种情况下，水无法盛放，会从左侧流走，此时更新 left\_max 为 heights\[left\]
+* left\_max &gt;= right\_max 的情况类似处理。
+
+现在的时间和空间复杂度分别是: O\(n\)，O\(1\)
+
+```python
+class Solution:
+    """
+    @param heights: a list of integers
+    @return: a integer
+    """
+    def trapRainWater(self, heights):
+        if not heights:
+            return 0
+            
+        left, right = 0, len(heights) - 1
+        left_max, right_max = heights[left], heights[right]
+        water = 0
+        
+        while left <= right:
+            if left_max < right_max:
+                left_max = max(left_max, heights[left])
+                water += left_max - heights[left]
+                left += 1
+            else:
+                right_max = max(right_max, heights[right])
+                water += right_max - heights[right]
+                right -= 1
+                    
+        return water
+```
+
 #### [364. Trapping Rain Water II](https://www.lintcode.com/problem/trapping-rain-water-ii/description)
 
-这个题非常非常的有趣，但是容易写错的点也比较多，需要多些几遍，脑子比较清楚。
+这个题非常非常的有趣，但是容易写错的点也比较多，需要多些几遍，这样脑子比较清楚。
 
 * 参考了第一个题，先将边界都加入heap，来找到短板
 * 然后从短板出发，依次向里面推，并不断找短板，用这种思路来解决
@@ -47,7 +95,9 @@ class Solution:
 
 * 怎么样通过trapping rain water 1 拓展到这题的思路?
 * 怎么样想到利用堆?
-* 怎么想到由外向内遍历
+* 怎么想到由外向内遍历？
+
+时间复杂度，如果这个矩阵有n行m列，那么时间复杂度就是mnlog\(mn\)，最坏情况需要维护一个m\*n个元素的矩阵。
 
 ```python
 import heapq as h
@@ -150,9 +200,11 @@ class Solution:
             return float(self.large[0])
 ```
 
-#### [360. Sliding Window Median](https://www.lintcode.com/problem/sliding-window-median/description) 
+#### [360. Sliding Window Median](https://www.lintcode.com/problem/sliding-window-median/description)
 
 这个题比较复杂，用到hashheap，这个是具体实现很复杂，先post到这里边看边学。
+
+
 
 * 中位数怎么想到堆
 * 窗口操作怎么分解
@@ -208,6 +260,16 @@ class MinStack:
 
 #### [575. Decode String](https://www.lintcode.com/problem/decode-string/description)
 
+这个题非常的典型，是expression expanding，可以以此学会基本所有的+-\*/类问题，非常的有代表性。
+
+e.g. 3\[2\[ad\]\]
+
+-&gt; '3', '\[' , '2', '\[', 'a', 'd' , '\]'   : 遇到'\]' 反向合并为 adad
+
+-&gt; '3', '\[', 'adad', '\]' : 又遇到'\]' 反向合并为 adadadadadad 
+
+* 需要多写几遍，没有想象中的简单，能bug free是不太容易的
+
 ```python
 class Solution:
     """
@@ -216,24 +278,54 @@ class Solution:
     """
     def expressionExpand(self, s):
         stack = []
+        # 一个一个丢进去
         for c in s:
-            if c == ']':
-                strs = []
-                while stack and stack[-1] != '[':
-                    strs.append(stack.pop())
-                
-                # skip '['
-                stack.pop()
-                
-                repeats = 0
-                base = 1
-                while stack and stack[-1].isdigit():
-                    repeats += (ord(stack.pop()) - ord('0')) * base
-                    base *= 10
-                stack.append(''.join(reversed(strs)) * repeats)
-            else:
+            if c != ']':
                 stack.append(c)
+                continue
+                
+            strs = []
+            while stack and stack[-1] != '[':
+                strs.append(stack.pop())
+            
+            # skip '['
+            stack.pop()
+            
+            repeats = 0
+            base = 1
+            while stack and stack[-1].isdigit():
+                repeats += (ord(stack.pop()) - ord('0')) * base
+                base *= 10
+            stack.append(''.join(reversed(strs)) * repeats)
         
         return ''.join(stack)
 ```
+
+#### 单调栈 Monotonous stack
+
+维护一个只递增或者只递减的栈。
+
+* stack \[1, 2, 8, 10\] 
+* 这个时候如果push一个新的元素 5 进来，stack就会pop掉比5大的元素
+* stack \[1, 2, 5\]   pop的依次是 10， 8
+
+#### 单调栈的实现
+
+时间复杂度是O\(n\)
+
+```python
+def mono_stack(array) :
+    mono = []
+    # O(n)
+    for element in array : 
+        # 这里最坏是O(n), 但是平均是O(1)       
+        while mono and element < mono[-1] :
+            mono.pop()
+        mono.append(element)
+    return mono
+```
+
+#### [122. Largest Rectangle in Histogram](https://www.lintcode.com/problem/largest-rectangle-in-histogram/description)
+
+
 

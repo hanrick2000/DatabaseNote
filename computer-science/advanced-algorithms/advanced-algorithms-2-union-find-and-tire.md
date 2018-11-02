@@ -329,6 +329,7 @@ class Solution:
 这个题用union find真的是非常巧妙，如果能成为一棵树，必然最后联通的size只有1，这里不考虑平衡二叉树。每次只需要union新的边即可。
 
 * 这里为什么要用range\(n\)，而不用range\(1, n + 1\)，是因为需要根据题目要求来进行设计
+* 图的特性是n个点，n-1条边，可以用这个进行快速检查
 
 ```python
 class Solution:
@@ -374,10 +375,10 @@ class Solution:
 
 这个题比较复杂，有很多非常细小的点需要注意，这里的关键是用到了信息检索里面的forward index和inverted index概念。
 
-* Step 0 : 现有的union find的模板定义的是每个node的father是自己，也就是i，所有后面的定义也应该用i，而不是账户的名字
-* Step 1 : 先获取所有email的对应的id，然后将相同email的union起来
-* Step 2 : 遍历原有的accounts，合并所有老大哥的email
-* Step 3 ：排序即可
+* **Step 0** : 现有的union find的模板定义的是每个node的father是自己，也就是i，所有后面的定义也应该用i，而不是账户的名字
+* **Step 1** : 先获取所有email的对应的id，然后将相同email的union起来
+* **Step 2** : 遍历原有的accounts，合并所有老大哥的email
+* **Step 3** ：排序即可
 
 这个题非常的复杂，需要想的很清楚，个人觉得可能用union find解不是一个特别好的方法，但是对于练习union find非常有价值。
 
@@ -528,11 +529,11 @@ class Solution:
 
 * 实现一个 Trie
 * 比较 Trie 和 Hash 的优劣
-  * Trie需要寻址l次，而hash只有一次
+  * Trie需要寻址L次，而hash只有一次
 * 字符矩阵类问题使用 Trie 比 Hash 更高效
   * hash需要找26个字母，但tire只看儿子有几个
 
-字典树通过用空间换时间，从而减少了时间复杂度，而增加了空间复杂度。
+#### 字典树通过用空间换时间，从而减少了时间复杂度，而增加了空间复杂度。
 
 * search时间复杂度O\(N\)
 
@@ -722,40 +723,40 @@ class Solution:
 
 #### [132. Word Search II](https://www.lintcode.com/problem/word-search-ii/)
 
-Tire解法
+这个题的思路不是很难，但是代码实现比较复杂，有时间还是多写几遍，目前还做不到bug free
+
+* 将所有的单词加入Trie，进行建树
+* 对二维矩阵进行深度优先搜索，这里主要借助了二维坐标数组
 
 ```python
 DIRECTIONS = [(0, -1), (0, 1), (-1, 0), (1, 0)]
 
-class TrieNode:
-    def __init__(self):
+class TrieNode :
+    def __init__(self) :
         self.children = {}
         self.is_word = False
-        self.word = None
+        self.word = None 
         
-        
-class Trie:
-    def __init__(self):
+class Trie  :
+    def __init__(self) :
         self.root = TrieNode()
-        
-    def add(self, word):
+    
+    def add(self, word) :
         node = self.root
-        for c in word:
-            if c not in node.children:
+        for c in word :
+            if c not in node.children :
                 node.children[c] = TrieNode()
             node = node.children[c]
         node.is_word = True
         node.word = word
-        
-    def find(self, word):
+    
+    def find(self, word) :
         node = self.root
-        for c in word:
+        for c in word :
             node = node.children.get(c)
-            if node is None:
+            if node is None :
                 return None
-                
         return node
-        
 
 class Solution:
     """
@@ -764,58 +765,58 @@ class Solution:
     @return: A list of string
     """
     def wordSearchII(self, board, words):
-        if board is None or len(board) == 0:
+        # corner test
+        if board is None or len(board) == 0 :
             return []
-            
+        # build trie
         trie = Trie()
-        for word in words:
+        for word in words :
             trie.add(word)
-
+        # search 
         result = set()
-        for i in range(len(board)):
-            for j in range(len(board[0])):
-                c = board[i][j]
-                self.search(
-                    board,
-                    i,
-                    j,
-                    trie.root.children.get(c),
-                    set([(i, j)]),
-                    result,
-                )
-                
+        row, col = len(board), len(board[0])
+        for i in range(row) :
+            for j in range(col) :
+                # word
+                start_node = trie.root.children.get(board[i][j])
+                self.search(board, i, j, start_node, set([(i, j)]), result)
+       
         return list(result)
         
-    def search(self, board, x, y, node, visited, result):
-        if node is None:
-            return
-        
-        if node.is_word:
+    def search(self, board, x, y, node, visited, result) :
+        # if not find
+        if node is None :
+            return 
+        # if find word
+        if node.is_word :
             result.add(node.word)
         
-        for delta_x, delta_y in DIRECTIONS:
-            x_ = x + delta_x
-            y_ = y + delta_y
+        for dx, dy in DIRECTIONS :
+            x1, y1 = x + dx, y + dy
             
-            if not self.inside(board, x_, y_):
-                continue
-            if (x_, y_) in visited:
+            if not self.inside(board, x1, y1) :
                 continue
             
-            visited.add((x_, y_))
-            self.search(
-                board,
-                x_,
-                y_,
-                node.children.get(board[x_][y_]),
-                visited,
-                result,
-            )
-            visited.remove((x_, y_))
-            
+            if (x1, y1) in visited :
+                continue
+            # dfs
+            visited.add((x1, y1))
+            next_node = node.children.get(board[x1][y1])
+            self.search(board, x1, y1, next_node, visited, result)
+            visited.remove((x1, y1))
+    
     def inside(self, board, x, y):
+        # check if out of index
         return 0 <= x < len(board) and 0 <= y < len(board[0])
 ```
 
 ## 3. Ladder
+
+有点忙，只把required做完了，其他的还需要继续努力。
+
+![](../../.gitbook/assets/screen-shot-2018-11-02-at-2.27.55-pm.png)
+
+![](../../.gitbook/assets/screen-shot-2018-11-02-at-2.28.02-pm.png)
+
+![](../../.gitbook/assets/screen-shot-2018-11-02-at-2.28.07-pm.png)
 
