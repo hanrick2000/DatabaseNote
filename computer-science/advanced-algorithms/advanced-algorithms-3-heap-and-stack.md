@@ -200,11 +200,11 @@ class Solution:
             return float(self.large[0])
 ```
 
+### 数据结构：HashHap
+
 #### [360. Sliding Window Median](https://www.lintcode.com/problem/sliding-window-median/description)
 
 这个题比较复杂，用到hashheap，这个是具体实现很复杂，先post到这里边看边学。
-
-
 
 * 中位数怎么想到堆
 * 窗口操作怎么分解
@@ -326,6 +326,57 @@ def mono_stack(array) :
 ```
 
 #### [122. Largest Rectangle in Histogram](https://www.lintcode.com/problem/largest-rectangle-in-histogram/description)
+
+这个题主要用到了单调栈，具体的解决办法如下:
+
+* 2，1，5，6，2，3 当扫描到5的时候，通过维护一个递增栈，可以得到\[ 1, 5, 6 \]  对应的index是 \[1 , 2,  3\] ， 3 - 1也就是现有长方形的宽，高是5，由此可以计算出最大的面积
+* 具体的思路就是如此
+
+还没具体bug free，留坑
+
+#### [510. Maximal Rectangle](https://www.lintcode.com/problem/maximal-rectangle/description)
+
+这个题相比前面的直方图，难点在于是一个二维的矩阵，因此很难得到具体的高度，这里的思路巧妙在想到了层叠的降维思路，具体如下：
+
+* 如果是连续的，通过累计记录为高，然后利用上一道的算法，逐行计算
+
+```text
+[
+  [1, 1, 0, 0, 1],  # [1, 1, 0, 0, 1]
+  [0, 1, 0, 0, 1],  # [0, 2, 0, 0, 2]
+  [0, 0, 1, 1, 1],  # [0, 0, 1, 1, 3]
+  [0, 0, 1, 1, 1],  # [0, 0, 2, 2, 4]
+  [0, 0, 0, 0, 1]   # [0, 0, 0, 0, 5]
+]
+```
+
+留坑
+
+#### [126. Max Tree](https://www.lintcode.com/problem/max-tree/description)
+
+如果使用暴力的解决办法，先找到最大的，然后将左右连起来 ：
+
+* 正好二分 : T\(n\) = O\(n\) + T\(n/2\)    O\(nlogn\)
+* 最坏情况 : T\(n\) = O\(n\) + T\(n - 1\)   O\(n^2\)
+
+如果要想用O\(n\)的算法解决，就只能遍历一遍: 
+
+* 维护一个递减栈，
+
+```text
+ -> [2, 5, 6, 0, 3, 1]
+ -> push 2 -> [2] -> pop 2  -> [] # 2的fater为4
+ -> push 5 -> [5] -> pop 5  -> [] # 5的fater为6 
+ -> push 6 -> [6] -> pop NA -> [6] #  
+ -> push 0 -> [6, 0] -> pop 0 -> [6] # 0的fater为3 
+ -> push 3 -> [6, 3] -> pop NA -> [6, 3] #  
+ -> push 1 -> [6, 3, 1] -> pop NA -> [6, 3, 1] #
+ -> push sys.max -> 1's father 3, 3's father 6
+```
+
+占坑
+
+## 3. Ladder
 
 
 
