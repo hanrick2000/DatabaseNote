@@ -55,8 +55,6 @@ class Solution:
         return nums
 ```
 
-### Exercise
-
 #### 891. Valid Palindrome II
 
 这里借鉴了quick sort的思路，找到左边的数字字母，然后找到右边的数字字母类，然后不等的话就不是，如果是的话左右指针相向就行。
@@ -241,37 +239,39 @@ class Solution:
         if len(nums) < 3 :
             return []
             
-        index = 0
         visited = []
         nums.sort()
-        
-        while index < len(nums) :
-            
+    
+        for index in range(0, len(nums) - 2):
+            if index and nums[index] == nums[index - 1]:
+                continue
+
             target = - nums[index]
-            self.twoSum(0, index - 1, target, nums, visited)
             self.twoSum(index + 1, len(nums) - 1, target, nums, visited)
-            index += 1
-        
+
         return visited
             
     def twoSum(self, start, end, target, nums, visited) :
         
         left, right = start, end
         
-        while left < right  :
-
-            if nums[left] + nums[right] < target :
-                left += 1
-            elif nums[left] + nums[right] > target  :
-                right -= 1
-            else :
-                combination = [-target, nums[left], nums[right]]
-                combination.sort()
-                if combination not in visited :
-                    visited.append(combination)
-                left += 1
-                right -= 1
+        while left < right:
+            if nums[left] + nums[right] == target:
                 
+                visited.append((-target, nums[left], nums[right]))
+                
+                right -= 1
+                left += 1
+                
+                while left < right and nums[left] == nums[left - 1]:
+                    left += 1
+                while left < right and nums[right] == nums[right + 1]:
+                    right -= 1
+                    
+            elif nums[left] + nums[right] > target:
+                right -= 1
+            else:
+                left += 1
 ```
 
 #### 382. Triangle Sum
@@ -589,8 +589,6 @@ class Solution:
     
         return False
 ```
-
-### 练习
 
 #### 539. Move Zeros
 
