@@ -103,18 +103,13 @@ class Solution:
         # test corner
         if not coins or n == 0 :
             return -1
-        # build array
-        dp = [sys.maxsize] * (amount + 1)
-        dp[0] = 0
-        # traverse    
+        # init
+        dp = [0] + [sys.maxsize] * amount
+        # traverse
         for i in range(1, amount + 1) :
-            for coin in coins :
-                if i >= coin and dp[i - coin] != sys.maxsize :
-                    dp[i] = min(dp[i], dp[i - coin] + 1)
-        # can not find
-        if dp[-1] == sys.maxsize :
-            return -1
-            
-        return dp[-1]
+            stack = [dp[i - c] if i >= c else sys.maxsize for c in coins]
+            dp[i] = min(stack) + 1
+                
+        return dp[-1] if dp[-1] < sys.maxsize else -1
 ```
 
