@@ -176,3 +176,66 @@
 
 #### [623. K Edit Distance](https://www.lintcode.com/problem/k-edit-distance/description)
 
+## 3. 背包型动态规划
+
+#### 特点 :
+
+1.  用值作为DP维度 
+2. DP过程就是填写矩阵
+3. 可以滚动数组优化
+
+#### [92. Backpack](https://www.lintcode.com/problem/backpack/description)
+
+* State:
+  * f\[i\]\[S\] “前i”个物品，取出一些能否组成和为S
+* Function：
+  * a\[i-1\] 是第i个物品下标是i-1
+  * f\[i\]\[S\] = f\[i-1\]\[S - a\[i-1\]\] or f\[i-1\]\[S\]
+* Initialize:
+  * f\[i\]\[0\] = true; f\[0\]\[1..target\] = false 
+* Answer: 检查所有的f\[n\]\[j\]
+* 时间复杂度 ： O\(n\*S\) ， 滚动数组优化
+
+![](../../.gitbook/assets/screen-shot-2018-11-06-at-8.21.43-pm%20%281%29.png)
+
+#### BackPack 马甲题型 
+
+* 把一个\[1,24,5,6\]数组尽量平分。
+
+#### [125. Backpack II](https://www.lintcode.com/problem/backpack-ii/description)
+
+* 状态:  f\[i\]\[j\] 表示前i个物品当中选一些物品组成容量为j的最大价值
+* 方程：f\[i\]\[j\] = max\(f\[i-1\]\[j\], f\[i-1\]\[j-A\[i-1\]\] + V\[i-1\]\);
+* 初始化: f\[0\]\[0\]=0
+* 答案: f\[n\]\[s\]
+* 时间复杂度： O\(n\*s\)
+
+![](../../.gitbook/assets/screen-shot-2018-11-06-at-8.25.51-pm.png)
+
+#### [562. Backpack IV](https://www.lintcode.com/problem/backpack-iv/description)
+
+* State: f\[i\]\[j\] “前i”个物品，取出一些物品，第i物品随便取多少个，组成和为j的个数
+* Function: 
+  * a\[i-1\] 是第i个物品，下标是i-1
+  * k 是第i个物品选取的次数
+  * f\[i\]\[j\] = sum\(f\[i-1\]\[j - k\*a\[i-1\]\]\)
+* Initialization:  f\[i\]\[0\] = true; f\[0\]\[1..target\] = false
+* Answer: f\[n\]\[target\]
+* 进一步优化方程: f\[i\]\[j\] = f\[i - 1\]\[j\] + f\[i\]\[j - a\[i - 1\]\]
+
+#### [89. k Sum](https://www.lintcode.com/problem/k-sum/description)
+
+• n个数，取k个数，组成和为target
+
+* State: f\[i\]\[j\]\[s\]前i个数取j个数出来能否和为s 
+* Function: f\[i\]\[j\]\[s\] = f\[i - 1\]\[j - 1\]\[s - a\[i-1\]\] + f\[i - 1\]\[j\]\[s\]
+* Initialization : f\[i\]\[0\]\[0\] = 1
+* Answer: f\[n\]\[k\]\[target\]
+
+#### [91. Minimum Adjustment Cost](https://www.lintcode.com/problem/minimum-adjustment-cost/description)
+
+* State: f\[i\]\[v\] 前i个数，第i个数调整为v，满足相邻两数&lt;=target，所需要的最小代价
+* Function: f\[i\]\[v\] = min\(f\[i-1\]\[v’\] + \|A\[i\]-v\|, \|v-v’\| &lt;= target\)
+* Answer: f\[n\]\[a\[n\]-target~a\[n\]+target\]
+* 时间复杂度 O\(n \* A \* T\)
+
