@@ -156,6 +156,14 @@ class Solution:
             return -1
 ```
 
+#### [594. strStr II](https://www.lintcode.com/problem/strstr-ii/description?_from=ladder&&fromId=1)
+
+就是RP解法，先码住
+
+#### [841. String Replace](https://www.lintcode.com/problem/string-replace/description?_from=ladder&&fromId=1)  
+
+类似与RP算法的进阶版，需要先匹配再替换，先码
+
 #### [200. Longest Palindromic Substring](https://www.lintcode.com/problem/longest-palindromic-substring/description) / [5. Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/description/)
 
 Manacher's Algorithm, 可以在 O\(n\) 的时间内解决问题：
@@ -194,25 +202,9 @@ class Solution:
         return s[(centerIndex  - maxLen)//2: (centerIndex  + maxLen)//2]
 ```
 
-
-
-
-
-未归类的题
-
 #### [667. Longest Palindromic Subsequence ](https://www.lintcode.com/problem/longest-palindromic-subsequence/description?_from=ladder&&fromId=1)/ [516. Longest Palindromic Subsequence](https://leetcode.com/problems/longest-palindromic-subsequence/description/)
 
 这个题用dp非常容易解决，这里先码住
-
-#### [841. String Replace](https://www.lintcode.com/problem/string-replace/description?_from=ladder&&fromId=1)  
-
-类似与RP算法的进阶版，需要先匹配再替换，先码
-
-#### [594. strStr II](https://www.lintcode.com/problem/strstr-ii/description?_from=ladder&&fromId=1)
-
-就是RP解法，先码住
-
-
 
 #### 小结：
 

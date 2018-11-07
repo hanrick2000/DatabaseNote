@@ -1,7 +1,3 @@
----
-description: Lintcode
----
-
 # Algorithms \(2\) - BST
 
 ## 1. Binary Search 第一重境界
@@ -10,26 +6,20 @@ description: Lintcode
 
 ```python
 class Solution:
-    """
-    @param nums: An integer array sorted in ascending order
-    @param target: An integer
-    @return: An integer
-    """
+
     def findPosition(self, nums, target):
-        # write your code here        
+        # test case
         if len(nums) == 0:
             return -1
-        
+        # traverse
         start, end = 0, len(nums) - 1
-        
         while start + 1 < end :
-            mid = start + (end - start) // 2
-            
+            mid = start + (end - start) // 2            
             if nums[mid] < target :
                 start = mid
             else :
                 end = mid
-                
+        # two pos
         if nums[start] == target :
             return start
         if nums[end] == target:
@@ -38,11 +28,25 @@ class Solution:
         return -1
 ```
 
-{% hint style="info" %}
-几种可能的变种，最后返回的是一个二元的list\[x,y\]，当两个是一样的时候，如果取左边就是start，取右边就是end。
-{% endhint %}
+几种可能的变种，最后返回的是一个二元的list\[x,y\]，当两个是一样的时候 ：
 
-#### 458. Last Position of Target
+* 取最左边，也就是只取x :
+  *   ```python
+    if nums[mid] < target :
+        start = mid
+    else :
+        end = mid
+    ```
+* 取最右边，也就是只取y :
+  * ```python
+    if nums[mid] <= target :
+        start = mid
+    else :
+        end = mid
+    ```
+* 原理非常的简单，能明白等于的时候放在哪边就可以了，不用强行记忆
+
+#### [458. Last Position of Target](https://www.lintcode.com/problem/last-position-of-target/description)
 
 计算复杂度O\(n\)
 
@@ -104,6 +108,42 @@ class Solution:
         if nums[start] == target :
             return start
         return -1
+```
+
+#### [34. Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/description/)
+
+```python
+class Solution:
+    
+    def searchRange(self, nums, target):
+        # corner
+        n = len(nums)
+        if n == 0 or target is None :
+            return [-1, -1]
+        if n == 1 and nums[0] == target :
+            return [0, 0]
+        
+        # bst
+        start, end = 0, n - 1
+        while start + 1 < end :
+            mid = (start + end) // 2
+            if nums[mid] < target :
+                start = mid
+            else :
+                end = mid
+
+        # check    
+        if nums[start] == target:
+            end = start 
+        elif nums[end] == target :
+            start = end
+        else :
+            return [-1, -1]
+        # move right pointer
+        while end < n - 1 and nums[end + 1] == nums[end] :
+            end += 1
+        
+        return [start, end]
 ```
 
 ## 2. Binary Search 第二重境界

@@ -23,6 +23,7 @@
   * [Advanced Algorithms \(4\) - Sweep Line, Deque, Binary Search](computer-science/advanced-algorithms/advanced-algorithms-4-sweep-line-deque-binary-search.md)
   * [Advanced Algorithms \(5\) - Dynamic Programming I](computer-science/advanced-algorithms/advanced-algorithms-5-dynamic-programming-i.md)
   * [Advanced Algorithms \(6\) - Dynamic Programming II](computer-science/advanced-algorithms/advanced-algorithms-6-dynamic-programming-ii.md)
+  * [Advanced Algorithms \(7\) - Follow Up](computer-science/advanced-algorithms/advanced-algorithms-7-follow-up.md)
 * [Dynamic Programming](computer-science/dynamic-programming/README.md)
   * [DP Introduction \(1\)](computer-science/dynamic-programming/untitled.md)
 * [Python Built-in Functions](computer-science/python-built-in-functions/README.md)
