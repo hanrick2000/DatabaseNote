@@ -408,7 +408,7 @@ class Solution:
 
 这里基本的二分法就结束了，二分法的第四重境界是二分答案，见下面，主要是二分之后对二分内的值进行尝试，log\(range\)
 
-{% page-ref page="data-structure-and-algorithms-4-bfs-and-topological-sorting.md" %}
+{% embed url="https://zijiang.gitbook.io/notes/computer-science/advanced-algorithms/advanced-algorithms-4-sweep-line-deque-binary-search" %}
 
 ## 4. 其他Logn的算法
 
