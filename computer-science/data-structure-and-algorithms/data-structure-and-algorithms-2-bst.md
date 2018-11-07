@@ -41,7 +41,7 @@ class Solution:
     # 先end 后start
     ```
 
-{% hint style="warning" %}
+{% hint style="info" %}
 原理非常的简单，能明白等于的时候放在哪边就可以了，不用强行记忆。但是需要注意的是，取左边第一个和右边第一个是确定的，但是不能确定的是，start还是end取到了，所以需要检查 **start和end**，见上面注释
 {% endhint %}
 
@@ -59,12 +59,11 @@ O\(n\)遍历的写法比较简单就不列在这里了，主要写一下二分�
 class Solution:
 
     def lastPosition(self, nums, target):
-        
+        # corner
         if len(nums) == 0 :
             return -1
-            
+        # bs 
         start, end = 0, len(nums) - 1
-        
         while start + 1 < end :
             mid = (start + end) // 2
             if nums[mid] <= target :
@@ -79,7 +78,7 @@ class Solution:
         return -1
 ```
 
-#### [34. Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/description/)
+#### [61. Search for a Range](https://www.lintcode.com/problem/search-for-a-range/description) / [34. Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/description/)
 
 leetcode只有这一道题，时间复杂度是O\(logn + k \)， k是一样的个数，建议下面的两种情况:
 
@@ -96,8 +95,7 @@ class Solution:
             return [-1, -1]
         if n == 1 and nums[0] == target :
             return [0, 0]
-        
-        # bst
+        # bs
         start, end = 0, n - 1
         while start + 1 < end :
             mid = (start + end) // 2
@@ -105,7 +103,6 @@ class Solution:
                 start = mid
             else :
                 end = mid
-
         # check    
         if nums[start] == target:
             end = start 
@@ -120,9 +117,15 @@ class Solution:
         return [start, end]
 ```
 
+#### 小结 :
+
+二分查找的第一种境界，主要要求是如下:
+
+* 能够熟练掌握二分法，在存在重复数字的情况下，找到左起或者右起的第一个，从而可以解决剩余的问题
+
 ## 2. Binary Search 第二重境界
 
-* 判断XXOO类型的数组，特点是有明确的区分
+#### 判断XXOO类型的数组，特点是有明确的区分
 
 #### [74. First Bad Version](https://www.lintcode.com/problem/first-bad-version/description) / [278. First Bad Version](https://leetcode.com/problems/first-bad-version/description/)
 
@@ -134,7 +137,7 @@ class Solution:
 class Solution:
 
     def findFirstBadVersion(self, n):
-        # bst
+        # bs
         start, end = 0, n
         while start + 1 < end :
             mid = (start + end) // 2
@@ -162,7 +165,7 @@ class Solution:
         # corner
         if len(A) == 0 or target is None :
             return []
-        # bst
+        # bs
         start, end = 0, len(A) - 1
         while start + 1 < end :
             mid = (start + end) // 2
@@ -287,7 +290,7 @@ class Solution:
         # test corner
         if len(matrix) == 0 or len(matrix[0]) == 0:
             return False
-        # bst
+        # bs
         start, end = 0, len(matrix) - 1
         while start + 1 < end :
             mid = (start + end) // 2
@@ -302,7 +305,7 @@ class Solution:
         return False
 
     def singleLine(self, List, target):
-        # bst
+        # bs
         start, end = 0, len(List) - 1
         while start + 1 < end :
             mid = (start + end) // 2
@@ -317,143 +320,99 @@ class Solution:
             return False
 ```
 
-#### 61. Search for a Range
+#### 小结 ：
 
-计算复杂度O\(logn+m\)
+二分法的第二重境界的要求 ：
 
-先二分查找到左界，然后右移指针就可以了。
-
-```python
-class Solution:
-    """
-    @param A: an integer sorted array
-    @param target: an integer to be inserted
-    @return: a list of length 2, [index1, index2]
-    """
-    def searchRange(self, A, target):
-        # write your code here
-        start, end = 0, len(A) - 1
-        
-        if end < 0 :
-            return [-1,-1]
-        
-        while start + 1 < end :
-            mid = (start + end) // 2
-            if A[mid] < target :
-                start = mid
-            else :
-                end = mid
-                
-        result = []
-        
-        if A[start] == target :
-            result.append(start)  
-        elif A[end] == target :
-            result.append(end)    
-        else :
-            return [-1,-1]
-        
-        while (end < len(A) - 1) :
-            if A[end+1] == target :
-                end += 1
-            else :
-                break
-        
-        result.append(end)
-            
-        if len(result) == 1 :
-            return result + result
-        else :
-            return result
-```
+* 可以在数列中找到明显的条件，使得查找可以使用二分
+* 也就是存在xxoo的形式
 
 ## 3. Binary Search 第三重境界
 
-* Half-half 判断一半不符合就扔掉
+#### Half-half 判断一半不符合就扔掉
 
-#### 75. Find Peak Element
+#### [75. Find Peak Element](https://www.lintcode.com/problem/find-peak-element/) / [162. Find Peak Element](https://leetcode.com/problems/find-peak-element/description/)
 
 计算复杂度O\(logn\)
 
-主要是可以判断出上升序列，就是。
+主要是可以判断出上升序列，就可以比较简单
 
 ```python
 class Solution:
-    """
-    @param A: An integers array.
-    @return: return any of peek positions.
-    """
+
     def findPeak(self, A):
-        # write your code here
+        # bs
         start, end = 0, len(A) - 1
-        
         while start + 1 < end:
             mid = (start + end) // 2
-            
             if A[mid] < A[mid+1] :
                 start = mid
             else :
                 end = mid
-                
+        # check                
         if A[start] < A[end]:
             return end
         else :
             return start
 ```
 
-#### 62. Search in Rotated Sorted Array
+#### [62. Search in Rotated Sorted Array](https://www.lintcode.com/problem/search-in-rotated-sorted-array/my-submissions) / [33. Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/description/)
 
 计算复杂度O\(logn\)
 
-先找到最大值，然后判断一下，再二分查找，二分查找了两次，logn + log\(n/2\)还是logn。
+直接通过端点的比较来判断可能值在哪一边，然后不断更新：
+
+* start + 1 &lt; end的模板的致命缺陷在于，总是要求len\(A\)大于2，不然进入不了循环，所以一开始无法处理\[1\]，这样的情况
 
 ```python
 class Solution:
-    """
-    @param A: an integer rotated sorted array
-    @param target: an integer to be searched
-    @return: an integer
-    """
-    def search(self, A, target):
-        # write your code here
-        if len(A) == 0:
-            return -1 
-            
-        start, end = 0, len(A) - 1
-        
-        while start + 1 < end :
-            mid = (start + end) // 2
-            if A[mid] < A[mid+1] and A[start] < A[mid]:
-                start = mid
-            else :
-                end = mid
-        
-        if target <= A[end] or target >= A[end+1] :
-            
-            if A[0] > target :
-                start, end = end, len(A) -1
-            else :
-                start = 0
-                
-            while start + 1 < end :
-                mid = (start + end) // 2
-                if A[mid] < target:
-                    start = mid
-                else :
-                    end = mid
 
-            if A[end] == target :
-                return end
-            if A[start] == target :
-                return start
+    def search(self, nums, target):
+        # corner
+        if not nums:
+            return -1
+
+        start, end = 0, len(nums) - 1
+        
+        if target == nums[start]:
+            return start
+        if target == nums[end]:
+            return end
+
+        while start + 1 < end:
+            mid = (start + end) // 2
+            if nums[start] <= nums[mid]:
+                if nums[start] <= target <= nums[mid]:
+                    end = mid 
+                else:
+                    start = mid
+            else:
+                if nums[mid] <= target <= nums[end]:
+                    start = mid 
+                else:
+                    end = mid 
                 
-            
-        return -1        
+            if target == nums[start]:
+                return start
+            if target == nums[end]:
+                return end
+
+        return -1
 ```
+
+#### 小结 :
+
+* 第三重境界主要是通过half-half的思想来实现，从而对原有数组进行了切割，这种思想本身是非常伟大的，但是要能够熟练的应用。
+* 现有的模板问题需要注意，也就是不会去探索两端的值，这个非常非常的重要，因为不是start &lt;= end，所以是无法穷尽的
+* Rotated Array这道题，非常的有价值，多练习
+
+这里基本的二分法就结束了，二分法的第四重境界是二分答案，见下面，主要是二分之后对二分内的值进行尝试，log\(range\)
+
+{% page-ref page="data-structure-and-algorithms-4-bfs-and-topological-sorting.md" %}
 
 ## 4. 其他Logn的算法
 
-#### 140. Fast Power
+#### [140. Fast Power](https://www.lintcode.com/problem/fast-power/)
 
 计算复杂度O\(logn\)
 
@@ -461,16 +420,10 @@ class Solution:
 
 ```python
 class Solution:
-    """
-    @param a: A 32bit integer
-    @param b: A 32bit integer
-    @param n: A 32bit integer
-    @return: An integer
-    """
+
     def fastPower(self, a, b, n):
-        # write your code here
+        # 
         ans = 1
-        
         while n > 0 :
             if n % 2 == 1:
                 ans = ans * a % b
@@ -484,7 +437,7 @@ class Solution:
         return ans % b
 ```
 
-#### 428. Pow\(x, n\)
+#### [428. Pow\(x, n\)](https://www.lintcode.com/problem/powx-n/) / [50. Pow\(x, n\)](https://leetcode.com/problems/powx-n/description/)
 
 计算复杂度O\(logn\)
 
@@ -492,15 +445,10 @@ class Solution:
 
 ```python
 class Solution:
-    """
-    @param x: the base number
-    @param n: the power number
-    @return: the result
-    """
+
     def myPow(self, x, n):
-        # write your code here
+        # init
         ans, multiple, m = 1, x, abs(n)
-        
         # corner case
         if x == 0 :
             return 0
@@ -511,10 +459,8 @@ class Solution:
             return x
         
         while m > 0 :
-            
             if m % 2 == 1:
                 ans *= multiple 
-            
             multiple = multiple * multiple
             m = m // 2
             
@@ -540,7 +486,7 @@ class Solution:
         limit = int(math.sqrt(num)) + 1
         prime_list = []
         
-        for prime in range(2,limit):
+        for prime in range(2, limit):
             while num % prime == 0 :
                 prime_list.append(prime)
                 num = num // 2
@@ -551,7 +497,14 @@ class Solution:
         
 ```
 
-## Ladder
+#### 小结 :
+
+基本遇到的两种情况
+
+* 质因数类\(prime number\)，主要用sqrtn来进行遍历
+* power和mod类的，数学降维尽量向二分法方向去靠拢
+
+## 5. Ladder
 
 ![](../../.gitbook/assets/screen-shot-2018-09-23-at-10.50.37-am.png)
 

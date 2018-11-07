@@ -1,12 +1,21 @@
-# Intro
+# Introduction
 
-目前主要涉及的MySQL和Python，希望自己能把这些知识学精，而不是泛泛地了解，这样不是很好。
+写一写自己的感触和总结，以便于自己以后找工作的时候，可以更好地处理这些问题，一般来说我面的职位主要需要下列三个方向的知识：
 
-* MySQL query
-  * 基本操作
-  * CTE函数 \(递归\)
-  * Window Function
-* Python Data Structure
-* Data warehousing
-  * Coursera的网课
+* Computer Science : 算法、系统设计、大数据平台
+* Database : 数据的存储、读写和扩容
+* Statistics : 统计、机器学习、深度学习
+
+整个笔记也是按照这样的内容来进行划分的，有的时候会涉及到一些case分析，这个比较偏向分析，也比较复杂，目前主要是通过 Look over my shoulder和Google case
+
+#### 主要的瓶颈：
+
+* 每一天太忙碌了，写这个非常的累，但是如果不写，那么以后面试又要做重复劳动
+* 反复看之后有新的理解，现在会看很多问题，都感觉自己有了新的理解，需要一遍一遍的更新
+
+{% hint style="info" %}
+还是Open Source了，心还是善良一点，要是能帮到大家也是一个好事。
+{% endhint %}
+
+
 
