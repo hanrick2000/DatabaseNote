@@ -158,7 +158,7 @@ class Solution:
 
 #### [594. strStr II](https://www.lintcode.com/problem/strstr-ii/description?_from=ladder&&fromId=1)
 
-就是RP解法，先码住
+strStr II就是强制使用了Rabin Karp算法，没有什么可以说的，需要注意的是可能会tle，power可以稍微小一点。
 
 #### [841. String Replace](https://www.lintcode.com/problem/string-replace/description?_from=ladder&&fromId=1)  
 

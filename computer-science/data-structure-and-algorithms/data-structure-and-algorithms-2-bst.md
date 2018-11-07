@@ -1,4 +1,4 @@
-# Algorithms \(2\) - BST
+# Algorithms \(2\) - Binary Search
 
 ## 1. Binary Search 第一重境界
 
@@ -28,53 +28,26 @@ class Solution:
         return -1
 ```
 
-几种可能的变种，最后返回的是一个二元的list\[x,y\]，当两个是一样的时候 ：
+几种可能的变种，最后返回的是一个二元的list\[x, y\]，当两个是一样的时候 ：
 
 * 取最左边，也就是只取x :
-  *   ```python
+  * ```python
     if nums[mid] < target :
-        start = mid
-    else :
-        end = mid
+    # 先start 后end
     ```
 * 取最右边，也就是只取y :
   * ```python
     if nums[mid] <= target :
-        start = mid
-    else :
-        end = mid
+    # 先end 后start
     ```
-* 原理非常的简单，能明白等于的时候放在哪边就可以了，不用强行记忆
+
+{% hint style="warning" %}
+原理非常的简单，能明白等于的时候放在哪边就可以了，不用强行记忆。但是需要注意的是，取左边第一个和右边第一个是确定的，但是不能确定的是，start还是end取到了，所以需要检查 **start和end**，见上面注释
+{% endhint %}
 
 #### [458. Last Position of Target](https://www.lintcode.com/problem/last-position-of-target/description)
 
-计算复杂度O\(n\)
-
-没什么说的，就是遍历一遍整个数组就可以
-
-```python
-class Solution:
-    """
-    @param nums: An integer array sorted in ascending order
-    @param target: An integer
-    @return: An integer
-    """
-    def lastPosition(self, nums, target):
-        
-        # empty
-        if len(nums) == 0 or target is None:
-            return -1
-        
-        lastLocation = -1
-        
-        for i in range(len(nums)) :
-            if target == nums[i] :
-                lastLocation = i
-        
-        return lastLocation
-```
-
-计算复杂度O\(logn\)
+O\(n\)遍历的写法比较简单就不列在这里了，主要写一下二分法 O\(logn\) ：
 
 就是处理左右指针相等的情况，这里比如说给\[1,2,2,4,5,5\]要找2的话，最后左右指针应该指的是\[2,2\]，这里就需要先输出右指针就可以。 
 
@@ -84,11 +57,7 @@ class Solution:
 
 ```python
 class Solution:
-    """
-    @param nums: An integer array sorted in ascending order
-    @param target: An integer
-    @return: An integer
-    """
+
     def lastPosition(self, nums, target):
         
         if len(nums) == 0 :
@@ -102,7 +71,7 @@ class Solution:
                 start = mid
             else :
                 end = mid
-        
+        # end first because right side
         if nums[end] == target :
             return end
         if nums[start] == target :
@@ -111,6 +80,11 @@ class Solution:
 ```
 
 #### [34. Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/description/)
+
+leetcode只有这一道题，时间复杂度是O\(logn + k \)， k是一样的个数，建议下面的两种情况:
+
+* 取左边第一个，向右边拓展
+* 取右边第一个，向左边拓展
 
 ```python
 class Solution:
@@ -150,7 +124,7 @@ class Solution:
 
 * 判断XXOO类型的数组，特点是有明确的区分
 
-#### 74. First Bad Version
+#### [74. First Bad Version](https://www.lintcode.com/problem/first-bad-version/description) / [278. First Bad Version](https://leetcode.com/problems/first-bad-version/description/)
 
 计算复杂度 ： O\(logn\)
 
@@ -158,29 +132,24 @@ class Solution:
 
 ```python
 class Solution:
-    """
-    @param n: An integer
-    @return: An integer which is the first bad version.
-    """
+
     def findFirstBadVersion(self, n):
-        # write your code here
+        # bst
         start, end = 0, n
-        
         while start + 1 < end :
-            
             mid = (start + end) // 2
             if SVNRepo.isBadVersion(mid) :
                 end = mid
             else :
                 start = mid
-                
+        # check
         if SVNRepo.isBadVersion(start):
             return start
         else :
             return end
 ```
 
-#### 460. Find K Closest Elements
+#### [460. Find K Closest Elements](https://www.lintcode.com/problem/find-k-closest-elements/description) / [658. Find K Closest Elements](https://leetcode.com/problems/find-k-closest-elements/description/)
 
 计算复杂度O\(logn + k\)
 
@@ -188,32 +157,22 @@ class Solution:
 
 ```python
 class Solution:
-    """
-    @param A: an integer array
-    @param target: An integer
-    @param k: An integer
-    @return: an integer array
-    """
+
     def kClosestNumbers(self, A, target, k):
-        
+        # corner
         if len(A) == 0 or target is None :
             return []
-            
+        # bst
         start, end = 0, len(A) - 1
-        
         while start + 1 < end :
-            
             mid = (start + end) // 2
-            
             if target >= A[mid] :
                 start = mid
             else :
                 end = mid
-        
+        # expand
         result = []
-        
         while k > 0  :
-            
             if self.left_close(start, end, target, A) :
                 result.append(A[start])
                 start -= 1
@@ -221,20 +180,18 @@ class Solution:
                 result.append(A[end])
                 end += 1
             k -= 1
-            
+                        
         return result
             
     def left_close(self, start, end, target, A) :
-        
         if start < 0 :
             return False
         if end >= len(A) :
             return True
         return abs(A[start] - target) <= abs(A[end] - target)
-        
 ```
 
-#### 447. Search in a Big Sorted Array
+#### [447. Search in a Big Sorted Array](https://www.lintcode.com/problem/search-in-a-big-sorted-array/description) / [702. Search in a Sorted Array of Unknown Size](https://leetcode.com/problems/search-in-a-sorted-array-of-unknown-size/description/)
 
 计算复杂度O\(logn\)
 
@@ -242,26 +199,21 @@ class Solution:
 
 ```python
 class Solution:
-    """
-    @param: reader: An instance of ArrayReader.
-    @param: target: An integer
-    @return: An integer which is the first index of target.
-    """
+
     def searchBigSortedArray(self, reader, target):
-        # write your code here
+        # upper 
         start, end = 0, 1
-        
         while reader.get(end) < target :
             start = end
-            end = start*2   
-        
+            end = start * 2   
+        # lower
         while start + 1 < end :
             mid = (start + end) // 2
             if reader.get(mid) < target :
                 start = mid
             else :
                 end = mid
-        
+        # check
         if reader.get(start) == target :
             return start
         elif reader.get(end) == target :
@@ -270,7 +222,7 @@ class Solution:
             return -1
 ```
 
-#### 159. Find Minimum in Rotated Sorted Array
+#### [159. Find Minimum in Rotated Sorted Array](https://www.lintcode.com/problem/find-minimum-in-rotated-sorted-array/description) / [153. Find Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/description/)
 
 计算复杂度O\(logn\)
 
@@ -278,10 +230,7 @@ class Solution:
 
 ```python
 class Solution:
-    """
-    @param nums: a rotated sorted array
-    @return: the minimum number in the array
-    """
+    
     def findMin(self, nums):
         # write your code here
         if len(nums) == 0 :
@@ -300,7 +249,7 @@ class Solution:
         return min(nums[start],nums[end])
 ```
 
-#### 585. Maximum Number in Mountain Sequence
+#### [585. Maximum Number in Mountain Sequence](https://www.lintcode.com/problem/maximum-number-in-mountain-sequence/)
 
 计算复杂度O\(logn\)
 
@@ -308,20 +257,15 @@ class Solution:
 
 ```python
 class Solution:
-    """
-    @param nums: a rotated sorted array
-    @return: the minimum number in the array
-    """
+
     def findMin(self, nums):
-        # write your code here
+        # corner
         if len(nums) == 0 :
             return 0
-            
-        start, end = 0, len(nums) - 1
-        
+        # bst
+        start, end = 0, len(nums) - 1        
         while start + 1 < end :
             mid = (start + end) // 2
-            
             if nums[mid] > nums[end]:
                 start = mid
             else :
@@ -330,44 +274,21 @@ class Solution:
         return min(nums[start],nums[end])
 ```
 
-#### 28. Search a 2D Matrix
+#### [28. Search a 2D Matrix](https://www.lintcode.com/problem/search-a-2d-matrix/) / [74. Search a 2D Matrix](https://leetcode.com/problems/search-a-2d-matrix/description/)
 
 计算复杂度O\(logn + logm\)
 
 二分查找两次，第一次先找到行，第二次再找到列。
 
 ```python
-class Solution:
-    """
-    @param matrix: matrix, a list of lists of integers
-    @param target: An integer
-    @return: a boolean, indicate whether matrix contains target
-    """
-    def searchMatrix(self, matrix, target):
-        # write your code here
-        
-        
-        def singleLine(List,target):
 
-            start, end = 0, len(List) - 1
-            
-            while start + 1 < end :
-                mid = (start + end) // 2
-                if List[mid] < target :
-                    start = mid
-                else :
-                    end = mid
-                    
-            if List[start] == target or List[end] == target :
-                return True
-            else :
-                return False
-        
-        if len(matrix) == 0 :
+class Solution:
+    def searchMatrix(self, matrix, target):
+        # test corner
+        if len(matrix) == 0 or len(matrix[0]) == 0:
             return False
-            
+        # bst
         start, end = 0, len(matrix) - 1
-        
         while start + 1 < end :
             mid = (start + end) // 2
             if matrix[mid][0] < target :
@@ -375,10 +296,25 @@ class Solution:
             else :
                 end = mid
             
-        if singleLine(matrix[start],target) or  singleLine(matrix[end],target) :
+        if self.singleLine(matrix[start],target) or self.singleLine(matrix[end],target) :
             return True      
             
         return False
+
+    def singleLine(self, List, target):
+        # bst
+        start, end = 0, len(List) - 1
+        while start + 1 < end :
+            mid = (start + end) // 2
+            if List[mid] < target :
+                start = mid
+            else :
+                end = mid
+        # check  
+        if List[start] == target or List[end] == target :
+            return True
+        else :
+            return False
 ```
 
 #### 61. Search for a Range

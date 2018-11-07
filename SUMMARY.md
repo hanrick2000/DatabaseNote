@@ -8,7 +8,7 @@
   * [HDFS, MapReduce and Spark RDD \(1\)](computer-science/big-data-essentials/hdfs-mapreduce-and-spark-rdd-1.md)
 * [Algorithms](computer-science/data-structure-and-algorithms/README.md)
   * [Algorithms \(1\) - String](computer-science/data-structure-and-algorithms/data-structure-and-algorithms-1-string.md)
-  * [Algorithms \(2\) - BST](computer-science/data-structure-and-algorithms/data-structure-and-algorithms-2-bst.md)
+  * [Algorithms \(2\) - Binary Search](computer-science/data-structure-and-algorithms/data-structure-and-algorithms-2-bst.md)
   * [Algorithms \(3\) - Two Pointers](computer-science/data-structure-and-algorithms/data-structure-and-algorithms-3-two-pointers.md)
   * [Algorithms \(4\) - BFS & Topological Sorting](computer-science/data-structure-and-algorithms/data-structure-and-algorithms-4-bfs-and-topological-sorting.md)
   * [Algorithms - Binary Tree Pre](computer-science/data-structure-and-algorithms/data-structure-and-algorithms-binary-tree-pre.md)
