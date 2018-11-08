@@ -2,7 +2,7 @@
 
 ## 1. Heap
 
-#### [363. Trapping Rain Water](https://www.lintcode.com/problem/trapping-rain-water/description)
+#### [363. Trapping Rain Water](https://www.lintcode.com/problem/trapping-rain-water/description) / [42. Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/description/)
 
 非常非常巧妙的一个，先从左边开始遍历，然后再从右边开始遍历，有一点像mono stack，就是找到左右最高的点，然后看里面和和最高中最小的查即可。
 
@@ -13,10 +13,6 @@
 
 ```python
 class Solution:
-    """
-    @param heights: a list of integers
-    @return: a integer
-    """
     def trapRainWater(self, heights):
         left, right = [], []
         left_max, right_max = -sys.maxsize, -sys.maxsize
@@ -59,10 +55,6 @@ class Solution:
 
 ```python
 class Solution:
-    """
-    @param heights: a list of integers
-    @return: a integer
-    """
     def trapRainWater(self, heights):
         if not heights:
             return 0
@@ -84,7 +76,7 @@ class Solution:
         return water
 ```
 
-#### [364. Trapping Rain Water II](https://www.lintcode.com/problem/trapping-rain-water-ii/description)
+#### [364. Trapping Rain Water II](https://www.lintcode.com/problem/trapping-rain-water-ii/description) / [407. Trapping Rain Water II](https://leetcode.com/problems/trapping-rain-water-ii/description/)
 
 这个题非常非常的有趣，但是容易写错的点也比较多，需要多些几遍，这样脑子比较清楚。
 
@@ -103,10 +95,6 @@ class Solution:
 import heapq as h
 
 class Solution:
-    """
-    @param heights: a matrix of integers
-    @return: an integer
-    """
     def trapRainWater(self, heights):
         # test corner case
         if not heights :
@@ -152,7 +140,7 @@ class Solution:
         
 ```
 
-#### [81. Find Median from Data Stream](https://www.lintcode.com/problem/find-median-from-data-stream/description)
+#### [81. Find Median from Data Stream](https://www.lintcode.com/problem/find-median-from-data-stream/description) / [295. Find Median from Data Stream](https://leetcode.com/problems/find-median-from-data-stream/description/)
 
 这里根据leetcode进行了修正，以求得真正的meidan，这里我用小大来区分左右两个heap，小就是左边，大就是右边。大是minheap， 小是maxheap。
 
@@ -163,10 +151,6 @@ class Solution:
 from heapq import *
 
 class Solution:
-    """
-    @param nums: A list of integers
-    @return: the median of numbers
-    """
     def medianII(self, nums):
         if not nums :
             return []
@@ -202,7 +186,7 @@ class Solution:
 
 ### 数据结构：HashHap
 
-#### [360. Sliding Window Median](https://www.lintcode.com/problem/sliding-window-median/description)
+#### [360. Sliding Window Median](https://www.lintcode.com/problem/sliding-window-median/description) / [480. Sliding Window Median](https://leetcode.com/problems/sliding-window-median/description/)
 
 这个题比较复杂，用到hashheap，这个是具体实现很复杂，先post到这里边看边学。
 
@@ -222,7 +206,7 @@ Python的queue里面也有了priorityqueue，而目前使用的都是heapq，这
 
 ## 2. Stack
 
-#### [12. Min Stack](https://www.lintcode.com/problem/min-stack/description)
+#### [12. Min Stack](https://www.lintcode.com/problem/min-stack/description) / [155. Min Stack](https://leetcode.com/problems/min-stack/description/)
 
 使用另一个min\_stack来同步记录每一时刻的最小值
 
@@ -258,7 +242,7 @@ class MinStack:
         return self.min_stack[-1]
 ```
 
-#### [575. Decode String](https://www.lintcode.com/problem/decode-string/description)
+#### [575. Decode String](https://www.lintcode.com/problem/decode-string/description) / [394. Decode String](https://leetcode.com/problems/decode-string/description/)
 
 这个题非常的典型，是expression expanding，可以以此学会基本所有的+-\*/类问题，非常的有代表性。
 
@@ -325,7 +309,7 @@ def mono_stack(array) :
     return mono
 ```
 
-#### [122. Largest Rectangle in Histogram](https://www.lintcode.com/problem/largest-rectangle-in-histogram/description)
+#### [122. Largest Rectangle in Histogram](https://www.lintcode.com/problem/largest-rectangle-in-histogram/description) / [84. Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/description/)
 
 这个题主要用到了单调栈，具体的解决办法如下:
 
@@ -334,7 +318,7 @@ def mono_stack(array) :
 
 还没具体bug free，留坑
 
-#### [510. Maximal Rectangle](https://www.lintcode.com/problem/maximal-rectangle/description)
+#### [510. Maximal Rectangle](https://www.lintcode.com/problem/maximal-rectangle/description) / [85. Maximal Rectangle](https://leetcode.com/problems/maximal-rectangle/description/)
 
 这个题相比前面的直方图，难点在于是一个二维的矩阵，因此很难得到具体的高度，这里的思路巧妙在想到了层叠的降维思路，具体如下：
 
@@ -352,7 +336,7 @@ def mono_stack(array) :
 
 留坑
 
-#### [126. Max Tree](https://www.lintcode.com/problem/max-tree/description)
+#### [126. Max Tree](https://www.lintcode.com/problem/max-tree/description) / [654. Maximum Binary Tree](https://leetcode.com/problems/maximum-binary-tree/description/)
 
 如果使用暴力的解决办法，先找到最大的，然后将左右连起来 ：
 
