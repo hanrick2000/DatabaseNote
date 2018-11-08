@@ -10,7 +10,7 @@ window function对表中的数据进行运算，而当前的运算操作和其�
 
 这个东西被叫做window function是因为行在一个滑动窗口之中，这个窗口就是**window** or a **window frame。**
 
-```text
+```sql
 <window_function> OVER (...)
 ```
 
@@ -23,10 +23,7 @@ window function对表中的数据进行运算，而当前的运算操作和其�
 简单的over概念，`aggregate function + OVER()`
 
 ```sql
-SELECT
-  title,
-  editor_rating,
-  AVG(editor_rating) OVER()
+SELECT title, editor_rating, AVG(editor_rating) OVER()
 FROM movie;
 ```
 
@@ -97,10 +94,7 @@ FROM customer;
 这个函数我一直用的比较少，大致是将数据分成n个部分。
 
 ```sql
-SELECT
-  name,
-  genre,
-  editor_rating,
+SELECT name, genre, editor_rating,
   NTILE(3) OVER (ORDER BY editor_rating DESC)
 FROM game;
 ```
@@ -109,14 +103,13 @@ FROM game;
 
 ![\[Part4\_graphic\]](https://academy.vertabelo.com/static/window-functions-part4-ex15.png)
 
-CTE函数的应用
+#### CTE函数的应用
 
 因为使用了Window Function，所以不能进行filter，必须用cte作为缓存表来存储所有的数据，这里cte可以理解为subquery。
 
 ```sql
 WITH ranking AS
-  (SELECT
-    title,
+  (SELECT title,
     RANK() OVER(ORDER BY editor_rating DESC) AS rank
   FROM movie)
 
@@ -127,39 +120,84 @@ WHERE rank = 2;
 
 ## 4. Window Frame
 
-这里主要是讲如何控制窗口的大小，主要通过rows来进行控制。
+**Window frames** 
 
-* ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+主要定义了哪些行应当纳入到计算范围之内
+
+* 可以从一开始算到现在的行
+* 或者 现在行的前一行和后一行
+
+![](https://academy.vertabelo.com/static/window-functions-part5-ex5.png)
+
+#### 窗口的大小主要的语法有Rows和Range两种
 
 ```sql
-SELECT
-  id,
-  payment_date,
-  payment_amount,
-  SUM(payment_amount) OVER(ORDER BY payment_date
-    ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)
-FROM subscription;
+<window function>
+OVER (...
+  ORDER BY <order_column>
+  [ROWS|RANGE] <window frame extent>)
 ```
 
-这里的一些关键词
+* `UNBOUNDED PRECEDING` – 当前行之前所有可行的行
+* `PRECEDING` – 当前行之前的n行
+* `CURRENT ROW` – 当前行
+* `FOLLOWING` – 当前行之后的n行
+* `UNBOUNDED FOLLOWING` – 当前行之后所有可行的行
 
-* unbounded 无限制往上或往下
-* preceding 前面
-* following 后面
-* current row 现在的一行
+#### 一些可以优化的小tips :
 
-#### Range & Rows
+主要是有的时候不用给出between的完整定义，也就是缩写，因为其实本身在内容之中已经包括了：
 
-* ROWS：是按物理行来进行窗口级别里再次进行范围选择的。
-* RANGE：是按逻辑行来进行窗口级别里再次进行范围选择的。
+* `ROWS UNBOUNDED PRECEDING` 等同于`BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW`
+* `ROWS n PRECEDING` 等同于 `BETWEEN n PRECEDING AND CURRENT ROW`
+* `ROWS CURRENT ROW` 等同于 `BETWEEN CURRENT ROW AND CURRENT ROW`
 
-RANGE时，相同行会被合并成同一条数据再进行计算，相同行窗口计算时的结果也是相同的。 是否是相同行，是根据ORDER BY排序时的结果决定的。 
+#### Range v.s. Rows
 
-* 有ORDER BY时：同行是说在ORDER BY排序时不唯一的行。【即具有相同数值的行】 
-  * 不同行是说ORDER BY排序时具有不同的数值的行。
-*  没有ORDER BY：那么就是当前分区的所有行都包含在框架中，因为所有行都会成为当前行的相同行。【特别要注意最后一句的意思】
+之前看了官方文档和其他技术博客，感觉从物理和逻辑层面去理解太过于底层了，就和要去理解B+ tree一样，感觉下面的例子更加简单。
 
-{% embed url="https://dreamer-yzy.github.io/2015/01/01/PostgreSQL%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E4%B8%AD-ROWS-%E5%92%8C-RANGE-%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8C%BA%E5%88%AB/" %}
+其实Rows和Range的本质区别在于：
+
+* Range会将order by的**同一行赋予一样的值**
+
+```sql
+# Rows
+SELECT id, placed, total_price,
+  SUM(total_price) OVER (ORDER BY placed ROWS UNBOUNDED PRECEDING)
+FROM single_order;
+```
+
+![Diagram A](https://academy.vertabelo.com/static/window-functions-part5-ex13-graphic1.png)
+
+上面对于同一天的逐渐累加的，而如果使用range，每一天其实应该是已经加好的，因为这一天对我们来说是一个整体，注意下图同一时间的结果。
+
+```sql
+# Range
+SELECT id, placed, total_price,
+  SUM(total_price) OVER(ORDER BY placed RANGE UNBOUNDED PRECEDING)
+FROM single_order;
+```
+
+![Diagram B](https://academy.vertabelo.com/static/window-functions-part5-ex13-graphic2.png)
+
+在ranking的时候，rows和range的区别类似于row\_number\(\)和rank\(\)的区别，详细见下图，第一个是row\_number + rows, 第二个是rank + range
+
+![Diagram A](https://academy.vertabelo.com/static/window-functions-part5-ex14-graphic1.png)
+
+![Diagram B](https://academy.vertabelo.com/static/window-functions-part5-ex14-graphic2.png)
+
+#### 小结：
+
+* You can define a window frame within `OVER(...)`. The syntax is: `[ROWS|RANGE] <window frame definition>`.
+* `ROWS` always treats rows individually \(like the `ROW_NUMBER()` function\), `RANGE` also adds rows which share the same value in the column we order by \(like the `RANK()`function\).
+* `<window frame definition>` is defined with `BETWEEN <lower bound> AND <upper bound>`, where the bounds may be defined with:
+  * `UNBOUNDED PRECEDING`,
+  * `n PRECEDING` \(`ROWS` only\),
+  * `CURRENT ROW`,
+  * `n FOLLOWING` \(`ROWS` only\),
+  * `UNBOUNDED FOLLOWING`
+
+## 11/07 current place
 
 ## 5. Analytics Function
 

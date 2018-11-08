@@ -199,7 +199,7 @@ case when还是有很多花式的操作的，之前一直没有注意到，现�
 
 * 最简单的例子是同一个col的不同值
 
-  ```text
+  ```sql
   CASE column_name
     WHEN value1 THEN text1
     WHEN value2 THEN text2
@@ -210,7 +210,7 @@ case when还是有很多花式的操作的，之前一直没有注意到，现�
 
 * 但是一旦需要条件的时候就需要从case 后面写入when
 
-  ```text
+  ```sql
   CASE
     WHEN condition1 THEN text1
     WHEN condition2 THEN text2
@@ -223,16 +223,18 @@ case when还是有很多花式的操作的，之前一直没有注意到，现�
 * Remember about the `END` clause at the end.
 * You can use `CASE WHEN` with `SUM` to count multiple values in a single query:
 
-  ```text
+  ```sql
   SUM(CASE WHEN x THEN 1 ELSE 0 END)
   ```
 
 * Similarly, you can use `CASE WHEN` with `COUNT` to count multiple values in a single query
 
-  ```text
+  ```sql
   COUNT(CASE WHEN x THEN column END)
   ```
 
 * 还可以在group by 里面写case when
 * 小细节是要注意case的判断是一条一条来的，而且null的归属非常的重要。
+
+
 

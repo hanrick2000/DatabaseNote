@@ -18,7 +18,7 @@ for left in range(n):
     将nums[left]移出当前的 subarray # remove left
 ```
 
-#### [406. Minimum Size Subarray Sum](https://www.lintcode.com/problem/minimum-size-subarray-sum/description)
+#### [406. Minimum Size Subarray Sum](https://www.lintcode.com/problem/minimum-size-subarray-sum/description) / [209. Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/description/)
 
 思考限制条件，
 
@@ -29,11 +29,6 @@ for left in range(n):
 
 ```python
 class Solution:
-    """
-    @param nums: an array of integers
-    @param s: An integer
-    @return: an integer representing the minimum size of subarray
-    """
     def minimumSize(self, nums, s):
         # get maximum length
         n = len(nums)
@@ -61,7 +56,7 @@ class Solution:
         return mini_len
 ```
 
-#### [384. Longest Substring Without Repeating Characters](https://www.lintcode.com/problem/longest-substring-without-repeating-characters/)
+#### [384. Longest Substring Without Repeating Characters](https://www.lintcode.com/problem/longest-substring-without-repeating-characters/) / [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/description/)
 
 主要通过hashset来进行判断，先找限制条件
 
@@ -71,10 +66,6 @@ class Solution:
 ```python
 class Solution:
     def lengthOfLongestSubstring(self, s):
-        """
-        :type s: str
-        :rtype: int
-        """
         n = len(s)
         left, right = 0, 0
         max_val, hashmap = 0, {}
@@ -88,7 +79,7 @@ class Solution:
         return max_val
 ```
 
-#### [32. Minimum Window Substring](https://www.lintcode.com/problem/minimum-window-substring/)
+#### [32. Minimum Window Substring](https://www.lintcode.com/problem/minimum-window-substring/) / [76. Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/description/)
 
 主要是要用length和hashmap来控制字符串的数字，详细见下。
 
@@ -98,11 +89,6 @@ class Solution:
 
 ```python
 class Solution:
-    """
-    @param source : A string
-    @param target: A string
-    @return: A string denote the minimum window, return "" if there is no such a string
-    """
     def minWindow(self, source, target):
         matchStr = ''
         # corner case
@@ -143,7 +129,7 @@ class Solution:
         return hashset
 ```
 
-#### [386. Longest Substring with At Most K Distinct Characters](https://www.lintcode.com/problem/longest-substring-with-at-most-k-distinct-characters/description)
+#### [386. Longest Substring with At Most K Distinct Characters](https://www.lintcode.com/problem/longest-substring-with-at-most-k-distinct-characters/description) / [340. Longest Substring with At Most K Distinct Characters](https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/description/)
 
 和上一个题差不多，基本同一个套路
 
@@ -151,11 +137,6 @@ class Solution:
 
 ```python
 class Solution:
-    """
-    @param s: A string
-    @param k: An integer
-    @return: An integer
-    """
     def lengthOfLongestSubstringKDistinct(self, s, k):
         if s is None or k == 0 :
             return 0
@@ -192,17 +173,12 @@ class Solution:
 
 ### 2.1 一维查找
 
-#### [461. Kth Smallest Numbers in Unsorted Array](https://www.lintcode.com/problem/kth-smallest-numbers-in-unsorted-array/)
+#### [461. Kth Smallest Numbers in Unsorted Array](https://www.lintcode.com/problem/kth-smallest-numbers-in-unsorted-array/) / [215. Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/description/)
 
 这个主要是在原有的merge sort基础上进行优化，原有的merge sort是O\(nlogn\)，这里通过二分优化到了O\(n\)
 
 ```python
 class Solution:
-    """
-    @param: k: An integer
-    @param: nums: An integer array
-    @return: kth smallest element
-    """
     def kthSmallest(self, k, nums):
         return self.quick_select(0, len(nums) - 1, nums, k - 1)
         
@@ -250,17 +226,12 @@ class Solution:
   * 更快的解法，二分答案：O\(NlogMlog range \) **最优**
     * 每次都要看n个数组的元素，每次二分原有数组，每次再看range的范围
 
-#### [543. Kth Largest in N Arrays](https://www.lintcode.com/problem/kth-largest-in-n-arrays/)
+#### [543. Kth Largest in N Arrays](https://www.lintcode.com/problem/kth-largest-in-n-arrays/) 
 
 这里使用了quick select的算法将所有原有数组进行拼接求解
 
 ```python
 class Solution:
-    """
-    @param arrays: a list of array
-    @param k: An integer
-    @return: an integer, K-th largest element in N arrays
-    """
     def KthInArrays(self, arrays, k):
         # write your code here
         merge_array = []
@@ -306,11 +277,6 @@ class Solution:
 ```python
 import heapq
 class Solution:
-    """
-    @param arrays: a list of array
-    @param k: An integer
-    @return: an integer, K-th largest element in N arrays
-    """
     def KthInArrays(self, arrays, k):
         # sort array
         sorted_array = []
@@ -331,7 +297,7 @@ class Solution:
         return -val
 ```
 
-#### [1272. Kth Smallest Element in a Sorted Matrix](https://www.lintcode.com/problem/kth-smallest-element-in-a-sorted-matrix/)
+#### [1272. Kth Smallest Element in a Sorted Matrix](https://www.lintcode.com/problem/kth-smallest-element-in-a-sorted-matrix/) / [378. Kth Smallest Element in a Sorted Matrix](https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/description/)
 
 用前面任意一个解法都可以秒，这个题和前一个题基本是一样的。
 
@@ -367,12 +333,6 @@ class Solution:
 ```python
 import heapq
 class Solution:
-    """
-    @param A: an integer arrays sorted in ascending order
-    @param B: an integer arrays sorted in ascending order
-    @param k: An integer
-    @return: An integer
-    """
     def kthSmallestSum(self, A, B, k):
         # heapify
         heap = [(A[0] + B[0], 0, 0)]

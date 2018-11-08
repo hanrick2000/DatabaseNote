@@ -126,28 +126,17 @@ class UnionFind :
 
 ```python
 class ConnectingGraph:
-    """
-    @param: n: An integer
-    """
+
     def __init__(self, n):
         # do intialization if necessary
         self.father = {}
         for i in range(1, n + 1) :
             self.father[i] = i 
-    """
-    @param: a: An integer
-    @param: b: An integer
-    @return: nothing
-    """
+  
     def connect(self, a, b):
         # write your code here
         self.father[self.find(a)] = self.father[self.find(b)]
-        
-    """
-    @param: a: An integer
-    @param: b: An integer
-    @return: A boolean
-    """
+ 
     def query(self, a, b):
         # write your code here
         return self.father[self.find(a)] == self.father[self.find(b)]
@@ -252,7 +241,7 @@ class ConnectingGraph3:
 * 联通集个数: 老大哥有几个
   * 老大哥合并一次就少一个，用来控制
 
-#### [434. Number of Islands II](https://www.lintcode.com/problem/number-of-distinct-islands-ii/)
+#### [434. Number of Islands II](https://www.lintcode.com/problem/number-of-distinct-islands-ii/) / [305. Number of Islands II](https://leetcode.com/problems/number-of-islands-ii/description/)
 
 在原有并查集的模板上进行了加工，主要步骤
 
@@ -272,12 +261,6 @@ class Point:
 directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
 
 class Solution:
-    """
-    @param n: An integer
-    @param m: An integer
-    @param operators: an array of point
-    @return: an integer array
-    """
     def numIslands2(self, n, m, operators):
         # islands - check if visited
         # result - record
@@ -324,7 +307,7 @@ class Solution:
             self.size -= 1
 ```
 
-#### [178. Graph Valid Tree](https://www.lintcode.com/problem/graph-valid-tree/)
+#### [178. Graph Valid Tree](https://www.lintcode.com/problem/graph-valid-tree/) / [261. Graph Valid Tree](https://leetcode.com/problems/graph-valid-tree/description/)
 
 这个题用union find真的是非常巧妙，如果能成为一棵树，必然最后联通的size只有1，这里不考虑平衡二叉树。每次只需要union新的边即可。
 
@@ -333,11 +316,6 @@ class Solution:
 
 ```python
 class Solution:
-    """
-    @param n: An integer
-    @param edges: a list of undirected edges
-    @return: true if it's a valid tree, or false
-    """
     def validTree(self, n, edges):
         if n - 1 != len(edges) :
             return False
@@ -371,7 +349,7 @@ class Solution:
             self.father[root_a] = root_b
 ```
 
-#### [1070. Accounts Merge](https://www.lintcode.com/problem/accounts-merge/)
+#### [1070. Accounts Merge](https://www.lintcode.com/problem/accounts-merge/) / [721. Accounts Merge](https://leetcode.com/problems/accounts-merge/description/)
 
 这个题比较复杂，有很多非常细小的点需要注意，这里的关键是用到了信息检索里面的forward index和inverted index概念。
 
@@ -387,10 +365,7 @@ class Solution:
 
 ```python
 class Solution:
-    """
-    @param accounts: List[List[str]]
-    @return: return a List[List[str]]
-    """
+
     def accountsMerge(self, accounts):
         # init
         self.father = {}
@@ -545,7 +520,7 @@ class Solution:
 
 #### Tire的实现
 
-#### [442. Implement Trie \(Prefix Tree\)](https://www.lintcode.com/problem/implement-trie-prefix-tree/description)
+#### [442. Implement Trie \(Prefix Tree\)](https://www.lintcode.com/problem/implement-trie-prefix-tree/description) / [208. Implement Trie \(Prefix Tree\)](https://leetcode.com/problems/implement-trie-prefix-tree/description/)
 
 * insert 插入单词
 * find 找到单词所在的TireNode
@@ -594,7 +569,7 @@ class Trie:
         return self.find(prefix) is not None
 ```
 
-#### [473. Add and Search Word - Data structure design](https://www.lintcode.com/problem/implement-trie-prefix-tree/description)
+#### [473. Add and Search Word - Data structure design](https://www.lintcode.com/problem/implement-trie-prefix-tree/description) / [211. Add and Search Word - Data structure design](https://leetcode.com/problems/add-and-search-word-data-structure-design/description/)
 
 这个题本质不是特别的难，依旧是使用了Tire的数据结构，非常的巧妙
 
@@ -642,7 +617,7 @@ class WordDictionary:
         return False
 ```
 
-#### [634. Word Squares](https://www.lintcode.com/problem/word-squares/)
+#### [634. Word Squares](https://www.lintcode.com/problem/word-squares/) / [425. Word Squares](https://leetcode.com/problems/word-squares/description/)
 
 这个题一开始觉得比较复杂，后来感觉其实一般，主要是一旦定义了Trie，整体就优化了很多，几个值得注意的小细节。
 
@@ -721,7 +696,7 @@ class Solution:
             square.pop()
 ```
 
-#### [132. Word Search II](https://www.lintcode.com/problem/word-search-ii/)
+#### [132. Word Search II](https://www.lintcode.com/problem/word-search-ii/) / [212. Word Search II](https://leetcode.com/problems/word-search-ii/description/)
 
 这个题的思路不是很难，但是代码实现比较复杂，有时间还是多写几遍，目前还做不到bug free
 
@@ -759,11 +734,6 @@ class Trie  :
         return node
 
 class Solution:
-    """
-    @param board: A list of lists of character
-    @param words: A list of string
-    @return: A list of string
-    """
     def wordSearchII(self, board, words):
         # corner test
         if board is None or len(board) == 0 :
