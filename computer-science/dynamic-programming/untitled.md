@@ -16,11 +16,11 @@
   * 取石子游戏，判断先手是否必胜
   * 能不能选出k个数,使得和为Sum
 
-## 2. 组成部分
+## 2. 极值型动态规划
 
 这里通过练习coin change，来穿插讲解了如何破解动态规划问题 ：
 
-#### [669. Coin Change](https://www.lintcode.com/problem/coin-change/description)
+#### [669. Coin Change](https://www.lintcode.com/problem/coin-change/description) / [322. Coin Change](https://leetcode.com/problems/coin-change/description/)
 
 这个题属于求最大最小值的动态规划问题，要求用最少的硬币数付钱，这里首先要想的是如何确认状态。
 
@@ -78,6 +78,26 @@ def f(x) :
 * 每一步尝试三种硬币，一共27步
   * 同递归相比，没有任何重复
 
+```python
+class Solution:
+    
+    def coinChange(self, coins, amount):
+        # init
+        dp = [0] + [sys.maxsize] * amount
+        # traverse
+        for i in range(1, amount + 1) :
+            min_coins  = sys.maxsize
+            for coin in coins :
+                if i >= coin :
+                    min_coins = min(min_coins, dp[i - coin] + 1)
+            dp[i] = min_coins
+        # not find
+        if dp[-1] == sys.maxsize :
+            return -1
+            
+        return dp[-1]
+```
+
 #### 小结动态规划的四要素 ：
 
 * 确定状态
@@ -90,26 +110,61 @@ def f(x) :
 * 计算顺序
   * f\[0\], f\[1\], f\[2\]
 
+## 3. 计数型动态规划
+
+#### [114. Unique Paths](https://www.lintcode.com/problem/unique-paths/description) / [62. Unique Paths](https://leetcode.com/problems/unique-paths/description/)
+
+#### 状态：
+
+* 无论如何移动，总是只能向右或者向下，所以在走到右下角的时候\(m - 1, n - 1\)，前一个状态一定是 \(m - 2, n - 1\) 或者 \(m - 1, n - 2\)
+* 子问题就是算一个状态的路径数目
+
+![](../../.gitbook/assets/screen-shot-2018-11-09-at-2.47.15-pm.png)
+
+#### 转移方程：
+
+* f\[i\]\[j\] = f\[i - 1\]\[j\] + f\[i\]\[j - 1\] 两个状态的和
+
+#### 初始条件和边界情况：
+
+* f\[0\]\[0\] - 机器人只有一种方式到左上角
+* 边界 当 i = 0 或者 j = 0 的时候只有一种走法
+
+#### 计算顺序:
+
+* 从左向右或者从上到下都是一种可行的方式，区别在于行遍历还是列遍历
+
+这里之前尝试过先初始化第0行和第0列，遇到的问题是如果遇到（1，1）会报错，而且重复进行了计算，所以这里建议写在函数体之内
+
 ```python
 class Solution:
-    """
-    @param coins: a list of integer
-    @param amount: a total amount of money amount
-    @return: the fewest number of coins that you need to make up
-    """
-    def coinChange(self, coins, amount):
-        
-        n = len(coins)
-        # test corner
-        if not coins or n == 0 :
-            return -1
+
+    def uniquePaths(self, col, row):
         # init
-        dp = [0] + [sys.maxsize] * amount
-        # traverse
-        for i in range(1, amount + 1) :
-            stack = [dp[i - c] if i >= c else sys.maxsize for c in coins]
-            dp[i] = min(stack) + 1
-                
-        return dp[-1] if dp[-1] < sys.maxsize else -1
+        dp = [[0] * col for _ in range(row)]
+        for i in range(row) :
+            for j in range(col) :
+                # set dp[0][0]
+                if i == 0 and j == 0 :
+                    dp[i][j] = 1
+                    continue
+                # set dp[0][j] and dp[i][0]    
+                if i == 0 or j == 0 :
+                    dp[i][j] = 1
+                    continue
+                dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+        
+        return dp[row - 1][col - 1]
+        
 ```
+
+## 4. 存在型动态规划
+
+#### [116. Jump Game](https://www.lintcode.com/problem/jump-game/description) / [55. Jump Game](https://leetcode.com/problems/jump-game/description/)
+
+#### 状态：
+
+
+
+#### 
 
