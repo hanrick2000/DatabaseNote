@@ -1,138 +1,56 @@
 # Algorithms \(3\) - Two Pointers
 
-双指针算法主要是在数组一端存在两个指针，同时向一边移动，用这样的方式来解决例如Two Sum的问题。
-
 ## 1. 相向双指针
-
-* Reverse
-* Two Sum
-* Partition
 
 相向双指针，指的是在算法的一开始，两根指针分别位于数组/字符串的两端，并相向行走，当它们相遇的时候就自动结束。
 
-#### 39. Recover Rotated Sorted Array
+#### [39. Recover Rotated Sorted Array](https://www.lintcode.com/problem/recover-rotated-sorted-array/description)
 
 三步翻转法，主要是两个指针相向而行，交换数组。
 
 ```python
 class Solution:
-    """
-    @param nums: An integer array
-    @return: nothing
-    """
     def recoverRotatedSortedArray(self, nums):
-        # write your code here
         n = len(nums)
+        # corner case
         if n == 0 :
             return []
-            
-        def reverse_array(List) :
-
-            start, end = 0, len(List) - 1
-            n = len(List) // 2
-            
-            while n > 0 :
-                temp = List[end]
-                List[end] = List[start]
-                List[start] = temp
-                start += 1
-                end -= 1
-                n -= 1
-                
-            return List
-
+        # find 
         for i in range(n) :
             if nums[i] < nums[i - 1] :
                 break
-
+        # reverse
         if i == n - 1:
             pass
         else :
-            nums[:i] = reverse_array(nums[: i])
-            nums[i:] = reverse_array(nums[i:])
-            nums = reverse_array(nums)
+            nums[:i] = self.reverse_array(nums[: i])
+            nums[i:] = self.reverse_array(nums[i:])
+            nums = self.reverse_array(nums)
             
         return nums
-```
-
-#### 891. Valid Palindrome II
-
-这里借鉴了quick sort的思路，找到左边的数字字母，然后找到右边的数字字母类，然后不等的话就不是，如果是的话左右指针相向就行。
-
-```python
-class Solution:
-    """
-    @param s: A string
-    @return: Whether the string is a valid palindrome
-    """
-    def isPalindrome(self, s):
         
-        s = s.lower()
-        start, end = 0, len(s) - 1
+    def reverse_array(self, List) :
+        start, end = 0, len(List) - 1
+        n = len(List) // 2
         
-        if len(s) < 2 :
-            return True
-        
-        while start <= end :
-            
-            while not s[start].isalnum() and start < end:
-                start +=1
-                
-            while not s[end].isalnum() and start < end:
-                end -=1
-            
-            if s[start] != s[end] :
-                return False
-            
+        while n > 0 :
+            List[end], List[start] = List[start], List(end)
             start += 1
             end -= 1
+            n -= 1
             
-        return True
+        return List
 ```
 
-#### 891. Valid Palindrome II
+#### [607. Two Sum III - Data structure design](https://www.lintcode.com/problem/two-sum-iii-data-structure-design/description) / [170. Two Sum III - Data structure design](https://leetcode.com/problems/two-sum-iii-data-structure-design/description/)
 
-主要是前一个题的延续，这里有个特殊条件是给的string没有奇怪的符号，延续上一题的思路，遇到了不同的右指针移动一位即可。
-
-```python
-class Solution:
-    """
-    @param s: a string
-    @return: nothing
-    """
-    def validPalindrome(self, s):
-        # Write your code here
-        if len(s) < 3 :
-            return True
-            
-        start, end = 0, len(s) - 1
-        count = 0
-        
-        while start < end :
-            
-            if s[start] == s[end] :
-                start += 1
-                end -= 1
-            else :
-                if count < 1:
-                    end -= 1
-                    count += 1
-                else :
-                    return False
-                
-        if  s[start] == s[end] :
-            return True
-        else :
-            return False
-```
-
-#### 607. Two Sum III - Data structure design
-
-Two Sum类，只能使用hash表来做的
+Two Sum类，只能使用hash表来做的，整个题的思路非常的简单，就是找一下a和sum - a在不在哈希表里，需要调整的是，如果a是有两个，这样自己可以自己组成自己
 
 ```python
 class TwoSum:
-    A={}
+    def __init__(self) :
+        self.A = {}
+        
     def add(self, number):
         if number in self.A:
             self.A[number] += 1
@@ -150,17 +68,12 @@ class TwoSum:
         return False
 ```
 
-#### 587. Two Sum - Unique Pairs
+#### [587. Two Sum - Unique Pairs](https://www.lintcode.com/problem/two-sum-unique-pairs/description) 
 
 Two Sum中比较典型的问题，主要是记录一下是否有重复的。
 
 ```python
 class Solution:
-    """
-    @param nums: an array of integer
-    @param target: An integer
-    @return: An integer
-    """
     def twoSum6(self, nums, target):
         # paras
         count = 0
@@ -171,11 +84,8 @@ class Solution:
             return count
             
         nums.sort()
-        
         left, right = 0, len(nums) - 1
-        
         while left < right :
-            
             if nums[left] + nums[right] < target :
                 left += 1
             elif nums[left] + nums[right] > target :
@@ -191,31 +101,22 @@ class Solution:
         return count
 ```
 
-#### 608. Two Sum II - Input array is sorted
+#### [608. Two Sum II - Input array is sorted](https://www.lintcode.com/problem/two-sum-ii-input-array-is-sorted/description) / [167. Two Sum II - Input array is sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/description/)
 
 双指针可以进行加速的，因为已经排序完成，如果值过大，移动右指针，过小的话，移动左指针。
 
 ```python
 class Solution:
-    """
-    @param nums: an array of Integer
-    @param target: target = nums[index1] + nums[index2]
-    @return: [index1 + 1, index2 + 1] (index1 < index2)
-    """
     def twoSum(self, nums, target):
-        # write your code here
         n = len(nums) 
-        
+        # init
         if n == 0 :
             return []
             
         start,  end = 0, n - 1
-        
         while start < end :
-            
             if nums[start] + nums[end] == target :
                 return [start + 1, end + 1]
-                
             if nums[start] + nums[end] < target :
                 start += 1
             if nums[start] + nums[end] > target :
