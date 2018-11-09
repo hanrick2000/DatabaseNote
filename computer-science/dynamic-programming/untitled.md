@@ -164,7 +164,91 @@ class Solution:
 
 #### 状态：
 
+* 如果青蛙可以跳到i，并且i + ai 可以到达n - 1，就可以跳到
 
+![](../../.gitbook/assets/screen-shot-2018-11-09-at-3.18.17-pm.png)
 
-#### 
+#### 转移方程 ：
+
+![](../../.gitbook/assets/screen-shot-2018-11-09-at-3.20.23-pm.png)
+
+#### 初始条件和边界：
+
+* f\[0\] = True 
+
+#### 计算顺序：
+
+* 因为依赖前面的，所以需要顺着计算
+
+这里使用了反向迭代的技巧来加速运算，正向预算的话如果遇到全是1的情况，会非常的慢。
+
+```python
+class Solution:
+    def canJump(self, nums):
+        n = len(nums)
+        # init 
+        dp = [True] + [False] * (n - 1)
+        # traverse
+        for i in range(n) :
+            # n, n - 1 ... 0
+            for j in range(i, -1, -1) :
+                if dp[j] and j + nums[j] >= i :
+                    dp[i] = True
+                    break
+        return dp[-1]
+```
+
+#### 总结：
+
+整体来讲，所有的题都不是很难，但是更加系统地从基础开始讲起：
+
+* 确定状态
+  * 研究最优策略的最后一步
+  * 化为子问题
+* 转移方程
+  * 根据子问题定义直接得到
+* 初始条件和边界情况
+  * 细心、考虑周全
+* 计算顺序
+  * 利用之前的计算结果进行优化，不要做重复运算
+
+#### [191. Maximum Product Subarray](https://www.lintcode.com/problem/maximum-product-subarray/description?_from=ladder&&fromId=16) / [152. Maximum Product Subarray](https://leetcode.com/problems/maximum-product-subarray/description/)
+
+#### 状态: 
+
+* 比如 \[1 ,2, 3, -1, 1000\]，那么本身f\[i\]就是最大的
+* 反之如果存在多个值，那么f\[i\]就依赖于前面的累计最大和最小乘积，因为不确定f\[i\]是正数还是负数
+
+#### 转移方程：
+
+* f\[i\] = max\(A\[i\]\*max\[i - 1\], A\[i\]\*min\[i - 1\], A\[i\]\)
+
+#### 初始条件和边界：
+
+* 最大和最小都是1，而result可以是第0个值
+
+#### 计算顺序：
+
+* 应当是从左到右的
+
+需要注意的是，这里必须最大最小同时更新，不然就需要另外的变量进行存储，一种美观的方法是，将三个值存在一个List里面
+
+```python
+class Solution:
+    def maxProduct(self, nums):
+        # test corner
+        if not nums :
+            return 0
+        
+        mov_max, mov_min = 1, 1
+        result = nums[0]
+        for val in nums :
+            mov_max, mov_min = max(mov_max*val, mov_min*val, val), min(mov_max*val, mov_min*val, val)
+            result = max(result, mov_max, mov_min)
+        return result
+```
+
+## 5. Ladder
+
+![](../../.gitbook/assets/screen-shot-2018-11-09-at-5.37.16-pm.png)
 
