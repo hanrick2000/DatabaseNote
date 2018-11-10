@@ -1,4 +1,4 @@
-# DP Types \(2\)
+# DP Coordinates \(2\)
 
 ## 1. 坐标型动态规划
 

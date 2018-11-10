@@ -422,15 +422,15 @@ class Solution:
 class Solution:
 
     def fastPower(self, a, b, n):
-        # 
+        # init
         ans = 1
         while n > 0 :
             if n % 2 == 1:
                 ans = ans * a % b
                 
             a = a * a % b
-            n = n //2
-            
+            n = n // 2
+            # check
             if ans == 0 or a == 0 :
                 return 0
                 
@@ -477,12 +477,9 @@ Log\(sqrt\(n\)\)
 
 ```python
 class Solution:
-    """
-    @param num: An integer
-    @return: an integer array
-    """
+
     def primeFactorization(self, num):
-        # write your code here
+        # init
         limit = int(math.sqrt(num)) + 1
         prime_list = []
         
@@ -494,7 +491,6 @@ class Solution:
             prime_list.append(num)
             
         return prime_list
-        
 ```
 
 #### 小结 :
