@@ -23,7 +23,7 @@ class Solution:
         if i == n - 1:
             pass
         else :
-            nums[:i] = self.reverse_array(nums[: i])
+            nums[:i] = self.reverse_array(nums[:i])
             nums[i:] = self.reverse_array(nums[i:])
             nums = self.reverse_array(nums)
             
@@ -125,69 +125,56 @@ class Solution:
         return []
 ```
 
-#### 57. 3sum
+#### [57. 3Sum](https://www.lintcode.com/problem/3sum/description) / [15. 3Sum](https://leetcode.com/problems/3sum/) 
 
-看成是2sum，只需要固定一个值，取-target，然后双指针如two sum遍历一遍数组就可以了，不是很难。
+看成是2sum，只需要固定一个值，取负的target，然后双指针如two sum遍历一遍数组就可以了，不是很难。
 
 ```python
 class Solution:
-    """
-    @param numbers: Give an array numbers of n integer
-    @return: Find all unique triplets in the array which gives the sum of zero.
-    """
     def threeSum(self, nums):
-        
+        # corner
         if len(nums) < 3 :
             return []
             
         visited = []
         nums.sort()
-    
+        # traverse
         for index in range(0, len(nums) - 2):
+            # equals 
             if index and nums[index] == nums[index - 1]:
                 continue
-
             target = - nums[index]
             self.twoSum(index + 1, len(nums) - 1, target, nums, visited)
 
         return visited
             
     def twoSum(self, start, end, target, nums, visited) :
-        
+        # iniit
         left, right = start, end
-        
         while left < right:
             if nums[left] + nums[right] == target:
-                
                 visited.append((-target, nums[left], nums[right]))
-                
                 right -= 1
                 left += 1
                 
                 while left < right and nums[left] == nums[left - 1]:
                     left += 1
                 while left < right and nums[right] == nums[right + 1]:
-                    right -= 1
-                    
+                    right -= 1   
             elif nums[left] + nums[right] > target:
                 right -= 1
             else:
                 left += 1
 ```
 
-#### 382. Triangle Sum
+#### [382. Triangle Count](https://www.lintcode.com/problem/triangle-count/description) 
 
 排序后，先找到最大边，然后从0, i - 1找起， 如果左边满足，自然中间的都满足，依次节约时间进行快速运算即可。
 
 ```python
 class Solution:
-    """
-    @param S: A list of integers
-    @return: An integer
-    """
     def triangleCount(self, S):
-        S.sort()
-        
+        S.sort() 
         ans = 0
         for i in range(len(S)):
             left, right = 0, i - 1
@@ -202,18 +189,13 @@ class Solution:
 
 #### Two Sum计数问题
 
-#### 609. Two Sum - Less than or equal to target
+#### [609. Two Sum - Less than or equal to target](https://www.lintcode.com/problem/two-sum-less-than-or-equal-to-target/description)
 
-简化的地方在于Two Sum右边最大，如果相加都小，那么中间所有的都小，移动左指针即可。  
-
+简化的地方在于Two Sum右边最大，如果相加都小，那么中间所有的都小，移动左指针即可。
 
 ```python
 class Solution:
-    # @param nums {int[]} an array of integer
-    # @param target {int} an integer
-    # @return {int} an integer
     def twoSum5(self, nums, target):
-        # Write your code here
         l, r = 0, len(nums)-1
         cnt = 0
         nums.sort()
@@ -227,27 +209,37 @@ class Solution:
         return cnt
 ```
 
-#### 443. Two Sum - Greater than target
+#### [1. Two Sum](https://leetcode.com/problems/two-sum)
+
+hash O（n）
+
+```python
+class Solution(object):
+    def twoSum(self, nums, target):
+        if len(nums) <= 1:
+            return 
+        buff_dict = {}
+        for i in range(len(nums)):
+            if nums[i] in buff_dict:
+                return [buff_dict[nums[i]], i]
+            else:
+                buff_dict[target - nums[i]] = i
+```
+
+#### [443. Two Sum - Greater than target](https://www.lintcode.com/problem/two-sum-greater-than-target/description)
 
 和上面一样，移动右指针就行。
 
 ```python
 class Solution:
-    """
-    @param nums: an array of integer
-    @param target: An integer
-    @return: an integer
-    """
     def twoSum2(self, nums, target):
-        # write your code here
+        # init
         left, right = 0, len(nums) - 1
         cnt = 0
         nums.sort()
         
         while left < right :
-            
             twoSum = nums[left] + nums[right]
-            
             if twoSum <= target :
                 left += 1
             else :
@@ -257,17 +249,12 @@ class Solution:
         return cnt
 ```
 
-#### 533. Two Sum - Closest to target
+#### [533. Two Sum - Closest to target](https://www.lintcode.com/problem/two-sum-closest-to-target/)
 
 主要是不断更新，如果找到最小就返回。
 
 ```python
 class Solution:
-    """
-    @param nums: an integer array
-    @param target: An integer
-    @return: the difference between the sum and the target
-    """
     def twoSumClosest(self, nums, target):
         nums.sort()
         i, j = 0, len(nums)  - 1
@@ -284,17 +271,12 @@ class Solution:
         return diff
 ```
 
-#### 59. 3Sum Closest
+#### [59. 3Sum Closest](https://www.lintcode.com/problem/3sum-closest/)
 
 在前一个题的基础上不断找最大和最小，不断更新。
 
 ```python
 class Solution:
-    """
-    @param numbers: Give an array numbers of n integer
-    @param target: An integer
-    @return: return the sum of the three integers, the sum closest target.
-    """
     def threeSumClosest(self, numbers, target):
         numbers.sort()
         ans = None
@@ -312,11 +294,15 @@ class Solution:
         return ans
 ```
 
+#### 小结：
+
+这里的题比较刻意练习同向双指针，但是实际上，two sum类问题使用hash和dp也是可以解决的，拿到具体的题需要具体分析，模板固然重要，但也需要做到灵活应用，运用自如。
+
 ## 2. 同向双指针
 
 计算复杂度 O\(n\)
 
-#### 521. 数组去重问题 Remove duplicates in an array
+#### [521. Remove Duplicate Numbers in Array](https://www.lintcode.com/problem/remove-duplicate-numbers-in-array/description) / [26. Remove Duplicates from Sorted Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/)
 
 第一种做法使用hash表进行记录，就是遍历一次如果不在hash table就扔掉
 
@@ -325,14 +311,8 @@ class Solution:
 
 ```python
 class Solution:
-    """
-    @param nums: an array of integers
-    @return: the number of unique integers
-    """
     def deduplication(self, nums):
-        # Write your code here
         hashList, result = {}, 0
-        
         for val in nums :
             if val not in hashList :
                 nums[result] = val
@@ -346,20 +326,13 @@ class Solution:
 
 ```python
 class Solution:
-    """
-    @param nums: an array of integers
-    @return: the number of unique integers
-    """
     def deduplication(self, nums):
-        # Write your code here
         n = len(nums) 
-        
         if n == 0 :
             return 0
             
         nums.sort()
         slow_pointer = 1
-
         for quick_pointer in range(1, n) :
             
             if nums[quick_pointer - 1] != nums[quick_pointer] :
@@ -369,21 +342,14 @@ class Solution:
         return slow_pointer
 ```
 
-#### 603. 滑动窗口问题 Window Sum
+#### [604. Window Sum](https://www.lintcode.com/problem/window-sum/description)
 
 左右指针分别保持一定的距离，每次一进一出进行加减就可以了，不要使用\[:\]进行切片，如果滑动窗口非常大，计算复杂度会非常非常高
 
 ```python
 class Solution:
-    """
-    @param nums: a list of integers.
-    @param k: length of window.
-    @return: the sum of the element inside the window at each moving.
-    """
     def winSum(self, nums, k):
-        # write your code here
         n = len(nums)
-        
         if n == 0 or n < k :
             return []
             
@@ -398,26 +364,19 @@ class Solution:
         return result
 ```
 
-#### 610. 两数之差问题 Two Difference
+#### [610. Two Sum - Difference equals to target](https://www.lintcode.com/problem/two-sum-difference-equals-to-target/description)
 
 双指针遍历即可
 
 ```python
 class Solution:
-    """
-    @param nums: an array of Integer
-    @param target: an integer
-    @return: [index1 + 1, index2 + 1] (index1 < index2)
-    """
+
     def twoSum7(self, nums, target):
-        # write your code here
         if len(nums) == 0 :
             return []
             
         for left in range(0, len(nums)) :
-            
             for right in range(left + 1, len(nums)) :
-                
                 if nums[left] - nums[right] == target :
                     return [left + 1, right + 1]
                 
@@ -427,7 +386,7 @@ class Solution:
         return []
 ```
 
-#### 228. 链表中点问题 Middle of Linked List
+#### [228. Middle of Linked List](https://www.lintcode.com/problem/middle-of-linked-list/description)
 
 快慢指针，主要是通过控制快指针走两步，而慢指针只走一步的方法，以此实现了取中点的方法。
 
@@ -449,7 +408,6 @@ class Solution:
             return None
         
         fast, slow = head, head
-        
         while fast and fast.next and fast.next.next :
             slow = slow.next
             fast = fast.next.next
@@ -457,7 +415,7 @@ class Solution:
         return slow
 ```
 
-#### 102. 带环链表问题 Linked List Cycle
+#### [102. Linked List Cycle](https://www.lintcode.com/problem/linked-list-cycle/description) /  [141. Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/)
 
 主要是用快慢指针判断是否存在环，如果要判断入口，只需要将快指针重置到起点，并确定步长为1即可。
 
@@ -491,7 +449,7 @@ class Solution:
         return False
 ```
 
-#### 539. Move Zeros
+#### [539. Move Zeros](https://www.lintcode.com/problem/move-zeroes/) 
 
 思路：两个指针指向同一个点，如果后一个是0，就使得左指针多走一格，这样交换它们的位置，这样用n次扫描之后，就可以两两互换。
 
@@ -499,10 +457,6 @@ class Solution:
 
 ```python
 class Solution:
-    """
-    @param nums: an integer array
-    @return: nothing
-    """
     def moveZeroes(self, nums):
         left, right = 0, 0
         while right < len(nums):
@@ -518,10 +472,6 @@ Follow up : 如何使用最小的写入次数
 
 ```python
 class Solution:
-    """
-    @param nums: an integer array
-    @return: nothing
-    """
     def moveZeroes(self, nums):
         left, right = 0, 0
         while right < len(nums):
