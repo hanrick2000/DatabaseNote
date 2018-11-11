@@ -6,6 +6,9 @@
 
 * [Big Data Essentials](computer-science/big-data-essentials/README.md)
   * [HDFS, MapReduce and Spark RDD \(1\)](computer-science/big-data-essentials/hdfs-mapreduce-and-spark-rdd-1.md)
+  * [HDFS, MapReduce and Spark RDD \(2\)](computer-science/big-data-essentials/hdfs-mapreduce-and-spark-rdd-2.md)
+  * [HDFS, MapReduce and Spark RDD \(3\)](computer-science/big-data-essentials/hdfs-mapreduce-and-spark-rdd-3.md)
+  * [HDFS, MapReduce and Spark RDD \(4\)](computer-science/big-data-essentials/hdfs-mapreduce-and-spark-rdd-4.md)
 * [Algorithms](computer-science/data-structure-and-algorithms/README.md)
   * [Algorithms \(1\) - String](computer-science/data-structure-and-algorithms/data-structure-and-algorithms-1-string.md)
   * [Algorithms \(2\) - Binary Search](computer-science/data-structure-and-algorithms/data-structure-and-algorithms-2-bst.md)
