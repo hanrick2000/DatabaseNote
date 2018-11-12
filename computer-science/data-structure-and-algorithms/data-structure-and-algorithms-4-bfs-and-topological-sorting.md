@@ -2,10 +2,16 @@
 
 ## 0. BFS解决的问题
 
-BFS主要用来解决两种问题 ：
+一般对于路径类问题：
 
-* 图的遍历 ：比如求距离某个点为1的所有点
-* 最短路径 ：还是当个路径类
+* 最短路径
+  * 简单图：BFS
+  * 复杂图： Dijkstra, SPFA
+* 最长路径
+  * 图可以分层： DP
+  * 图不可以分层 : DFS
+
+而适用于BFS的问题一般有以下几个:
 
 #### a. 图的遍历 Traversal in Graph
 
@@ -55,7 +61,7 @@ for from_node, to_node in [[0, 1], [0, 2]]:
     node_neighour[from_node].append(to_node)
 ```
 
-#### 知识点补充 - Dummy Node
+### 知识点补充 - Dummy Node
 
 这里补充一个广泛应用于linked list里面的知识，
 
@@ -107,15 +113,13 @@ dummy->head->node->node->node...
 4. 如果发现某个点的入度被减去 1 之后变成了 0，则放入队列中。
 5. 直到队列为空时，算法结束。
 
+#### [127. Topological Sorting](https://www.lintcode.com/problem/topological-sorting/description)
+
 ```python
 class Solution:
-    """
-    @param graph: A list of Directed graph node
-    @return: A list of integer
-    """
+
     def topSort(self, graph):
         node_to_indegree = self.get_indegree(graph)
-
         # bfs
         order = []
         start_nodes = [n for n in graph if node_to_indegree[n] == 0]
@@ -140,6 +144,10 @@ class Solution:
         return node_to_indegree
 ```
 
+#### [615. Course Schedule](https://www.lintcode.com/problem/course-schedule/description) / [207. Course Schedule](https://leetcode.com/problems/course-schedule/)
+
+#### [892. Alien Dictionary](https://www.lintcode.com/problem/alien-dictionary/description) / [269. Alien Dictionary](https://leetcode.com/problems/alien-dictionary/)
+
 ## 3. BFS
 
 ### BFS在二叉树上的应用
@@ -151,6 +159,8 @@ class Solution:
 * Level是时刻会变的，因为每一层级不一样，所以需要放入循环
 * 这里默认了树的节点和值的setitem方法
 
+#### [69. Binary Tree Level Order Traversal](https://www.lintcode.com/problem/binary-tree-level-order-traversal/description) / [102. Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/)
+
 ```python
 from collections import deque
 """
@@ -161,10 +171,6 @@ class TreeNode:
         self.left, self.right = None, None
 """
 class Solution:
-    """
-    @param root: A Tree
-    @return: Level order a list of lists of integer
-    """
     def levelOrder(self, root):
         if root is None:                  # 基本检查，这里是二叉树
             return []
@@ -184,39 +190,11 @@ class Solution:
         return result
 ```
 
-#### 几个Follow up的问题
-
-#### 这里可不可以用栈？就是不再使用deque而是用list ?
-
-* 从实现上面来说是可行的，但是需要两个stack
-* python的list，如果pop\(0\)，计算复杂度是O\(n\)，所以一般都是pop\(-1\)默认的
-
-#### 这里可不可以不用分层遍历？
-
-* 是可以的，其实就是去掉level那里的一个循环，直接将值写入result
-
-#### 常犯的错误
-
-* 在写if的时候如果写在了for的外面，就会少掉一层，特别需要注意
-
-#### 重要应用-序列化
-
 #### 不要层级遍历
 
 ```python
 from collections import deque
-"""
-Definition of TreeNode:
-class TreeNode:
-    def __init__(self, val):
-        self.val = val
-        self.left, self.right = None, None
-"""
 class Solution:
-    """
-    @param root: A Tree
-    @return: Level order a list of lists of integer
-    """
     def levelOrder(self, root):
         if root is None:                  # 基本检查，这里是二叉树
             return []
@@ -235,6 +213,88 @@ class Solution:
         return result
 ```
 
+#### 几个Follow up的问题
+
+* 这里可不可以用栈？就是不再使用deque而是用list ?
+  * 从实现上面来说是可行的，但是需要两个stack
+  * python的list，如果pop\(0\)，计算复杂度是O\(n\)，所以一般都是pop\(-1\)默认的
+* 这里可不可以不用分层遍历？
+  * 是可以的，其实就是去掉level那里的一个循环，直接将值写入result
+* 常犯的错误
+  * 在写if的时候如果写在了for的外面，就会少掉一层，特别需要注意
+
+### BFS 重要应用 ：序列化
+
+一般来讲数据存储在内存之中，如果需要保存内容的话，一般需要将数据从内存写入硬盘，这个过程一般就叫做序列化。
+
+* 序列化： Object to String
+* 反序列化：String to Object
+
+#### 1. 将内存中的数据持久化存储时
+
+内存中重要的数据不能只是呆在内存里，这样断电就没有了，所需需要用一种方式写入硬盘，在需要的 时候，能否再从硬盘中读出来在内存中重新创建
+
+#### 2. 网络传输时 
+
+机器与机器之间交换数据的时候，不可能互相去读对方的内存。只能讲数据变成字符流数据\(字符串\)后
+
+通过网络传输过去。接受的一方再将字符串解析后到内存中。 常用的一些序列化手段:
+
+* XML
+* Json
+* Thrift \(by Facebook\)
+* ProtoBuf \(by Google\)
+
+一些序列化的例子:
+
+* 比如一个数组，里面都是整数，我们可以简单的序列化为”\[1,2,3\]”
+* 一个整数链表，我们可以序列化为，”1-&gt;2-&gt;3”
+* 一个哈希表\(HashMap\)，我们可以序列化为，”{\”key\”: \”value\”}”
+
+#### 序列化算法设计时需要考虑的因素:
+
+* **压缩率**。对于网络传输和磁盘存储而言，当然希望更节省。
+  * Thrift, ProtoBuf 都是为了更快的传输数据和节省存储空间而设计的
+* **可读性**。我们希望开发人员，能够通过序列化后的数据直接看懂原始数据是什么。
+  * 如 Json，LintCode 的输入数据
+
+#### [7. Serialize and Deserialize Binary Tree](https://www.lintcode.com/problem/serialize-and-deserialize-binary-tree/description)  / [297. Serialize and Deserialize Binary Tree](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/)
+
+```python
+from collections import deque
+
+class Codec:
+
+    def serialize(self, root):
+        string = ""
+        queue = deque([root])
+        while queue:
+            cur = queue.popleft()
+            if not cur:
+                string += ",None"
+                continue
+            else:
+                string += "," + str(cur.val)
+                queue.append(cur.left)
+                queue.append(cur.right)
+        return string
+        
+    def deserialize(self, data):
+        data = deque(data.split(","))
+        _, val = data.popleft(), data.popleft()
+        root = None if val == "None" else TreeNode(int(val))
+        queue = deque([root])
+        while queue:
+            cur = queue.popleft()
+            if cur:
+                a, b = data.popleft(), data.popleft()
+                cur.left = TreeNode(int(a)) if a != "None" else None
+                cur.right = TreeNode(int(b)) if b != "None" else None
+                queue.append(cur.left)
+                queue.append(cur.right)
+        return root
+```
+
 ### BFS在图上的应用
 
 使用宽度优先搜索 BFS 的版本。
@@ -242,6 +302,8 @@ class Solution:
 第一步：找到所有的点  
 第二步：复制所有的点，将映射关系存起来  
 第三步：找到所有的边，复制每一条边
+
+#### [137. Clone Graph](https://www.lintcode.com/problem/clone-graph/description) / [133. Clone Graph](https://leetcode.com/problems/clone-graph/)
 
 ```python
 """
@@ -252,10 +314,6 @@ class UndirectedGraphNode:
         self.neighbors = []
 """
 class Solution:
-    """
-    @param: node: A undirected graph node
-    @return: A undirected graph node
-    """
     def cloneGraph(self, node):
         # 1. check corner case
         if node is None :
@@ -294,16 +352,13 @@ class Solution:
 
 #### 隐式图 \(Implicit Graph\) 最短路径 - Word Ladder
 
+#### [120. Word Ladder](https://www.lintcode.com/problem/word-ladder/description) / [127. Word Ladder](https://leetcode.com/problems/word-ladder/)
+
 分层遍历记录路径长度，每次遍历之后查看替换之后的下一个元素是不是在dict里面，不是就再换一次。
 
 ```python
 class Solution:
-    """
-    @param: start: a string
-    @param: end: a string
-    @param: dict: a set of string
-    @return: An integer
-    """
+
     def ladderLength(self, start, end, dict):
         # 1. prepare
         dict.add(end)
@@ -340,7 +395,9 @@ class Solution:
 
 ### BFS在矩阵中的应用
 
-#### 433. Number of Islands 
+#### [433. Number of Islands](https://www.lintcode.com/problem/number-of-islands/description) / [200. Number of Islands](https://leetcode.com/problems/number-of-islands/)
+
+* Leetcode和lintcode有不同，需要注意 
 
 这个题还是有一点难度的，主要思路是检测一个点的上下左右在不在grid里面，如果在的话看它是不是1，如果是的话就把它变成0，再去看这个点的上下左右，这样的一个基本过程。
 
@@ -387,6 +444,8 @@ class Solution:
         return 0 <= x < m and 0 <= y < n and grid[x][y]
 ```
 
+#### [611. Knight Shortest Path ](https://www.lintcode.com/problem/knight-shortest-path/description)
+
 ## 4. 双向BFS \(Bidirectional BFS\) 
 
 1. 无向图
@@ -403,7 +462,11 @@ class Solution:
 
 假设单向BFS需要搜索 N 层才能到达终点，每层的判断量为 X，那么总的运算量为 X ^ N. 如果换成是双向BFS，前后各自需要搜索 N / 2 层，总运算量为 2 \* X ^ {N / 2}。如果 N 比较大且X 不为 1，则运算量相较于单向BFS可以大大减少，差不多可以减少到原来规模的根号的量级。
 
-## Ladder
+#### BFS深入解决
+
+{% embed url="https://zijiang.gitbook.io/notes/computer-science/advanced-algorithms/advanced-algorithms-2-union-find-and-tire" %}
+
+## 5. Ladder
 
 ![](../../.gitbook/assets/screen-shot-2018-09-23-at-10.54.00-am.png)
 

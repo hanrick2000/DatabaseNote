@@ -485,13 +485,19 @@ class Solution:
             left += 1
 ```
 
+#### 关于双指针的难题和用法参加这里下面
 
+{% embed url="https://zijiang.gitbook.io/notes/computer-science/advanced-algorithms/advanced-algorithms-1-two-pointers-follow-up" %}
 
 ## 3. 经典排序算法
 
+经典的排序算法应该是需要每天都写一遍的，这两个算法的作用对于整个编程的效率和熟练度的提升非常的显著。
+
+{% embed url="https://visualgo.net/bn/sorting" %}
+
 **Quick Sort**
 
-主要思想：现在数组中随便找到一个数字，然后用头尾两个指针依次便利，如果相遇就退出，使得左边的数永远小于右边，如果在左右都找到了符合要求的数字，就进行互换。
+主要思想：现在数组中随便找到一个数字，然后用头尾两个指针相向依次遍历，如果相遇就退出，使得左边的数永远小于右边，如果在左右都找到了符合要求的数字，就进行互换。
 
 * 注意需要left &lt;= right 防止死循环
 * 因为在循环中left和right指针变化了，所以需要再次判断
@@ -499,35 +505,26 @@ class Solution:
 
 ```python
 class Solution:
-    # @param {int[]} A an integer array
-    # @return nothing
     def sortIntegers2(self, A):
-        # Write your code here
         self.quickSort(A, 0, len(A) - 1)
     
     def quickSort(self, A, start, end):
         if start >= end:
             return
-        
         left, right = start, end
         # key point 1: pivot is the value, not the index
         pivot = A[(start + end) // 2]
-
         # key point 2: every time you compare left & right, it should be 
         # left <= right not left < right
         while left <= right:
             while left <= right and A[left] < pivot:
                 left += 1
-            
             while left <= right and A[right] > pivot:
                 right -= 1
-            
             if left <= right:
                 A[left], A[right] = A[right], A[left]
-                
                 left += 1
                 right -= 1
-        
         self.quickSort(A, start, right)
         self.quickSort(A, left, end)
 ```
@@ -541,17 +538,13 @@ class Solution:
 
 ```python
 class Solution:
-    # @param {int[]} A an integer array
-    # @return nothing
     def sortIntegers2(self, A):
-        # Write your code here
         temp = [0 for _ in range(len(A))]
         self.merge_sort(0, len(A) - 1, A, temp)
         
     def merge_sort(self, start, end, A, temp):
         if start >= end:
             return
-        
         mid = (start + end) // 2
         self.merge_sort(start, mid , A, temp)
         self.merge_sort(mid + 1, end, A, temp)
@@ -601,11 +594,6 @@ quick sort二分
 
 ```python
 class Solution:
-    """
-    @param: k: An integer
-    @param: nums: An integer array
-    @return: kth smallest element
-    """
     def kthSmallest(self, k, nums):
         return self.quick_select(0, len(nums) - 1, nums, k - 1)
         
@@ -636,7 +624,29 @@ class Solution:
         return nums[k]
 ```
 
-## Ladder
+#### Partition Array
+
+在原有的quick select 和 quick sort的基础之上，有比较特殊的partition方法，模板如下:
+
+```python
+while left <= right :
+    while left <= right and nums[left] 在左则：
+        left += 1
+    while left <= right and nums[right] 在右侧:
+        right -= 1
+        
+    if left <= right: 
+        # 找到不应该在左边和右边的
+        nums[left], nums[right] = nums[right], nums[left]
+        left += 1
+        right -= 1
+```
+
+#### [148. Sort Colors](https://www.lintcode.com/problem/sort-colors/description) / [75. Sort Colors](https://leetcode.com/problems/sort-colors/)
+
+#### [143. Sort Colors II](https://www.lintcode.com/problem/sort-colors-ii/description)
+
+## 4. Ladder
 
 ![](../../.gitbook/assets/screen-shot-2018-09-23-at-10.52.12-am%20%281%29.png)
 
