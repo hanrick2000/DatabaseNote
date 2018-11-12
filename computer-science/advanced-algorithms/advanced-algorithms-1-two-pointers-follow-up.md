@@ -2,7 +2,9 @@
 
 ## 1. 同向双指针
 
-本质遍历2\*N次，从而降低了时间复杂度，主要利用了避免重复的方法来解决问题，基本套路就是下图，稍微修改了下形成自己的风格。
+本质遍历2N次，从而降低了时间复杂度，主要利用了避免重复的方法来解决问题，基本套路就是下图，稍微修改了下形成自己的风格。
+
+同向双指针优化应该是在打印路径的时候，发现很多地方都需要重新计算，因而发现使用两个指针优化可以有效地降低计算复杂度。
 
 ```python
 left, right = 0, 0
@@ -20,12 +22,10 @@ for left in range(n):
 
 #### [406. Minimum Size Subarray Sum](https://www.lintcode.com/problem/minimum-size-subarray-sum/description) / [209. Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/description/)
 
-思考限制条件，
+根据模板想一下主要的限制条件是下面两个，将这两个控制带入即可
 
 * sum需要大于threshold
 * mini\_len要最小
-
-控制这两个带入模板就可以了
 
 ```python
 class Solution:
