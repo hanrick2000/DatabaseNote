@@ -2,10 +2,40 @@
 
 ## 1. Sweep Line 
 
+扫描线本质应该是源于对区间合并而产生的问题的，从区间合并的思想里面汲取了处理区间的方法，从而广泛地应用于区间的问题。
+
+这里简单回顾一下区间合并，主要是学习一下区间归并：
+
+#### [156. Merge Intervals](https://www.lintcode.com/problem/merge-intervals/description) / [56. Merge Intervals](https://leetcode.com/problems/merge-intervals)
+
+* 首先需要排序，然后再判断是否可以合并
+* 合并的依据就是 ： 前一个的end和现在的start大小
+  * 不能合并，直接append 新区间
+  * 可以合并，修改前一个的end为现在的end即可
+
+```python
+class Solution(object):
+    def merge(self, intervals):
+        intervals = sorted(intervals, key = lambda x: x.start)
+        result = []
+        for interval in intervals:
+            if len(result) == 0 or result[-1].end < interval.start:
+                result.append(interval)
+            else:
+                result[-1].end = max(result[-1].end, interval.end)
+        return result
+```
+
+* 类似的题还有下面的两道，本质都是查看是否可以merge，下面的相对更加简单一些，但是对这个问题的本质探索并不改变
+
+练习 ：[920. Meeting Rooms](https://www.lintcode.com/problem/meeting-rooms/description) / [252. Meeting Rooms](https://leetcode.com/problems/meeting-rooms/)
+
+#### 扫描线
+
 扫描线的主要思想：将起点和终点打散排序
 
 * \[\[1,3\], \[2,4\]\] =&gt; \[\[1,start\], \[2,start\], \[3,end\], \[4,end\]\]
-* 画在图上就是一段一段的线段，
+* 画在图上就是一段一段的线段
 
 扫描主要用来解决的问题特征：
 
@@ -13,9 +43,9 @@
 * 区间两端代表事件的开始和结束
 * 按照区间起点排序，起点相同的按照终点拍排序
 
-#### [391. Number of Airplanes in the Sky](https://www.lintcode.com/problem/number-of-airplanes-in-the-sky/description)
+#### [919. Meeting Rooms II](https://www.lintcode.com/problem/meeting-rooms-ii/description) / [53. Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii/)
 
-先将所有start, end记录下来，之后对list进行排序，起飞就加1，降落就减1，然后维护一个最大的值。
+先将所有start, end记录下来，之后对list进行排序，起点就加1，终点就减1，然后维护一个最大的值，这个题想的比较久的是，如果区间交错会怎么样，其实并不影响的，因为并不用合并区间，如果重合，还是一样的。
 
 * 这个题非常的经典
 * 时间复杂度 O\(nlogn\)
@@ -27,9 +57,7 @@ class Interval(object):
         self.start = start
         self.end = end
 """
-
 class Solution:
-
     def countOfAirplanes(self, airplanes):
         points = []
         for airplane in airplanes :
@@ -43,33 +71,11 @@ class Solution:
         return max_num
 ```
 
-#### [919. Meeting Rooms II](https://www.lintcode.com/problem/meeting-rooms-ii/description)
-
-和上面一道题一样，适合练习一下
-
-```python
-class Solution:
-    """
-    @param intervals: an array of meeting time intervals
-    @return: the minimum number of conference rooms required
-    """
-    def minMeetingRooms(self, intervals):
-        points = []
-        for interval in intervals :
-            points.append([interval.start, 1])
-            points.append([interval.end, -1])
-        
-        max_num, cum_num = 0, 0
-        for _, delta in sorted(points) :
-            cum_num += delta
-            max_num = max(max_num, cum_num)
-        
-        return max_num
-```
+**练习** [391. Number of Airplanes in the Sky](https://www.lintcode.com/problem/number-of-airplanes-in-the-sky/description)
 
 #### [821. Time Intersection](https://www.lintcode.com/problem/time-intersection/description)
 
-这个题比较有趣，是前面几个题的延伸版，非常的有价值。
+和前面的主要做法基本一样，就是找到一个共有的区间，特点就是起点或者终点堆在了一起，这个值只会为最大为2，而我们要找的就是具有这样特征的区间，并记录下来：
 
 ```python
 """
@@ -102,13 +108,40 @@ class Solution:
         # 起始时间不存在以及两个时间一致的情况
         if last_time is None or last_time == cur_time :
             return
-        # 最后一个的时间可以延长
+        # 最后一个的时间可以合并
         if results and results[-1].end == last_time :
             results[-1].end = cur_time
             return
         
         results.append(Interval(last_time, cur_time))
 ```
+
+#### [30. Insert Interval](https://www.lintcode.com/problem/insert-interval/description) / [57. Insert Interval](https://leetcode.com/problems/insert-interval/) 
+
+这个解法比较巧妙，所以放了上来，基本来讲因为以及排序好了，所以可以直接进行遍历，主要是标记一下位置，然后不断查看是否可以合并，然后不断合并。
+
+```python
+class Solution:
+    def insert(self, intervals, newInterval):
+        results = []
+        insertPos = 0
+        for interval in intervals:
+            # [1, 3] -> [4, 5]
+            if interval.end < newInterval.start:
+                results.append(interval)
+                insertPos += 1
+            # [3, 5] -> [1, 3] 改变顺序
+            elif interval.start > newInterval.end:
+                results.append(interval)
+            # [1, 3] -> [3, 5] or [2, 5] 可以合并 为 [1, 5]
+            else:
+                newInterval.start = min(interval.start, newInterval.start)
+                newInterval.end = max(interval.end, newInterval.end)
+        results.insert(insertPos, newInterval)
+        return results
+```
+
+累了... 先到这里？
 
 #### [131. The Skyline Problem](https://www.lintcode.com/problem/the-skyline-problem/description)
 
