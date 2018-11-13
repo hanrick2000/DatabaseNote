@@ -25,4 +25,6 @@
   * 二分查找基本到二分答案全部合并
   * 双指针排序算法缺少彩虹排序、烙饼排序的内容
   * BFS的word ladder 在leetcode存在问题，还未debug，bfs这里的course schedule之类的题还没有加入
+  * 二叉树整体的遍历有些忘记
+  * dfs不是很扎实，需要重新看一遍
 

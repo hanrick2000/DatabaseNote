@@ -1,8 +1,6 @@
-# Algorithms - Binary Tree Pre
+# Algorithms \(5.0\)- Binary Tree Pre
 
 ## 1. 二叉树专题
-
-![](../../.gitbook/assets/screen-shot-2018-09-23-at-11.47.12-am.png)
 
 ### 1.1 遍历\(Traverse\)
 
@@ -23,6 +21,8 @@
 
 
 ![&#x56FE;&#x7247;](http://media.jiuzhang.com/markdown/images/3/15/d77b07ce-27f7-11e8-9f14-0242ac110002.jpg)
+
+#### [66. Binary Tree Preorder Traversal](https://www.lintcode.com/problem/binary-tree-preorder-traversal/description) / [144. Binary Tree Preorder Traversal](https://leetcode.com/problems/binary-tree-preorder-traversal/)
 
 ```python
 """
@@ -71,14 +71,9 @@ class Solution:
 
 上图中序遍历结果是：**DBEAFC**。
 
+#### [67. Binary Tree Inorder Traversal](https://www.lintcode.com/problem/binary-tree-inorder-traversal/description) / [94. Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/)
+
 ```python
-"""
-Definition of TreeNode:
-class TreeNode:
-    def __init__(self, val):
-        self.val = val
-        self.left, self.right = None, None
-"""
 #1. Recursion
 class Solution:
     def inorderTraversal(self, root):
@@ -128,20 +123,11 @@ class Solution:
 
 上图后序遍历结果是：**DEBFCA**。
 
+#### [68. Binary Tree Postorder Traversal](https://www.lintcode.com/problem/binary-tree-postorder-traversal/description) / [145. Binary Tree Postorder Traversal](https://leetcode.com/problems/binary-tree-postorder-traversal/)
+
 ```python
-"""
-Definition of TreeNode:
-class TreeNode:
-    def __init__(self, val):
-        self.val = val
-        self.left, self.right = None, None
-"""
 # 1. Recursion
 class Solution:
-     """
-     @param root: A Tree
-     @return: Postorder in ArrayList which contains node values.
-     """
      def postorderTraversal(self, root):
          # write your code here
          self.result = []
@@ -158,10 +144,6 @@ class Solution:
         
 # 2. Traverse
 class Solution:
-    """
-    @param root: A Tree
-    @return: Postorder in ArrayList which contains node values.
-    """
     def postorderTraversal(self, root):
         # 非递归
         result = []
@@ -374,12 +356,12 @@ def searchBST(root, val) :
 ```
 
 * 实战
-  * [http://www.lintcode.com/en/problem/search-range-in-binary-search-tree/](http://www.lintcode.com/en/problem/search-range-in-binary-search-tree/)
-  * [http://www.lintcode.com/en/problem/two-sum-bst-edtion/](http://www.lintcode.com/en/problem/two-sum-bst-edtion/)
-  * [http://www.lintcode.com/en/problem/closest-binary-search-tree-value/](http://www.lintcode.com/en/problem/closest-binary-search-tree-value/)
-  * [http://www.lintcode.com/en/problem/closest-binary-search-tree-value-ii/](http://www.lintcode.com/en/problem/closest-binary-search-tree-value-ii/)
-  * [http://www.lintcode.com/en/problem/trim-binary-search-tree/](http://www.lintcode.com/en/problem/trim-binary-search-tree/)
-  * [http://www.lintcode.com/en/problem/bst-swapped-nodes/](http://www.lintcode.com/en/problem/bst-swapped-nodes/)
+  * [11. Search Range in Binary Search Tree](https://www.lintcode.com/problem/search-range-in-binary-search-tree/description)
+  * [689. Two Sum IV - Input is a BST](https://www.lintcode.com/problem/two-sum-iv-input-is-a-bst/description)
+  * [900. Closest Binary Search Tree Value](https://www.lintcode.com/problem/closest-binary-search-tree-value/description)
+  * [901. Closest Binary Search Tree Value II](https://www.lintcode.com/problem/closest-binary-search-tree-value-ii/description)
+  * [701. Trim a Binary Search Tree](https://www.lintcode.com/problem/trim-a-binary-search-tree/description)
+  * [691. Recover Binary Search Tree](https://www.lintcode.com/problem/recover-binary-search-tree/description)
 
 **基本操作之修改\(Update\)**
 
@@ -530,8 +512,13 @@ class TreeNode{
 
 **常用的实现办法**
 
-* AVL树 --&gt; [https://en.wikipedia.org/wiki/AVL\_tree](https://en.wikipedia.org/wiki/AVL_tree)
-* 红黑树\(Red Black Tree\) --&gt; [http://blog.csdn.net/v\_july\_v/article/details/6105630](http://blog.csdn.net/v_july_v/article/details/6105630)
+* AVL树 --&gt; 
+
+{% embed url="https://en.wikipedia.org/wiki/AVL\_tree" %}
+
+* 红黑树\(Red Black Tree\) --&gt; 
+
+{% embed url="http://blog.csdn.net/v\_july\_v/article/details/6105630" %}
 
 #### [TreeSet](https://docs.oracle.com/javase/7/docs/api/java/util/TreeSet.html) / [TreeMap](https://docs.oracle.com/javase/7/docs/api/java/util/TreeMap.html)
 

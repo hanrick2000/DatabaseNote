@@ -114,19 +114,17 @@ class Solution:
 * dfs有时候思路什么的都比较好想，但是实际上等到写的时候却感觉无从下手，主要原因是没有分析清楚基本的逻辑和小问题
 * 多对数据进行模拟和走一遍，会更加好的找到规律，如果只是看答案自己背一下写一下，可能很难理解dfs的本质
 
+练习 [474. Lowest Common Ancestor II](https://www.lintcode.com/problem/lowest-common-ancestor-ii/description) or [578. Lowest Common Ancestor III](https://www.lintcode.com/problem/lowest-common-ancestor-iii/description)
 
+## 2. 第二类考察形态 ：二叉树结构
 
-这里有个很好的follow up，578. Lowest Common Ancestor III
-
-## 2. 第二类考察形态 ：二叉树结构变化
-
-#### 453. Flatten Binary Tree to Linked List
+#### [453. Flatten Binary Tree to Linked List](https://www.lintcode.com/problem/flatten-binary-tree-to-linked-list/description) / [114. Flatten Binary Tree to Linked List](https://leetcode.com/problems/flatten-binary-tree-to-linked-list/)
 
 这里不难主要按照递归三要素进行分解
 
 * 递归的定义 : flatten 对象是root
 * 递归的分解：每一次都指向右边先将右边拉成链式
-* 递归的出口 ： 如果不存在就是null，如果存在构造新节点，左空，右边是原来的左边
+* 递归的出口： 如果不存在就是null，如果存在构造新节点，左空，右边是原来的左边
 
 ```python
 """
@@ -136,14 +134,9 @@ class TreeNode:
         self.val = val
         self.left, self.right = None, None
 """
-
 class Solution:
-    """
-    @param root: a TreeNode, the root of the binary tree
-    @return: nothing
-    """
-    last_node = None
-
+    self.last_node = None
+    
     def flatten(self, root):
         if root is None:
             return
@@ -155,10 +148,10 @@ class Solution:
         self.last_node = root
         right = root.right
         self.flatten(root.left)
-        self.flatten(right)
+        self.flatten(root.right)
 ```
 
-## 3. 第二类考察形态 ：二叉树搜索树
+## 3. 第二类考察形态 ：二叉搜索树
 
 #### 86. Binary Search Tree Iterator
 
