@@ -1,10 +1,10 @@
 # Algorithms - Binary Tree Pre
 
-## 二叉树专题
+## 1. 二叉树专题
 
 ![](../../.gitbook/assets/screen-shot-2018-09-23-at-11.47.12-am.png)
 
-### 1. 遍历\(Traverse\)
+### 1.1 遍历\(Traverse\)
 
 遍历（Traversal），顾名思义，就是**通过某种顺序，一个一个访问一个数据结构中的元素**。比如我们如果需要遍历一个数组，无非就是要么从前往后，要么从后往前遍历。但是对于一棵二叉树来说，他就有很多种方式进行遍历：
 
@@ -25,7 +25,6 @@
 ![&#x56FE;&#x7247;](http://media.jiuzhang.com/markdown/images/3/15/d77b07ce-27f7-11e8-9f14-0242ac110002.jpg)
 
 ```python
-# Version 0: Recursion 
 """
 Definition of TreeNode:
 class TreeNode:
@@ -33,11 +32,8 @@ class TreeNode:
         this.val = val
         this.left, this.right = None, None
 """
+# Version 0: Recursion 
 class Solution:
-    """
-    @param root: The root of binary tree.
-    @return: Preorder in ArrayList which contains node values.
-    """
     def preorderTraversal(self, root):
         self.results = []
         self.traverse(root)
@@ -50,19 +46,8 @@ class Solution:
         self.traverse(root.left)
         self.traverse(root.right)
 
-# Version 1: Non-Recursion  
-"""
-Definition of TreeNode:
-class TreeNode:
-    def __init__(self, val):
-        this.val = val
-        this.left, this.right = None, None
-"""
+# Version 1: Non-Recursion 
 class Solution:
-    """
-    @param root: The root of binary tree.
-    @return: Preorder in list which contains node values.
-    """
     def preorderTraversal(self, root):
         if root is None:
             return []
@@ -80,7 +65,10 @@ class Solution:
 
 **b. 中序遍历（又叫中根遍历）**
 
-首先遍历左子树，然后访问根结点，最后遍历右子树。**遍历左、右子树时，仍按中序遍历**。若二叉树为空则返回。简记为**左根右**。  
+首先遍历左子树，然后访问根结点，最后遍历右子树。**遍历左、右子树时，仍按中序遍历**。若二叉树为空则返回。简记为**左根右**。
+
+![&#x56FE;&#x7247;](http://media.jiuzhang.com/markdown/images/3/15/d77b07ce-27f7-11e8-9f14-0242ac110002.jpg)
+
 上图中序遍历结果是：**DBEAFC**。
 
 ```python
@@ -93,12 +81,7 @@ class TreeNode:
 """
 #1. Recursion
 class Solution:
-    """
-    @param root: A Tree
-    @return: Inorder in ArrayList which contains node values.
-    """
     def inorderTraversal(self, root):
-        # write your code here
         self.result = []
         self.traverse(root)
         return self.result
@@ -113,16 +96,11 @@ class Solution:
 
 #2.traverse
 class Solution:
-    """
-    @param root: A Tree
-    @return: Inorder in ArrayList which contains node values.
-    """
     def inorderTraversal(self, root):
         if root is None :
             return []
             
         stack, result = [], []
-        
         while root :
             stack.append(root)
             root = root.left
@@ -142,7 +120,12 @@ class Solution:
 
 **c. 后序遍历（又叫后根遍历）**
 
-首先遍历左子树，然后遍历右子树，最后访问根结点。**遍历左、右子树时，仍按后序遍历**。若二叉树为空则返回。简记为**左右根**。  
+首先遍历左子树，然后遍历右子树，最后访问根结点。**遍历左、右子树时，仍按后序遍历**。若二叉树为空则返回。简记为**左右根**。
+
+
+
+![&#x56FE;&#x7247;](http://media.jiuzhang.com/markdown/images/3/15/d77b07ce-27f7-11e8-9f14-0242ac110002.jpg)
+
 上图后序遍历结果是：**DEBFCA**。
 
 ```python
@@ -154,24 +137,24 @@ class TreeNode:
         self.left, self.right = None, None
 """
 # 1. Recursion
-# class Solution:
-#     """
-#     @param root: A Tree
-#     @return: Postorder in ArrayList which contains node values.
-#     """
-#     def postorderTraversal(self, root):
-#         # write your code here
-#         self.result = []
-#         self.traverse(root)
-#         return self.result
+class Solution:
+     """
+     @param root: A Tree
+     @return: Postorder in ArrayList which contains node values.
+     """
+     def postorderTraversal(self, root):
+         # write your code here
+         self.result = []
+         self.traverse(root)
+         return self.result
         
-#     def traverse(self, root) :
-#         if root is None :
-#             return
+     def traverse(self, root) :
+         if root is None :
+             return
         
-#         self.traverse(root.left)
-#         self.traverse(root.right)
-#         self.result.append(root.val)
+         self.traverse(root.left)
+         self.traverse(root.right)
+         self.result.append(root.val)
         
 # 2. Traverse
 class Solution:
@@ -204,7 +187,7 @@ class Solution:
         return result
 ```
 
-### 2. 分治法\(Divide & Conquer）
+### 1.2 分治法\(Divide & Conquer）
 
 分治法（Divide & Conquer Algorithm）是说将一个大问题，拆分为2个或者多个小问题，当小问题得到结果之后，合并他们的结果来得到大问题的结果。
 
@@ -221,7 +204,7 @@ class Solution:
 * **遍历法解决问题的思路**
   * 通过前序/中序/后序的某种遍历，游走整棵树，通过一个全局变量或者传递的参数来记录这个过程中所遇到的点和需要计算的结果。
 
-### 3. 递归
+### 1.3 递归
 
 **什么是递归 \(Recursion\) ？**
 
@@ -288,7 +271,7 @@ subset.remove(len(nums) - 1) // 这一步就是回溯
 
 #### AVL树的高度为 O\(logN\)
 
-当AVL树有N个节点时，高度为O\(logN\)O\(logN\)。为何？  
+当AVL树有N个节点时，高度为O\(logN\)。为何？  
 试想一棵满二叉树，每个节点左右子树高度相同，随着树高的增加，叶子容量指数暴增，故树高一定是O\(logN\)O\(logN\)。而相比于满二叉树，**AVL树仅放宽一个条件，允许左右两子树高度差1**，当树高足够大时，可以把1忽略。如图是高度为9的最小AVL树，若节点更少，树高绝不会超过8，也即为何AVL树高会被限制到O\(logN\)O\(logN\)，因为**树不可能太稀疏**。严格的数学证明复杂,略去。  
 
 
@@ -334,9 +317,17 @@ BST是一种**重要**且**基本**的结构，其相关题目也十分经典，
 * 随机插入的[树堆](https://baike.baidu.com/item/Treap?fromtitle=%E6%A0%91%E5%A0%86&fromid=4478083)
 * 机器学习kNN算法的高维快速搜索[k-d树](https://baike.baidu.com/item/kd-tree/2302515)
 
-## 其他补充
+{% embed url="https://www.jianshu.com/p/a826ab614e4a" %}
 
-### BST 的增删查改
+#### 小结：
+
+* 二叉搜索树：有大小关系，可以快速查找，但是不一定平衡
+* 平衡二叉树：整体树的高度为logn，但是未不存在搜索特性
+* 红黑树：平衡二叉搜索树，兼具了前面两者的特性
+
+## 2. 树的补充知识
+
+### 2.1 BST 的增删查改 - 基本数据结构实现
 
 #### 1. 什么是二叉搜索树\(Binary Search Tree\)？
 
@@ -368,16 +359,16 @@ class TreeNode:
 
 ```python
 def searchBST(root, val) :
-	// 未找到值为val的节点 
+	# 未找到值为val的节点 
 	if root == null :
 		return null
-	//val小于根节点值，在左子树中查找
+	# val小于根节点值，在左子树中查找
 	if val < root.val :
 		return searchBST(root.left, val) 
-	//val大于根节点值，在右子树中查找
+	# val大于根节点值，在右子树中查找
 	elif val > root.val :
 		return searchBST(root.right, val) 
-	//找到了
+	# 找到了
 	else :
 		return root
 ```
@@ -398,16 +389,16 @@ def searchBST(root, val) :
 
 ```python
 def updateBST(root, target, val) :
-	// 未找到target节点
+	# 未找到target节点
 	if root == null :
 		return
-	//target小于根节点值，在左子树中查找
+	# target小于根节点值，在左子树中查找
 	if target < root.val :
 		updateBST(root.left, target, val) 
-	//target大于根节点值，在右子树中查找
+	# target大于根节点值，在右子树中查找
 	elif target > root.val :
 		updateBST(root.right, target, val) 
-	//找到了
+	# 找到了
 	else:
 		root.val = val 
 ```
@@ -424,7 +415,7 @@ def updateBST(root, target, val) :
   * 我们统一在树的叶子节点\(Leaf Node\)后添加
 * 代码实现
 
-```text
+```python
 def insertNode(root, node) :
     if root == null :
         return node 
@@ -448,7 +439,7 @@ def insertNode(root, node) :
   * 详细的解释可以看 [http://www.algolist.net/Data\_structures/Binary\_search\_tree/Removal](http://www.algolist.net/Data_structures/Binary_search_tree/Removal)
 * 代码实现
 
-```text
+```python
 def removeNode(root, value) :
     dummy = TreeNode(0)
     dummy.left = root
@@ -507,7 +498,7 @@ def deleteNode(parent, node) :
   * [http://www.lintcode.com/en/problem/remove-node-in-binary-search-tree/](http://www.lintcode.com/en/problem/remove-node-in-binary-search-tree/)
   * [http://www.lintcode.com/en/problem/trim-binary-search-tree/](http://www.lintcode.com/en/problem/trim-binary-search-tree/)
 
-### 平衡排序二叉树\(Self-balancing Binary Search Tree\)
+### 2. 2 平衡排序二叉树\(Self-balancing Binary Search Tree\)
 
 平衡二叉搜索树又被称为AVL树（有别于AVL算法），且具有以下性质：
 
@@ -525,7 +516,7 @@ def deleteNode(parent, node) :
 
 **平衡排序二叉树节点定义**
 
-```text
+```java
 class TreeNode{
     int val;
     TreeNode left;
@@ -595,20 +586,15 @@ TreeSet / TreeMap 是底层运用了[红黑树](https://zh.wikipedia.org/wiki/%E
 
 注：在 C++ 中类似的结构为 set / map
 
-### 练习
+### 2.3 AVL实现
 
-#### 题目描述
+这一部分待补充。。
 
-将有序链表转换为平衡的排序二叉树。
-
-LintCode 练习地址：  
-[http://www.lintcode.com/en/problem/convert-sorted-list-to-balanced-bst/](http://www.lintcode.com/en/problem/convert-sorted-list-to-balanced-bst/)
-
-#### 粗暴的算法
+#### [106. Convert Sorted List to Binary Search Tree](https://www.lintcode.com/problem/convert-sorted-list-to-binary-search-tree/description)
 
 可以十分容易想到一个一个 O\(nlogn\) 的分治算法，以链表作为参数，二叉树作为返回值：
 
-```text
+```java
 TreeNode convert(ListNode head) {
     if (head == null) {
         return null;
@@ -645,7 +631,7 @@ TreeNode convert(ListNode head, int n)
 
 但是虽然我们可以很快的调用 `convert(head, n / 2)`，让链表的一半变成二叉树。但是如何很快知道链表的中点呢？这里的办法是，如果我们把 head 放在参数里，那么就无法利用 convert 函数对 head 进行挪动了，所以我们把 head 挪出来，放到全局，作为一个全局变量。这样之后函数的接口改为：
 
-```text
+```java
 public class Solution {
     private ListNode current;
 
@@ -661,10 +647,6 @@ public class Solution {
 ```
 
 这里我们在全局放了一个 current 指针，这个指针会指向当前还没有被变成 Tree 的下一个 List 上的节点。因此如果我们把左子树变成 Tree 以后，current 就要让他指向 List 上的下一个点，也就是中间的这个点了。
-
-算法有一些绕，建议使用几个小数据模拟整个算法的执行过程。  
-完整参考程序见：  
-[http://www.jiuzhang.com/solution/convert-sorted-list-to-balanced-bst/](http://www.jiuzhang.com/solution/convert-sorted-list-to-balanced-bst/)
 
 **完整算法描述如下：**
 

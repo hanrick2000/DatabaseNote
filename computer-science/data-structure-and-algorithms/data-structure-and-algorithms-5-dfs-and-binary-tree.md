@@ -4,69 +4,57 @@
 
 这里的基本解决思路是递归，既然是递归，那么重要的在于找到递归条件，并给出corner case，然后再进行解决，这个整体的解决思路。
 
-#### 596. Minimum Subtree
+#### [596. Minimum Subtree](https://www.lintcode.com/problem/minimum-subtree/description)
 
-这里写的时候需要记录历史最小值、历史最小值的root，以及当前的值，并且固定leaf的值，这样一步一步解决这个问题。
+分析：先思考一下dfs的子问题是什么，划分到节点的时候，比较的是一个节点的左边和，右边和，以及左右加节点的和的最小值
+
+* 需要记录的是，全局的最小值和节点
+* 边界条件和出口是什么，如果是None，也就是到叶节点，就是0
+
+这样思考一遍之后，整体的dfs的思路就会比较清晰了，dfs为什么一般都需要一个子函数来进行支持？
+
+* 因为需要调用自己，而有的时候调用自己会带来一些额外的负载
 
 ```python
-"""
-Definition of TreeNode:
-class TreeNode:
-    def __init__(self, val):
-        self.val = val
-        self.left, self.right = None, None
-"""
-
 class Solution:
-    """
-    @param root: the root of binary tree
-    @return: the root of the minimum subtree
-    """
     def findSubtree(self, root):
-        min, subtree, sum = self.find(root)
-        return subtree
+        self.result = None 
+        self.min_val = sys.maxsize
+        self.helper(root)
+        return self.result
         
-    def find(self, root) :
-        # 如果遇到叶节点时，必然左右不相加，而返回原节点的值
+    def helper(self, root) :
+        # 出口 - 叶节点
         if root is None :
-            return sys.maxsize, None, 0 
-            
-        # 这里返回的左边历史最小值，现在的树root，以及现在的左边sum，并不断递归找到叶节点    
-        left_min, left_subtree, left_sum = self.find(root.left)
-        right_min, right_subtree, right_sum = self.find(root.right)
-        
-        # 含当前节点的sum值
-        sum = left_sum + right_sum + root.val
-       
-        # 如果历史最小，不断返回最小点的root和值，并记录当前的sum
-        if left_min == min(left_min, right_min, sum) :
-            return left_min, left_subtree, sum
-        if right_min == min(left_min, right_min, sum) :
-            return right_min, right_subtree, sum
-        
-        # 如果当前最小，返回新的值        
-        return sum, root, sum
-        
+            return 0
+        # 左右分别的和
+        left_sum = self.helper(root.left)
+        right_sum = self.helper(root.right)
+        # 是否可以更新
+        if left_sum + right_sum + root.val < self.min_val :
+            self.min_val = left_sum + right_sum + root.val
+            self.result = root
+        return left_sum + right_sum + root.val 
 ```
 
-#### 480. Binary Tree Paths
+#### [480. Binary Tree Paths](https://www.lintcode.com/problem/binary-tree-paths/) / [257. Binary Tree Paths](https://leetcode.com/problems/binary-tree-paths/)
 
-递归需要关注return的到底是什么，这个非常的重要，递归是比较难以解决的。
+![](../../.gitbook/assets/screen-shot-2018-11-13-at-12.19.07-pm.png)
+
+分析：dfs的难点一般在于思路和如何实现，这个题举个例子，如果是上图的例子，应该怎样实现。规律就是在上面的路径基础上选择加左边还是加右边，这也就是递归的定义。
 
 ```python
-"""
-Definition of TreeNode:
-class TreeNode:
-    def __init__(self, val):
-        self.val = val
-        self.left, self.right = None, None
-"""
+1
+[1 -> 2], [1 -> 3]
+{[1 -> 2 -> None], [1 -> 2 -> 5]}, [1 -> 3] 
+```
 
+对于递归的实现部分，因为每次都要的是路径，所以应当是return paths，这里如果不断更新全局变量，会覆盖掉一边，好像不能实现。
+
+对于递归的边界和出口，如果节点不存在就返回空串即可，也就不会再栈空间继续深入了。
+
+```python
 class Solution:
-    """
-    @param root: the root of the binary tree
-    @return: all root-to-leaf paths
-    """
     def binaryTreePaths(self, root):
         # no root
         if root is None :
@@ -86,41 +74,31 @@ class Solution:
         return paths
 ```
 
-#### 88. Lowest Common Ancestor of a Binary Tree
+#### [88. Lowest Common Ancestor of a Binary Tree](https://www.lintcode.com/problem/lowest-common-ancestor-of-a-binary-tree/description) / [236. Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/)
 
-递归查找左右树分为left和right 
+![](../../.gitbook/assets/screen-shot-2018-11-13-at-12.48.15-pm.png)
 
-* 如果分别在左右，则为root
-* 如果都在左边，则为left
-* 如果都在右边，则为right
+分析：如果需要找 5 和 8 的公共祖先，那么首先从3出发，发现了左边是5后停下来，然后看右边，1的left 和 right 是 0 和 8，应该只看8，由此确定了递归的定义。
+
+当选择一个节点的时候，如果a, b都在节点左侧，那么左侧就是祖先，如果都在节点右侧，那么右侧就是祖先，不然就是root。
+
+递归到底怎么定义边界呢，从叶节点出发，如果节点等于a 或者 b，那么return root，不然就return None。
+
+* 这个题本质上union find是也可以做的
 
 ```python
-"""
-Definition of TreeNode:
-class TreeNode:
-    def __init__(self, val):
-        self.val = val
-        self.left, self.right = None, None
-"""
-
-
 class Solution:
-    """
-    @param: root: The root of the binary search tree.
-    @param: A: A TreeNode in a Binary.
-    @param: B: A TreeNode in a Binary.
-    @return: Return the least common ancestor(LCA) of the two nodes.
-    """
     def lowestCommonAncestor(self, root, A, B):
-        # write your code here
+        return self.dfs(root, A, B)
+    
+    def dfs(self, root, A, B) :
         if root is None :
             return None
-            
         if root == A or root == B :
             return root
-            
-        left = self.lowestCommonAncestor(root.left, A, B)
-        right = self.lowestCommonAncestor(root.right, A, B)
+        
+        left = self.dfs(root.left, A, B)
+        right = self.dfs(root.right, A, B)
         
         if left is not None and right is not None :
             return root
@@ -128,9 +106,15 @@ class Solution:
             return left
         if right is not None :
             return right
-            
         return None
 ```
+
+#### 总结：
+
+* dfs有时候思路什么的都比较好想，但是实际上等到写的时候却感觉无从下手，主要原因是没有分析清楚基本的逻辑和小问题
+* 多对数据进行模拟和走一遍，会更加好的找到规律，如果只是看答案自己背一下写一下，可能很难理解dfs的本质
+
+
 
 这里有个很好的follow up，578. Lowest Common Ancestor III
 
