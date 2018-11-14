@@ -85,7 +85,7 @@ class Solution:
 
 ## 3. 划分性动态规划
 
-#### [512.Decode Ways](https://www.lintcode.com/problem/decode-ways/description) / [91. Decode Ways](https://leetcode.com/problems/decode-ways/description/)
+#### [512. Decode Ways](https://www.lintcode.com/problem/decode-ways/description) / [91. Decode Ways](https://leetcode.com/problems/decode-ways/description/)
 
 * 状态：
   * 主要看最后的字符到底如何进行划分，也就是可以化为1个或者两个
@@ -265,6 +265,17 @@ class Solution:
                 f[i] = f[i & i-1] + 1
             return f
 ```
+
+#### [397. Longest Continuous Increasing Subsequence](https://www.lintcode.com/problem/longest-continuous-increasing-subsequence/description) /  [674. Longest Continuous Increasing Subsequence](https://leetcode.com/problems/longest-continuous-increasing-subsequence/)
+
+这个题的意义在于区分什么是subarray，什么是subsequence
+
+* subarray: 连续   ’abcccde‘ -&gt; 'cde'
+* subsequence: 不连续 'abcccde' -&gt; 'abe'
+
+## 5. Ladder
+
+![](../../.gitbook/assets/screen-shot-2018-11-14-at-11.28.35-am.png)
 
 
 
