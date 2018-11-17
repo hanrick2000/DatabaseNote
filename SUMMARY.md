@@ -60,3 +60,8 @@
 
 * [SAS](statistics/untitled.md)
 
+## Course
+
+* [CS 61A](course/cs-61a/README.md)
+  * [Week 1-2](course/cs-61a/week.md)
+
