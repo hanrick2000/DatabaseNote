@@ -108,3 +108,62 @@
 
 高阶函数的环境是非常难分析的，因为一旦调用次数过多或者一个地方错误，就整体都错了，这里提示的方法是用bind来将所有的函数和值进行记录，但是这个东西会变，如果自己手划过一次就知道这个是不容易的，这个应该也是有一个动画一样的东西的，可以便于自己理解。
 
+## 6. Iteration
+
+![](../../.gitbook/assets/screen-shot-2018-11-20-at-12.46.15-pm.png)
+
+![](../../.gitbook/assets/screen-shot-2018-11-20-at-12.46.45-pm.png)
+
+#### 小结：
+
+这里的迭代有个非常重要的思想是，return实际上上返回了上一层的环境，从而继续执行，一般这里理解为楼梯的上下比较好理解，如果需要什么就上一层楼，拿到了东西或者运算结束，就下楼。
+
+## 7. Recursion
+
+![](../../.gitbook/assets/screen-shot-2018-11-20-at-12.49.55-pm.png)
+
+![](../../.gitbook/assets/screen-shot-2018-11-20-at-12.50.45-pm.png)
+
+![](../../.gitbook/assets/screen-shot-2018-11-20-at-12.51.19-pm.png)
+
+![](../../.gitbook/assets/screen-shot-2018-11-20-at-12.52.01-pm.png)
+
+迭代和递归的主要区别是对于空间的使用，迭代使用的是堆空间，也就是都是在一层楼内的计算，而递归使用的是栈空间，需要层层楼去计算。
+
+![](../../.gitbook/assets/screen-shot-2018-11-20-at-12.53.37-pm.png)
+
+![](../../.gitbook/assets/screen-shot-2018-11-20-at-12.54.18-pm.png)
+
+![](../../.gitbook/assets/screen-shot-2018-11-20-at-12.54.54-pm.png)
+
+#### 小结：
+
+这节主要是比较了递归和迭代的区别和具体的实现，递归相对来说比较复杂，因为需要确定层级之间的关系，以及base cases也就是递归的出口，这些都是比较难的，而迭代主要是利用循环来进行计算，实际的实现难度是弱于递归的，但是当代码逻辑相对比较复杂的时候，递归的优势会非常非常明显。
+
+## 8. Function Examples
+
+![](../../.gitbook/assets/screen-shot-2018-11-20-at-12.58.24-pm.png)
+
+![](../../.gitbook/assets/screen-shot-2018-11-20-at-12.59.47-pm.png)
+
+![](../../.gitbook/assets/screen-shot-2018-11-20-at-1.00.28-pm.png)
+
+![](../../.gitbook/assets/screen-shot-2018-11-20-at-1.01.37-pm.png)
+
+这里涉及了比较多的代码风格和unit test的东西，我觉得非常有用：
+
+* 问题定义和整体理解：首先确认自己正确理解问题，这种层面的test比闷头去写更加有价值。
+* 由分到整：应该适当地理解每一部分的整体逻辑，然后有机地进行整合。
+
+![](../../.gitbook/assets/screen-shot-2018-11-20-at-1.04.40-pm.png)
+
+装饰器基本等同于函数嵌套，之所以叫装饰器是因为有的时候函数嵌套的目的在于美化输出结果之类的，而不单单函数嵌套递归，比如希望函数输出保证一定的长度、宽度之类的。
+
+![](../../.gitbook/assets/screen-shot-2018-11-20-at-1.06.57-pm.png)
+
+![](../../.gitbook/assets/screen-shot-2018-11-20-at-1.07.30-pm.png)
+
+#### 小结:
+
+这里开始初步涉及到一些pythonic的东西，以及python语言的特性，这里结合Fluent Python一起看比较好。
+
