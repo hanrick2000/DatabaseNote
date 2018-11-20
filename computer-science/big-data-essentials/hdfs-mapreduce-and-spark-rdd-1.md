@@ -1,65 +1,6 @@
 # HDFS, MapReduce and Spark RDD \(1\)
 
-## **0. 预备知识**
-
-#### Unix Command Line
-
-| Command | Description |
-| :--- | :--- |
-| **awk** | "Aho, Weinberger and Kernigan", Bell Labs, 1970s. Interpreted programming language for text processing. |
-| **awk -F** | \(see above\) + Set the field separator. |
-| **cat** | Display the contents of a file at the command line, is also used to copy and or append text files into a document. Named after its function to con-cat-enate files. |
-| **cd** | Change the current working directory. Also known as chdir \(change directory\). |
-| **cd /**  | Change the current directory to root directory. |
-| **cd ..**  | Change the current directory to parent directory. |
-| **cd ~**  | Change the current directory to your home directory. |
-| **cp**  | Make copies of files and directories. |
-| **cp -r**  | Copy directories recursively. |
-| **cut**  | Drop sections of each line of input by bytes, characters, or fields, separated by a delimiter \(the tab character by default\). |
-| **cut -d -f**  | -d is for delimiter instead of tab character, -f select only those fields \(ex.: “cut -d “,“ -f1 multilined\_file.txt” - will mean that we select only the first field from each comma-separated line in the file\) |
-| **du**  | Estimate \(and display\) the file space usage - space used under a particular directory or files on a file system. |
-| **df**  | Display the amount of available disk space being used by file systems. |
-| **df -h**  | Use human readable format. |
-| **free**  | Display the total amount of free and used memory \(use vm\_stat instead on MacOS\). |
-| **free -m**  | Display the amount of memory in megabytes. |
-| **free -g**  | Display the amount of memory in gigabytes. |
-| **grep**  | Process text and print any lines which match a regular expression \("global regular expression print"\) |
-| **head**  | Print the beginning of a text file or piped data. By default, outputs the first 10 lines of its input to the command line. |
-| **head -n**  | Output the first n lines of input data \(ex.: “head -5 multilined\_file.txt”\). |
-| **kill**  | Send a signal to kill a process. The default signal for kill is TERM \(which will terminate the process\). |
-| **less**  | Is similar to more, but has the extended capability of allowing both forward and backward navigation through the file. |
-| **ls**  | List the contents of a directory. |
-| **ls -l**  | List the contents of a directory + use a long format, displaying Unix file types, permissions, number of hard links, owner, group, size, last-modified date and filename. |
-| **ls -lh**  | List the contents of a directory + print sizes in human readable format. \(e.g. 1K, 234M, 2G, etc.\) |
-| **ls -lS**  | Sort by file size |
-| **man**  | Display the manual pages which provide documentation about commands, system calls, library routines and the kernel. |
-| **mkdir**  | Create a directory on a file system \("make directory"\) |
-| **more**  | Display the contents of a text file one screen at a time. |
-| **mv**  | Rename files or directories or move them to a different directory. |
-| **nice**  | Run a command with a modified scheduling priority. |
-| **ps**  | Provide information about the currently running processes, including their process identification numbers \(PIDs\) \("process status"\). |
-| **ps a**  | Select all processes except both session leaders and processes not associated with a terminal. |
-| **pwd**  | Abbreviated from "print working directory", pwd writes the full pathname of the current working directory. |
-| **rm**  | Remove files or directories. |
-| **rm -r**  | Remove directories and their contents recursively. |
-| **sort**  | Sort the contents of a text file. |
-| **sort -r**  | Sort the output in the reverse order. Reverse means - to reverse the result of comparsions |
-| **sort -k**  | -k or --key=POS1\[,POS2\] Start a key at POS1 \(origin 1\), end it at POS2 \(default end of the line\) \(ex.: “sort -k2,2 multilined\_file.txt”\). |
-| **sort -n**  | Compare according to string numerical value. |
-| **tail**  | Print the tail end of a text file or piped data. Be default, outputs the last 10 lines of its input to the command line. |
-| **tail -n**  | Output the last n lines of input data \(ex.: “tail -2 multilined\_file.txt”\). |
-| **top**  | Produce an ordered list of running processes selected by user-specified criteria, and updates it periodically. |
-| **touch**  | Update the access date and or modification date of a file or directory or create an empty file. |
-| **tr**  | Replace or remove specific characters in its input data set \("translate"\). |
-| **tr -d**  | Delete characters, do not translate. |
-| **vim**  | Is a text editor \("vi improved"\). It can be used for editing any kind of text and is especially suited for editing computer programs. |
-| **wc** | Print a count of lines, words and bytes for each input file \("word count"\) |
-| **wc -c**  | Print only the number of characters. |
-| **wc -l**  | Print only the number of lines. |
-
-## **1. GFS初步**
-
-### **Scaling Distributed File System** <a id="-scalling-distributed-file-system-"></a>
+## 1. **Scaling Distributed File System**
 
 ![](../../.gitbook/assets/screen-shot-2018-10-01-at-8.36.22-pm.png)
 
@@ -136,7 +77,7 @@ GFS和DFS的区别
 
 ![](../../.gitbook/assets/screen-shot-2018-10-01-at-8.39.20-pm.png)
 
-### Block and Replica States, Recovery Process <a id="block-and-replica-states-recovery-process"></a>
+## 2. Block and Replica States, Recovery Process
 
 ![](../../.gitbook/assets/screen-shot-2018-10-01-at-8.39.51-pm.png)
 
@@ -180,8 +121,7 @@ Lease manager manages all the leases at the NameNode. HDFS clients request at le
 
 ![](../../.gitbook/assets/screen-shot-2018-10-01-at-8.42.09-pm.png)
 
-When you write to an HDFS file, HDFS client writes data block by block. Each block is constructed through a right pipeline, as the first client breaks down block into pieces called packets. These packets are propagated to the DataNodes through the pipeline.  
-
+When you write to an HDFS file, HDFS client writes data block by block. Each block is constructed through a right pipeline, as the first client breaks down block into pieces called packets. These packets are propagated to the DataNodes through the pipeline.
 
 During the pipeline setup stage, a clients sends a setup message down to the pipeline. Each DataNode opens a replica for writing and sends ack message back upstream with the pipeline. 
 
@@ -189,7 +129,7 @@ Data streaming stage is defined by time range from t1 to t2, where t1 is the tim
 
 If you're writing to a new file and a failure happens during this top stage, then you can easily abandon DataNode pipeline and request a new one from scratch. If DataNode is not able to continue process packets appropriately, for instance because of these problems, then it allots the DataNode pipeline about it, by closing all the connections. When HDFS client detects a fire, it stops sending new packets to the existing pipeline, request a new generation stamp from a NameNode, and rebuilds a pipeline from good DataNodes.
 
-### HDFS client <a id="hdfs-client"></a>
+## 3. HDFS client
 
 Basic Commands:  
 man: hdfs dfs -help  
@@ -212,16 +152,18 @@ HDFS client likes an agency to use Command Line to save data into HDFS from loca
 
 ![](../../.gitbook/assets/screen-shot-2018-10-01-at-8.42.40-pm.png)
 
-### Namenode Architecture <a id="namenode-architecture"></a>
+## 4. Namenode Architecture
 
 **NameNode** is a service responsible for keeping hierarchy of folders and files.
 
 * NameNode stores all of this data in memory. RAM speed of reading and writing data is fostered by order of magnitude compared to a disk. 
 
-**Small files problem**  
+**Small files problem**
+
 The more files you have in a distributed storage, the more load you have on a NameNode. And this load doesn't depend on the file size, as you have approximately the same amount of meta information stored in RAM. 
 
-**Why 128 megabyte of data was once chosen as a default block size?**  
+**Why 128 megabyte of data was once chosen as a default block size?**
+
 When you read block of data from a hard drive, first you need to locate this work on a disk. Quite naturally, this operation is called seek. Having a reading speed of three and a half gigabyte per second, you will be able to read 128 megabyte in 30 to 40 milliseconds. Typical drive seek time is less than one percent of the aforementioned number. It is exactly the reason for having 128 megabyte block size. It is one choice to have less than one percent overhead for reading the random block of data from a hard drive, and keeping block size small at the same time. We can more easily keep equal utilization of hard drive space over the cluster with small block size.   
 
 
@@ -239,7 +181,7 @@ As you can guess, it is not appropriate for a high demand service. For this reas
 
 It is a robust and poorly asynchronous process. You should also take in mind that secondary NameNode consumes the same amount of RAM to build a new fsimage. The amount of drives in your cluster has a linear relation to the speed of data processing. Overall, these numbers will be a good reference for you when you decide to install your own cluster for research and development purposes. Summing up, you now can explain how NameNode stores meta information hierarchy and how it achieves durability.
 
-### Data modeling and file formats <a id="data-modeling-and-file-formats"></a>
+## 5. Data modeling and file formats
 
 Data model: a way you think about your data elements, what they are, what domain they come from, how different elements relate to each other, what they are composed of abstract model, explicitly defines the structure of data
 
@@ -321,4 +263,63 @@ Types :
 * CPU-bound: cannot benefit from the compression
 * I/O-bound: can benefit from the compression
 * Codec performance vary depending on data, many options available
+
+## **Appendix**
+
+#### Unix Command Line
+
+| Command | Description |
+| :--- | :--- |
+| **awk** | "Aho, Weinberger and Kernigan", Bell Labs, 1970s. Interpreted programming language for text processing. |
+| **awk -F** | \(see above\) + Set the field separator. |
+| **cat** | Display the contents of a file at the command line, is also used to copy and or append text files into a document. Named after its function to con-cat-enate files. |
+| **cd** | Change the current working directory. Also known as chdir \(change directory\). |
+| **cd /**  | Change the current directory to root directory. |
+| **cd ..**  | Change the current directory to parent directory. |
+| **cd ~**  | Change the current directory to your home directory. |
+| **cp**  | Make copies of files and directories. |
+| **cp -r**  | Copy directories recursively. |
+| **cut**  | Drop sections of each line of input by bytes, characters, or fields, separated by a delimiter \(the tab character by default\). |
+| **cut -d -f**  | -d is for delimiter instead of tab character, -f select only those fields \(ex.: “cut -d “,“ -f1 multilined\_file.txt” - will mean that we select only the first field from each comma-separated line in the file\) |
+| **du**  | Estimate \(and display\) the file space usage - space used under a particular directory or files on a file system. |
+| **df**  | Display the amount of available disk space being used by file systems. |
+| **df -h**  | Use human readable format. |
+| **free**  | Display the total amount of free and used memory \(use vm\_stat instead on MacOS\). |
+| **free -m**  | Display the amount of memory in megabytes. |
+| **free -g**  | Display the amount of memory in gigabytes. |
+| **grep**  | Process text and print any lines which match a regular expression \("global regular expression print"\) |
+| **head**  | Print the beginning of a text file or piped data. By default, outputs the first 10 lines of its input to the command line. |
+| **head -n**  | Output the first n lines of input data \(ex.: “head -5 multilined\_file.txt”\). |
+| **kill**  | Send a signal to kill a process. The default signal for kill is TERM \(which will terminate the process\). |
+| **less**  | Is similar to more, but has the extended capability of allowing both forward and backward navigation through the file. |
+| **ls**  | List the contents of a directory. |
+| **ls -l**  | List the contents of a directory + use a long format, displaying Unix file types, permissions, number of hard links, owner, group, size, last-modified date and filename. |
+| **ls -lh**  | List the contents of a directory + print sizes in human readable format. \(e.g. 1K, 234M, 2G, etc.\) |
+| **ls -lS**  | Sort by file size |
+| **man**  | Display the manual pages which provide documentation about commands, system calls, library routines and the kernel. |
+| **mkdir**  | Create a directory on a file system \("make directory"\) |
+| **more**  | Display the contents of a text file one screen at a time. |
+| **mv**  | Rename files or directories or move them to a different directory. |
+| **nice**  | Run a command with a modified scheduling priority. |
+| **ps**  | Provide information about the currently running processes, including their process identification numbers \(PIDs\) \("process status"\). |
+| **ps a**  | Select all processes except both session leaders and processes not associated with a terminal. |
+| **pwd**  | Abbreviated from "print working directory", pwd writes the full pathname of the current working directory. |
+| **rm**  | Remove files or directories. |
+| **rm -r**  | Remove directories and their contents recursively. |
+| **sort**  | Sort the contents of a text file. |
+| **sort -r**  | Sort the output in the reverse order. Reverse means - to reverse the result of comparsions |
+| **sort -k**  | -k or --key=POS1\[,POS2\] Start a key at POS1 \(origin 1\), end it at POS2 \(default end of the line\) \(ex.: “sort -k2,2 multilined\_file.txt”\). |
+| **sort -n**  | Compare according to string numerical value. |
+| **tail**  | Print the tail end of a text file or piped data. Be default, outputs the last 10 lines of its input to the command line. |
+| **tail -n**  | Output the last n lines of input data \(ex.: “tail -2 multilined\_file.txt”\). |
+| **top**  | Produce an ordered list of running processes selected by user-specified criteria, and updates it periodically. |
+| **touch**  | Update the access date and or modification date of a file or directory or create an empty file. |
+| **tr**  | Replace or remove specific characters in its input data set \("translate"\). |
+| **tr -d**  | Delete characters, do not translate. |
+| **vim**  | Is a text editor \("vi improved"\). It can be used for editing any kind of text and is especially suited for editing computer programs. |
+| **wc** | Print a count of lines, words and bytes for each input file \("word count"\) |
+| **wc -c**  | Print only the number of characters. |
+| **wc -l**  | Print only the number of lines. |
+
+
 
