@@ -1,4 +1,4 @@
-# Week 1-2
+# CS 61A \(1\)
 
 ## 1. Functions
 
@@ -166,4 +166,22 @@
 #### 小结:
 
 这里开始初步涉及到一些pythonic的东西，以及python语言的特性，这里结合Fluent Python一起看比较好。
+
+## 9. Tree Recursion
+
+![](../../.gitbook/assets/screen-shot-2018-11-20-at-2.33.42-pm.png)
+
+![](../../.gitbook/assets/screen-shot-2018-11-20-at-2.34.34-pm.png)
+
+![](../../.gitbook/assets/screen-shot-2018-11-20-at-2.35.01-pm.png)
+
+![](../../.gitbook/assets/screen-shot-2018-11-20-at-2.35.27-pm.png)
+
+![](../../.gitbook/assets/screen-shot-2018-11-20-at-2.36.10-pm.png)
+
+![](../../.gitbook/assets/screen-shot-2018-11-20-at-2.36.34-pm.png)
+
+#### 小结：
+
+主要讲了一下树形递归，对于函数的call应该是逐步的，一层一层的，不断由大到小，直到base cases。
 
