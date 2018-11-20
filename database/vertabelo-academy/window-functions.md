@@ -197,11 +197,27 @@ FROM single_order;
   * `n FOLLOWING` \(`ROWS` only\),
   * `UNBOUNDED FOLLOWING`
 
-## 11/07 current place
-
 ## 5. Analytics Function
 
-这些函数都需要在window frame里面才可以发挥作用，基本可以分为两类。
+我之前一直错误地理解Analytics Function就是Window Function，后来才知道这个理解不对，Analytics Function主要是指数据库中的lead和lag之类的操作。
+
+```sql
+<analytic function> OVER (...)
+```
+
+这里解释的比较好:
+
+* aggregate functions : 主要是计算cumulative result
+* analytics functions : 主要是在frame里面的single rows
+
+#### Lead
+
+Lead可以自定义lead\(x, y, z\)，y的默认是1，也就是后面的第几个，z是如果没找到应该返回什么，需要和x同类型，默认是Null
+
+```sql
+SELECT name,opened, LEAD(name) OVER(ORDER BY opened)
+FROM website;
+```
 
 * 对列移动的：
   * lead - 列往上移n格
@@ -210,7 +226,54 @@ FROM single_order;
   * first\_value : 列的第一个值
   * last\_value : 列的最后一个值
 
+![Lead](https://academy.vertabelo.com/static/window-functions-window-functions-part6-ex5.png)
+
+#### Lag
+
+lag和lead用法基本一致，也是可以输入三个参数。
+
+```sql
+SELECT name, opened, LAG(name) OVER(ORDER BY opened)
+FROM website;
+```
+
+![LAG](https://academy.vertabelo.com/static/window-functions-window-functions-part6-ex10.png)
+
+```sql
+LEAD (...) OVER(ORDER BY...)
+LAG (...) OVER (ORDER BY ... DESC)
+LEAD (...) OVER(ORDER BY DESC)
+LAG (...) OVER (ORDER BY ...)
+```
+
+#### First\_value & Last\_value
+
+主要是返回排序之后的第一个和最后一个值，本质上两个其实是一样的，没有特别大的不同。但是当它搭配上frame的话，就会非常的方便，它会自动取一个frame里面的第一个和最后一个的值，整体运算思路和速度都会有非常大的提升。
+
+#### Nth\_value
+
+NTH\_VALUE\(x,n\) 主要给的是x的n部分
+
+```sql
+SELECT name, opened,
+  NTH_VALUE(opened,2) OVER(ORDER BY opened
+    ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING)
+FROM website;
+```
+
+#### 小结：
+
+* `LEAD(x)` and `LAG(x)` give you the next/previous value in the column **x**, respectively.
+* `LEAD(x,y)` and `LAG(x,y)`give you the value in the column **x**of the row which is **y** rows **after/before** the current row, respectively.
+* `FIRST_VALUE(x)` and `LAST_VALUE(x)` give you the first and last value in the column **x**, respectively.
+* `NTH_VALUE(x,n)` gives you the value in the column **x** of the **n-th**row.
+* `LAST_VALUE` and `NTH_VALUE`usually require the window frame to be set to `ROWS BETWEEN UNBOUNDED PREDEDING AND UNBOUNDED FOLLOWING`.
+
+#### 
+
 #### Over中含有聚合函数
 
 如果在over中也含有聚合函数，是需要group by的，因为这里本质上需要group by 两次。
+
+11/19
 
