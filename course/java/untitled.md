@@ -4,7 +4,7 @@
 
 Union Find一般用来处理图之中存在的连通性等问题，之前刷题刷到过，但是较少地系统学习。
 
-{% embed url="https://zijiang.gitbook.io/notes/~/drafts/-LRlmLOkHQER7fV8hRyZ/primary/computer-science/advanced-algorithms/advanced-algorithms-2-union-find-and-tire" %}
+{% embed url="https://zijiang.gitbook.io/notes/computer-science/advanced-algorithms/advanced-algorithms-2-union-find-and-tire" %}
 
 ### 1. Dynamic Connectivity
 
