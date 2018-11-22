@@ -64,7 +64,9 @@
 
 * [Coursera Algorithms - Princeton](course/java/README.md)
   * [Untitled](course/java/untitled.md)
-* [CS 61A](course/cs-61a/README.md)
+* [CS 61A 18 Fall](course/cs-61a/README.md)
   * [CS 61A \(1\)](course/cs-61a/week.md)
   * [CS 61A \(2\)](course/cs-61a/cs-61a-2.md)
+  * [CS 61A \(3\)](course/cs-61a/cs-61a-3.md)
+  * [CS 61A \(4\)](course/cs-61a/cs-61a-4.md)
 
