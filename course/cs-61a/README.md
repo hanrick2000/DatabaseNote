@@ -6,5 +6,7 @@
 
 {% embed url="http://composingprograms.com/" %}
 
+#### Update 11/24, 2018
 
+目前就把ppt过了一遍，对于scheme还是不是很熟悉，有机会会重新排版和整理这一部分的。
 
