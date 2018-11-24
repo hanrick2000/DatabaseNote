@@ -68,5 +68,7 @@
   * [CS 61A \(1\)](course/cs-61a/week.md)
   * [CS 61A \(2\)](course/cs-61a/cs-61a-2.md)
   * [CS 61A \(3\)](course/cs-61a/cs-61a-3.md)
-  * [CS 61A \(4\)](course/cs-61a/cs-61a-4.md)
+  * [CS 61A \(4\)](course/cs-61a/untitled.md)
+  * [CS 61A \(5\)](course/cs-61a/cs-61a-5.md)
+* [CS 61B 18 Fall](course/cs-61b-18-fall.md)
 
