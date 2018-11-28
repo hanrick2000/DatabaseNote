@@ -1,14 +1,22 @@
 # Table of contents
 
 * [Introduction](README.md)
+* [Python Built-in Functions](python-built-in-functions/README.md)
+  * [String](python-built-in-functions/string.md)
+* [Java Basics](java-basics.md)
 
-## Computer Science
+## System Design
 
-* [Big Data Essentials](computer-science/big-data-essentials/README.md)
-  * [HDFS, MapReduce and Spark RDD \(1\)](computer-science/big-data-essentials/hdfs-mapreduce-and-spark-rdd-1.md)
-  * [HDFS, MapReduce and Spark RDD \(2\)](computer-science/big-data-essentials/hdfs-mapreduce-and-spark-rdd-2.md)
-  * [HDFS, MapReduce and Spark RDD \(3\)](computer-science/big-data-essentials/hdfs-mapreduce-and-spark-rdd-3.md)
-  * [HDFS, MapReduce and Spark RDD \(4\)](computer-science/big-data-essentials/hdfs-mapreduce-and-spark-rdd-4.md)
+* [Big Data Essentials](system-design-1/big-data-essentials/README.md)
+  * [HDFS, MapReduce and Spark RDD \(1\)](system-design-1/big-data-essentials/hdfs-mapreduce-and-spark-rdd-1.md)
+  * [HDFS, MapReduce and Spark RDD \(2\)](system-design-1/big-data-essentials/hdfs-mapreduce-and-spark-rdd-2.md)
+  * [HDFS, MapReduce and Spark RDD \(3\)](system-design-1/big-data-essentials/hdfs-mapreduce-and-spark-rdd-3.md)
+  * [HDFS, MapReduce and Spark RDD \(4\)](system-design-1/big-data-essentials/hdfs-mapreduce-and-spark-rdd-4.md)
+* [System Design](system-design-1/system-design/README.md)
+  * [System Design \(1\)  - Twitter Design](system-design-1/system-design/system-design-1-twitter-design.md)
+
+## Algorithm
+
 * [Algorithms](computer-science/data-structure-and-algorithms/README.md)
   * [Algorithms \(1\) - String](computer-science/data-structure-and-algorithms/data-structure-and-algorithms-1-string.md)
   * [Algorithms \(2\) - Binary Search](computer-science/data-structure-and-algorithms/data-structure-and-algorithms-2-bst.md)
@@ -31,10 +39,6 @@
   * [DP Introduction \(1\)](computer-science/dynamic-programming/untitled.md)
   * [DP Coordinates \(2\)](computer-science/dynamic-programming/dp-types-2.md)
   * [DP Sequence \(3\)](computer-science/dynamic-programming/dp-sequence-3.md)
-* [Python Built-in Functions](computer-science/python-built-in-functions/README.md)
-  * [String](computer-science/python-built-in-functions/string.md)
-* [System Design](computer-science/system-design/README.md)
-  * [System Design \(1\)  - Twitter Design](computer-science/system-design/system-design-1-twitter-design.md)
 
 ## Database
 
@@ -55,10 +59,7 @@
 * [Vertabelo Academy](database/vertabelo-academy/README.md)
   * [Standard SQL Function](database/vertabelo-academy/standard-sql-function.md)
   * [Window Functions](database/vertabelo-academy/window-functions.md)
-
-## Statistics
-
-* [SAS](statistics/untitled.md)
+* [SAS](database/untitled.md)
 
 ## Course
 
