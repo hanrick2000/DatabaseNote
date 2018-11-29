@@ -1,8 +1,7 @@
 # Table of contents
 
 * [Introduction](README.md)
-* [Python Built-in Functions](python-built-in-functions/README.md)
-  * [String](python-built-in-functions/string.md)
+* [Python Built-in Functions](python-built-in-functions.md)
 * [Java Basics](java-basics.md)
 
 ## System Design
