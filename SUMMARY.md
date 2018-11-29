@@ -27,6 +27,8 @@
   * [Algorithms \(6\) - DFS Combination](computer-science/data-structure-and-algorithms/data-structure-and-algorithms-6-dfs-combination.md)
   * [Algorithms \(7\) - DFS Permutation & Graph](computer-science/data-structure-and-algorithms/data-structure-and-algorithms-7-dfs-permutation-and-graph.md)
   * [Algorithms \(8\) - Data Structure](computer-science/data-structure-and-algorithms/data-structure-and-algorithms-8-data-structure.md)
+  * [Segment Tree](computer-science/data-structure-and-algorithms/segment-tree.md)
+  * [Binary Indexed Tree](computer-science/data-structure-and-algorithms/binary-indexed-tree.md)
 * [Advanced Algorithms](computer-science/advanced-algorithms/README.md)
   * [Advanced Algorithms \(1\) - Two Pointers Follow up](computer-science/advanced-algorithms/advanced-algorithms-1-two-pointers-follow-up.md)
   * [Advanced Algorithms \(2\) - Union Find & Tire](computer-science/advanced-algorithms/advanced-algorithms-2-union-find-and-tire.md)
