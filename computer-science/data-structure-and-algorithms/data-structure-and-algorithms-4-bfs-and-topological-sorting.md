@@ -2,16 +2,14 @@
 
 ## 0. BFS解决的问题
 
-一般对于路径类问题：
-
 * 最短路径
   * 简单图：BFS
-  * 复杂图： Dijkstra, SPFA
+  * 复杂图：Dijkstra, SPFA
 * 最长路径
   * 图可以分层： DP
   * 图不可以分层 : DFS
 
-而适用于BFS的问题一般有以下几个:
+而适用于BFS的问题
 
 #### a. 图的遍历 Traversal in Graph
 
@@ -61,9 +59,9 @@ for from_node, to_node in [[0, 1], [0, 2]]:
     node_neighour[from_node].append(to_node)
 ```
 
-### 知识点补充 - Dummy Node
+### 链表 Dummy Node
 
-这里补充一个广泛应用于linked list里面的知识，
+Python弱化了链表的概念，所以这里是在处理图问题的时候，需要用到链表相关的概念，这里主要补充一下相关的知识点。
 
 #### 什么是 Dummy Node
 
@@ -98,6 +96,8 @@ dummy->head->node->node->node...
 * 制定有依赖关系的任务的执行顺序
 
 **拓扑排序不是一种排序算法**
+
+拓扑排序是一种图的表述方法，使用拓扑排序主要是解决图的存储和表示。
 
 虽然名字里有 Sorting，但是相比起我们熟知的 Bubble Sort, Quick Sort 等算法，Topological Sorting 并不是一种严格意义上的 Sorting Algorithm。
 
@@ -162,31 +162,27 @@ class Solution:
 #### [69. Binary Tree Level Order Traversal](https://www.lintcode.com/problem/binary-tree-level-order-traversal/description) / [102. Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/)
 
 ```python
-from collections import deque
-"""
-Definition of TreeNode:
-class TreeNode:
-    def __init__(self, val):
-        self.val = val
-        self.left, self.right = None, None
-"""
 class Solution:
     def levelOrder(self, root):
-        if root is None:                  # 基本检查，这里是二叉树
-            return []
-            
-        queue = deque([root])             # 变成双向的queue
-        result = []                       # 存储最后的结果
-        while queue:                      # 当队列不为空 
-            level = []                    # 存储这一层级
-            for _ in range(len(queue)):
-                node = queue.popleft()   
-                level.append(node.val)    # 先将这一层的值
-                if node.left:             # 如果左儿子存在，压入队列
+        # corner case check
+        if root is None :
+            return result
+        # init
+        result = []
+        queue = collections.deque([root])
+        # 1. traverse the whole queue - current levels
+        # 2. if node in current level has left or right, add to queue
+        # 3. merge current level to result - store as list
+        while queue :
+            level = []
+            for _ in range(len(queue)) :
+                node = queue.popleft()
+                level.append(node.val)
+                if node.left :
                     queue.append(node.left)
-                if node.right:            # 如果右儿子存在，压入队列  
+                if node.right :
                     queue.append(node.right)
-            result.append(level)          # 合并
+            result.append(level)
         return result
 ```
 
@@ -204,7 +200,6 @@ class Solution:
         while queue:                      # 当队列不为空 
             node = queue.popleft()
             result.append(node.val)
-            
             if node.left:             # 如果左儿子存在，压入队列
                 queue.append(node.left)
             if node.right:            # 如果右儿子存在，压入队列  
@@ -258,40 +253,49 @@ class Solution:
 * **可读性**。我们希望开发人员，能够通过序列化后的数据直接看懂原始数据是什么。
   * 如 Json，LintCode 的输入数据
 
+## 11.29
+
 #### [7. Serialize and Deserialize Binary Tree](https://www.lintcode.com/problem/serialize-and-deserialize-binary-tree/description)  / [297. Serialize and Deserialize Binary Tree](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/)
 
 ```python
-from collections import deque
-
 class Codec:
-
     def serialize(self, root):
-        string = ""
-        queue = deque([root])
-        while queue:
-            cur = queue.popleft()
-            if not cur:
-                string += ",None"
-                continue
-            else:
-                string += "," + str(cur.val)
-                queue.append(cur.left)
-                queue.append(cur.right)
-        return string
+        if not root:
+            return ['#']
         
+        q = collections.deque([root])
+        ans = []
+        while q:
+            temp = q.popleft()
+            if not temp:
+                ans.append('#')
+            else:
+                ans.append(str(temp.val))
+                q.append(temp.left)
+                q.append(temp.right)
+        return ans
+                
     def deserialize(self, data):
-        data = deque(data.split(","))
-        _, val = data.popleft(), data.popleft()
-        root = None if val == "None" else TreeNode(int(val))
-        queue = deque([root])
-        while queue:
-            cur = queue.popleft()
-            if cur:
-                a, b = data.popleft(), data.popleft()
-                cur.left = TreeNode(int(a)) if a != "None" else None
-                cur.right = TreeNode(int(b)) if b != "None" else None
-                queue.append(cur.left)
-                queue.append(cur.right)
+        if data[0] == '#':
+            return None
+        
+        data = collections.deque(data)
+        root = TreeNode(int(data.popleft()))
+        q = collections.deque([root])
+        isLeft = True
+        
+        while data:
+            ch = data.popleft()
+            if ch != '#':
+                node = TreeNode(int(ch))
+                q.append(node)
+                if isLeft:
+                    q[0].left = node
+                else:
+                    q[0].right = node
+            if not isLeft:
+                q.popleft()
+            isLeft = not isLeft
         return root
 ```
 
