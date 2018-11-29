@@ -37,6 +37,7 @@
   * [Advanced Algorithms \(5\) - Dynamic Programming I](computer-science/advanced-algorithms/advanced-algorithms-5-dynamic-programming-i.md)
   * [Advanced Algorithms \(6\) - Dynamic Programming II](computer-science/advanced-algorithms/advanced-algorithms-6-dynamic-programming-ii.md)
   * [Advanced Algorithms \(7\) - Follow Up](computer-science/advanced-algorithms/advanced-algorithms-7-follow-up.md)
+  * [Backpack DP](computer-science/advanced-algorithms/backpack-dp.md)
 * [Dynamic Programming](computer-science/dynamic-programming/README.md)
   * [DP Introduction \(1\)](computer-science/dynamic-programming/untitled.md)
   * [DP Coordinates \(2\)](computer-science/dynamic-programming/dp-types-2.md)
