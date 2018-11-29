@@ -253,8 +253,6 @@ class Solution:
 * **可读性**。我们希望开发人员，能够通过序列化后的数据直接看懂原始数据是什么。
   * 如 Json，LintCode 的输入数据
 
-## 11.29
-
 #### [7. Serialize and Deserialize Binary Tree](https://www.lintcode.com/problem/serialize-and-deserialize-binary-tree/description)  / [297. Serialize and Deserialize Binary Tree](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/)
 
 ```python
@@ -431,9 +429,7 @@ class Solution:
         queue = collections.deque([(x, y)])
         # 3. check up, down, left, right 
         while queue :
-            
-            x, y = queue.popleft()
-            
+            x, y = queue.popleft()            
             for delta_x, delta_y in [(1, 0), (-1, 0), (0, 1), (0, -1)] :
                 next_x = x + delta_x
                 next_y = y + delta_y

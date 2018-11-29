@@ -1,15 +1,15 @@
-# Algorithms \(5.0\)- Binary Tree Pre
+# Algorithm - Binary Tree
 
 ## 1. 二叉树专题
 
-### 1.1 遍历\(Traverse\)
+### 遍历\(Traverse\)
 
 遍历（Traversal），顾名思义，就是**通过某种顺序，一个一个访问一个数据结构中的元素**。比如我们如果需要遍历一个数组，无非就是要么从前往后，要么从后往前遍历。但是对于一棵二叉树来说，他就有很多种方式进行遍历：
 
-1. 层序遍历（Level order）
-2. 先序遍历（Pre order）
-3. 中序遍历（In order）
-4. 后序遍历（Post order）
+* 层序遍历（Level order）
+* 先序遍历（Pre order）
+* 中序遍历（In order）
+* 后序遍历（Post order）
 
 我们在之前的课程中，已经学习过了二叉树的层序遍历，也就是使用 BFS 算法来获得二叉树的分层信息。通过 BFS 获得的顺序我们也可以称之为 BFS Order。而剩下的三种遍历，都需要通过深度优先搜索的方式来获得。而这一小节中，我们将讲一下通过深度优先搜索（DFS）来获得的节点顺序，
 
@@ -169,7 +169,7 @@ class Solution:
         return result
 ```
 
-### 1.2 分治法\(Divide & Conquer）
+### 分治法\(Divide & Conquer）
 
 分治法（Divide & Conquer Algorithm）是说将一个大问题，拆分为2个或者多个小问题，当小问题得到结果之后，合并他们的结果来得到大问题的结果。
 
@@ -186,7 +186,7 @@ class Solution:
 * **遍历法解决问题的思路**
   * 通过前序/中序/后序的某种遍历，游走整棵树，通过一个全局变量或者传递的参数来记录这个过程中所遇到的点和需要计算的结果。
 
-### 1.3 递归
+### 递归
 
 **什么是递归 \(Recursion\) ？**
 
@@ -240,7 +240,7 @@ subsetsHelper(result, subset, nums, i + 1);
 subset.remove(len(nums) - 1) // 这一步就是回溯
 ```
 
-### 4. AVL Tree
+### AVL Tree
 
 平衡二叉树（Balanced Binary Tree，又称为AVL树，**有别于AVL算法**）是二叉树中的一种特殊的形态。二叉树当且仅当满足如下两个条件之一，是平衡二叉树：
 
@@ -268,7 +268,7 @@ subset.remove(len(nums) - 1) // 这一步就是回溯
 
 若[二叉搜索树](http://www.jiuzhang.com/tutorial/algorithm/399)是AVL树，则最大作用是保证查找的**最坏**时间复杂度为O\(logN\)。而且较浅的树对插入和删除等操作也更快。
 
-### 5. BST Tree
+### BST Tree
 
 二叉搜索树（Binary Search Tree，又名排序二叉树，二叉查找树，通常简写为BST）定义如下：
 
@@ -309,7 +309,7 @@ BST是一种**重要**且**基本**的结构，其相关题目也十分经典，
 
 ## 2. 树的补充知识
 
-### 2.1 BST 的增删查改 - 基本数据结构实现
+### BST 的增删查改
 
 #### 1. 什么是二叉搜索树\(Binary Search Tree\)？
 
@@ -480,7 +480,7 @@ def deleteNode(parent, node) :
   * [http://www.lintcode.com/en/problem/remove-node-in-binary-search-tree/](http://www.lintcode.com/en/problem/remove-node-in-binary-search-tree/)
   * [http://www.lintcode.com/en/problem/trim-binary-search-tree/](http://www.lintcode.com/en/problem/trim-binary-search-tree/)
 
-### 2. 2 平衡排序二叉树\(Self-balancing Binary Search Tree\)
+### 平衡排序二叉树
 
 平衡二叉搜索树又被称为AVL树（有别于AVL算法），且具有以下性质：
 
@@ -573,7 +573,7 @@ TreeSet / TreeMap 是底层运用了[红黑树](https://zh.wikipedia.org/wiki/%E
 
 注：在 C++ 中类似的结构为 set / map
 
-### 2.3 AVL实现
+### AVL实现
 
 这一部分待补充。。
 
