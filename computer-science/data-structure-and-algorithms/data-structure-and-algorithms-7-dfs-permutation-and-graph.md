@@ -334,5 +334,11 @@ class Solution:
         return partitions
 ```
 
+## 6. Ladder
 
+![](../../.gitbook/assets/screen-shot-2018-11-29-at-12.06.07-pm.png)
+
+![](../../.gitbook/assets/screen-shot-2018-11-29-at-12.06.11-pm.png)
+
+![](../../.gitbook/assets/screen-shot-2018-11-29-at-12.06.16-pm.png)
 
