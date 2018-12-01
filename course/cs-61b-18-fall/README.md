@@ -10,5 +10,5 @@ CS61A 和 CS 61 B 都会有Fall和Spring，因为Fall没有video和作业，所�
 
 这个课的教材是跟着Head First Java 走的，对初学者非常的友好，还是很开心的。
 
-
+{% embed url="https://joshhug.gitbooks.io/hug61b/content/chap2/chap21.html" %}
 
