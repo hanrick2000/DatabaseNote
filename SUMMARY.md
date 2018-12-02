@@ -76,4 +76,5 @@
   * [CS 61A \(5\)](course/cs-61a/cs-61a-5.md)
 * [CS 61B 18 Spring](course/cs-61b-18-fall/README.md)
   * [CS 61B \(1\)](course/cs-61b-18-fall/cs-61b-1.md)
+  * [CS 61B \(2\)](course/cs-61b-18-fall/cs-61b-2.md)
 
