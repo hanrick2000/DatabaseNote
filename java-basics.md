@@ -2,7 +2,7 @@
 
 ## 1. Introduction
 
-#### 输入和输出
+### 输入和输出
 
 主要是理解一下java的pkg应用，和c++的stdin，stdout类似
 
@@ -30,7 +30,7 @@ System.out.println("myInt is: " + myInt);
 System.out.printf("%-15s%03d%n", s1, x);
 ```
 
-#### Loops
+### Loops
 
 java的loops和其他语言一样，也是那几个控制流
 
@@ -50,5 +50,7 @@ java比较复杂，所有的数学运算还需要加载math的包
 
 {% embed url="https://www.hackerrank.com/domains/java?filters%5Bsubdomains%5D%5B%5D=java-introduction" %}
 
-没刷完
+### Data Types
+
+
 
