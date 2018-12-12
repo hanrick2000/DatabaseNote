@@ -239,3 +239,9 @@
 * Answer: f\[n\]\[a\[n\]-target~a\[n\]+target\]
 * 时间复杂度 O\(n \* A \* T\)
 
+## Ladder
+
+![](../../.gitbook/assets/screen-shot-2018-12-11-at-9.09.42-pm.png)
+
+![](../../.gitbook/assets/screen-shot-2018-12-11-at-9.09.47-pm.png)
+

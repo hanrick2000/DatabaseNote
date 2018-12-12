@@ -296,6 +296,11 @@ sum\[i\]\[j\] 表示第i到第j的硬币价值总和
 
 • Coins in a Line III • 初始化dp\[i\]\[i\]
 
-• 从大到小  
+• 从大到小
 
+## Ladder
+
+![](../../.gitbook/assets/screen-shot-2018-12-11-at-9.05.17-pm.png)
+
+![](../../.gitbook/assets/screen-shot-2018-12-11-at-9.05.22-pm.png)
 

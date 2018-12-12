@@ -30,3 +30,9 @@ prefix sum的简单应用
 
 [86. Binary Search Tree Iterator](https://www.lintcode.com/problem/binary-search-tree-iterator/description)
 
+## Ladder
+
+![](../../.gitbook/assets/screen-shot-2018-12-11-at-9.18.43-pm.png)
+
+![](../../.gitbook/assets/screen-shot-2018-12-11-at-9.18.50-pm.png)
+

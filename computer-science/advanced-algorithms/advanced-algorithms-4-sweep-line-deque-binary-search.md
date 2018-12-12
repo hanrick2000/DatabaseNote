@@ -351,3 +351,9 @@ class Solution:
 
 ## 4. Laddar
 
+![](../../.gitbook/assets/screen-shot-2018-12-11-at-9.00.36-pm.png)
+
+![](../../.gitbook/assets/screen-shot-2018-12-11-at-9.00.40-pm.png)
+
+![](../../.gitbook/assets/screen-shot-2018-12-11-at-9.00.45-pm.png)
+
