@@ -20,7 +20,7 @@
   * [Algorithms \(1\) - String](computer-science/data-structure-and-algorithms/data-structure-and-algorithms-1-string.md)
   * [Algorithms \(2\) - Binary Search](computer-science/data-structure-and-algorithms/data-structure-and-algorithms-2-bst.md)
   * [Algorithms \(3\) - Two Pointers](computer-science/data-structure-and-algorithms/data-structure-and-algorithms-3-two-pointers.md)
-  * [Algorithm - Binary Tree](computer-science/data-structure-and-algorithms/data-structure-and-algorithms-binary-tree-pre.md)
+  * [Algorithm Pre - Binary Tree](computer-science/data-structure-and-algorithms/data-structure-and-algorithms-binary-tree-pre.md)
   * [Algorithms \(4\) - BFS & Topological Sorting](computer-science/data-structure-and-algorithms/data-structure-and-algorithms-4-bfs-and-topological-sorting.md)
   * [Algorithm - DFS Practice](computer-science/data-structure-and-algorithms/algorithm-dfs-practice.md)
   * [Algorithms \(5\) - DFS & Binary Tree](computer-science/data-structure-and-algorithms/data-structure-and-algorithms-5-dfs-and-binary-tree.md)

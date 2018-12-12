@@ -83,6 +83,8 @@ class Solution:
 
 这里不能直接使用前面一个题的模板，错误的想法是设置一个deleted变量，如果deleted了，就记录一下，但是这里最重要的是要区分往左还是往右删除，如果不能区分，即使过了lintcode，也过不了leetcode。
 
+* 左删和右删都是可以的，这里比较容易出错
+
 ```python
 class Solution:
     """
@@ -114,7 +116,11 @@ class Solution:
         return True
 ```
 
-#### [13. Implement strStr\(\)](https://www.lintcode.com/problem/implement-strstr/description) /  [28. Implement strStr\(\)](https://leetcode.com/problems/implement-strstr/description/)
+#### [13. Implement strStr\(\)](https://www.lintcode.com/problem/implement-strstr/description) /  [28. Implement strStr\(\)](https://leetcode.com/problems/implement-strstr/description/) \*\*重要\*\*
+
+#### Rabin Karp : 将文本通过hash function变成数字，从而对数字进行比较
+
+* 平均计算复杂度 O\(n + m\)，最坏情况O\(nm\)
 
 这里主要实现了Rabin Karp Algorithm，从而使得计算复杂度为O\(n\)，具体原理是将文本变为数字，从而加速了实际比较的运算消耗。
 
@@ -166,8 +172,9 @@ strStr II就是强制使用了Rabin Karp算法，没有什么可以说的，需�
 
 #### [200. Longest Palindromic Substring](https://www.lintcode.com/problem/longest-palindromic-substring/description) / [5. Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/description/)
 
-Manacher's Algorithm, 可以在 O\(n\) 的时间内解决问题：
+Manacher's Algorithm - 通过轴对称的思路来确定半径，进而查看是否是回文
 
+* 时间复杂度O\(n\)
 * 主体思想是通过 ’\#‘ 来解决回文串奇偶性的问题
 * 通过建立回文对称轴来进行计算
 
