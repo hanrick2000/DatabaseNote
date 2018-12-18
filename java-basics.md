@@ -30,6 +30,14 @@ System.out.println("myInt is: " + myInt);
 System.out.printf("%-15s%03d%n", s1, x);
 ```
 
+Scanner主要的作用就是获取元素
+
+* scanner.next\(\)
+* scanner.nextDouble\(\)
+* scanner.nextLine\(\)
+* scanner.nextInt\(\)
+* scanner.hasNext\(\)
+
 ### Loops
 
 java的loops和其他语言一样，也是那几个控制流
