@@ -49,7 +49,7 @@ class DirectedGraphNode: # 有向图
 
 以下图为例，node-0的neighbors是\[1,2,3\]，这里很重要，因为是有向的。
 
-![](../../.gitbook/assets/image%20%2815%29.png)
+![](../../.gitbook/assets/image%20%2836%29.png)
 
 如果这里给的是 0 - 1，0 - 2 ，也就是from\_node - to\_node的形式的话，且不用原有方法进行存储。那么1，2，3的入度加1，而0的邻居为\[1，2，3\]，这里非常非常重要。
 
