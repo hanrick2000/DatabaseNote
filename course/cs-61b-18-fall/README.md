@@ -12,3 +12,10 @@ CS61A 和 CS 61 B 都会有Fall和Spring，因为Fall没有video和作业，所�
 
 {% embed url="https://joshhug.gitbooks.io/hug61b/content/chap2/chap21.html" %}
 
+#### Project 记录
+
+* Project 0 :通过函数来实现星球之间的万有引力定律，并将力分散到各个不同的纬度上，从而模拟星球的运行，完成后可以加载其他的包来模拟比如三体星之类的运行。
+* Project 1A : 自己动手使用array和链表来实现双端链表，纯数据结构
+* Project 1B : 主要做测试和高阶函数不断调用，这里主要使用的事junit
+* Project 1 Gold - 还没做
+
