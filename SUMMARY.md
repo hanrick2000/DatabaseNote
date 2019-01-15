@@ -78,4 +78,5 @@
   * [CS 61B \(1\)](course/cs-61b-18-fall/cs-61b-1.md)
   * [CS 61B \(2\)](course/cs-61b-18-fall/cs-61b-2.md)
   * [CS 61B \(3\)](course/cs-61b-18-fall/cs-61b-3.md)
+  * [CS61B \(4\)](course/cs-61b-18-fall/cs61b-4.md)
 
