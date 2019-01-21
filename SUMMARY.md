@@ -78,5 +78,8 @@
   * [CS 61B \(1\) - Java 基础与数据结构](course/cs-61b-18-fall/cs-61b-1.md)
   * [CS 61B \(2\) - Java 函数封装与包管理](course/cs-61b-18-fall/cs-61b-2.md)
   * [CS 61B \(3\) - 算法分析与数据结构](course/cs-61b-18-fall/cs61b-4.md)
+  * [Untitled](course/cs-61b-18-fall/untitled-2.md)
+  * [Untitled](course/cs-61b-18-fall/untitled-1.md)
+  * [Untitled](course/cs-61b-18-fall/untitled.md)
   * [CS 61B \(5\)](course/cs-61b-18-fall/cs-61b-5.md)
 
