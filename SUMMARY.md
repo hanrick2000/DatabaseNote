@@ -75,8 +75,8 @@
   * [CS 61A \(4\)](course/cs-61a/untitled.md)
   * [CS 61A \(5\)](course/cs-61a/cs-61a-5.md)
 * [CS 61B 18 Spring](course/cs-61b-18-fall/README.md)
-  * [CS 61B \(1\)](course/cs-61b-18-fall/cs-61b-1.md)
-  * [CS 61B \(2\)](course/cs-61b-18-fall/cs-61b-2.md)
-  * [CS 61B \(3\)](course/cs-61b-18-fall/cs-61b-3.md)
-  * [CS61B \(4\)](course/cs-61b-18-fall/cs61b-4.md)
+  * [CS 61B \(1\) - Java 基础与数据结构](course/cs-61b-18-fall/cs-61b-1.md)
+  * [CS 61B \(2\) - Java 函数封装与包管理](course/cs-61b-18-fall/cs-61b-2.md)
+  * [CS 61B \(3\) - 算法分析与数据结构](course/cs-61b-18-fall/cs61b-4.md)
+  * [CS 61B \(5\)](course/cs-61b-18-fall/cs-61b-5.md)
 
